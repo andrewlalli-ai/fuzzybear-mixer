@@ -2,7 +2,7 @@
  "collection": "sraebyzzuf",
  "displayName": "raebyzzuF (Fuzzybear)",
  "issuer": "r3NftTqH2hv3skuWAEDWKvqnxjtuqcFWYR",
- "description": "Trait catalog from on-chain IPFS metadata. Background remixed via extracted plates + chroma-key cutouts; other traits use real composite PNGs (no body layer sheets exist publicly).",
+ "description": "Trait catalog from on-chain IPFS metadata. Background = true plates + chroma-key; Mask = approx derived overlay plates; other traits nearest-match composites.",
  "canvasSize": 512,
  "layerOrder": [
   "background",
@@ -13,7 +13,7 @@
   "headwear",
   "mask"
  ],
- "mode": "background-layers+composites",
+ "mode": "background+mask-layers+composites",
  "bearCount": 1220,
  "categories": {
   "background": {

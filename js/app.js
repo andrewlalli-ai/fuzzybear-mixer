@@ -1,18 +1,20 @@
 /**
  * Fuzzybear / raebyzzuF Trait Mixer — LAYER remix edition.
  *
- * Official separable trait PNGs were never published. Backgrounds are solid /
- * patterned plates extracted from composites; the bear figure is chroma-keyed
- * out of a chosen base NFT so ←/→ on Background swaps only the backdrop.
- * Other categories still nearest-match a minted composite (ignoring background).
+ * Official separable trait PNGs were never published.
+ * - Background: solid/pattern plates + chroma-key cutout (true layer).
+ * - Mask: approx overlay plates derived from composite diffs (honest "approx").
+ * - Other categories: nearest-match a minted composite (bg/mask ignored in scoring).
  */
 (() => {
   "use strict";
 
   const EXPORT_SIZE = 512;
   const ARROW_CATEGORIES = ["background", "fur", "clothes", "eyes", "mouth", "headwear", "mask"];
-  /** Categories that drive which base bear is shown (background is layered separately). */
-  const BODY_CATEGORIES = ["fur", "clothes", "eyes", "mouth", "headwear", "mask"];
+  /** True / approx layer categories — cycling these keeps the base bear body stable. */
+  const LAYER_CATEGORIES = ["background", "mask"];
+  /** Categories that drive which base bear is shown (layers applied separately). */
+  const BODY_CATEGORIES = ["fur", "clothes", "eyes", "mouth", "headwear"];
   const ANY = { id: "*", name: "Any", any: true };
   const IPFS_GATEWAYS = [
     "https://ipfs.filebase.io/ipfs/",
@@ -26,6 +28,7 @@
 
   let manifest = null;
   let bgMeta = null; // data/backgrounds.json
+  let overlayMeta = null; // data/overlays.json
   let bears = [];
   let cachedSet = new Set();
   let hasProxy = false;
@@ -36,25 +39,29 @@
   let currentImg = null;      // raw composite of base bear
   let currentCutout = null;   // canvas with transparent bg
   let currentBgImg = null;    // background plate image
+  let currentMaskOverlay = null; // approx mask plate (or null)
   let currentBear = null;     // base bear (character)
   let renderToken = 0;
   let lastCat = null;
   const imgCache = new Map();
   const cutoutCache = new Map(); // edition -> canvas
+  const maskPlateCache = new Map(); // mask trait id -> image
   const els = {};
 
   async function init() {
     cacheDom();
     bindEvents();
     try {
-      const [m, b, bg] = await Promise.all([
+      const [m, b, bg, ov] = await Promise.all([
         fetch("traits-manifest.json").then((r) => r.json()),
         fetch("data/bears.json").then((r) => r.json()),
         fetch("data/backgrounds.json").then((r) => r.json()).catch(() => null),
+        fetch("data/overlays.json").then((r) => r.json()).catch(() => null),
       ]);
       manifest = m;
       bears = b.bears;
       bgMeta = bg;
+      overlayMeta = ov;
       try {
         const c = await fetch("api/cached").then((r) => (r.ok ? r.json() : null));
         if (c && c.server) { hasProxy = true; cachedSet = new Set(c.cached); }
@@ -69,7 +76,7 @@
       els.bearCount.textContent = bears.length;
       const pool = bears.filter((x) => cachedSet.has(x.edition));
       adoptBear((pool.length ? pool : bears)[Math.floor(Math.random() * (pool.length || bears.length))]);
-      toast(`${bears.length} bears · background layers on`);
+      toast(`${bears.length} bears · bg + mask layers on`);
     } catch (err) {
       console.error(err);
       toast("Failed to load collection data");
@@ -176,16 +183,52 @@
     selection[catId] = i;
     lastCat = catId;
     highlightFocus(catId);
-    if (catId === "background") {
-      // Layer remix: keep the same base bear, only swap backdrop
-      updateBadgeForLayer();
-      updateTraitStrip(matches[matchPos] || { bear: currentBear, exact: false, wanted: 1, hits: 0 });
-      showMatch({ keepBear: true });
-      const t = getSelectedTrait("background");
-      toast(`Background → ${t.name} (layer)`);
+    if (LAYER_CATEGORIES.includes(catId)) {
+      cycleLayer(catId);
     } else {
       update();
     }
+  }
+
+  /** Layer remix: keep body stable; swap plate/overlay. */
+  function cycleLayer(catId) {
+    const t = getSelectedTrait(catId);
+    // Mask overlays look best on an unmasked base — prefer none-mask body when remasking.
+    if (catId === "mask" && !t.any && !t.custom && t.id !== "none") {
+      if (currentBear && currentBear.traits.mask !== "none") {
+        // Switch to closest none-mask body matching other selections, then overlay
+        preferUnmaskedBase();
+        return;
+      }
+      updateBadgeForLayer();
+      updateTraitStrip(matches[matchPos] || { bear: currentBear, exact: false, wanted: 1, hits: 0 });
+      showMatch({ keepBear: true });
+      toast(`Mask → ${t.name} (approx layer)`);
+      return;
+    }
+    if (catId === "mask" && (t.any || t.id === "none")) {
+      // Show unmasked: if current has a mask, nearest-match a none body
+      if (currentBear && currentBear.traits.mask !== "none") {
+        preferUnmaskedBase();
+        return;
+      }
+      updateBadgeForLayer();
+      updateTraitStrip(matches[matchPos] || { bear: currentBear, exact: false, wanted: 0, hits: 0 });
+      showMatch({ keepBear: true });
+      toast(`Mask → ${t.name || "Any"}`);
+      return;
+    }
+    // Background (and any other plate layer)
+    updateBadgeForLayer();
+    updateTraitStrip(matches[matchPos] || { bear: currentBear, exact: false, wanted: 1, hits: 0 });
+    showMatch({ keepBear: true });
+    toast(`${manifest.categories[catId].label} → ${t.name} (layer)`);
+  }
+
+  function preferUnmaskedBase() {
+    // Temporarily force mask selection into matching so computeMatches prefers none bases
+    update(); // mask is not in BODY_CATEGORIES; preferUnmasked via soft score
+    toast(`Mask → ${getSelectedTrait("mask").name} (approx · stable body)`);
   }
 
   function adoptBear(bear) {
@@ -197,7 +240,12 @@
     update(bear.edition);
   }
 
-  // ---------- matching (body traits; background is layered) ----------
+  // ---------- matching (body traits; background + mask are layered) ----------
+  function maskOverlayActive() {
+    const t = getSelectedTrait("mask");
+    return !t.any && !t.custom && t.id !== "none" && !!overlayMeta?.layers?.mask?.traits?.[t.id]?.file;
+  }
+
   function computeMatches() {
     const want = {};
     let wanted = 0;
@@ -205,6 +253,9 @@
       const t = getSelectedTrait(c);
       if (!t.any && !t.custom) { want[c] = t.id; wanted++; }
     }
+    const bgT = getSelectedTrait("background");
+    const maskT = getSelectedTrait("mask");
+    const wantUnmasked = maskOverlayActive() || (!maskT.any && !maskT.custom && maskT.id === "none");
     const res = bears.map((bear) => {
       let score = 0, hits = 0;
       const diffs = [];
@@ -214,9 +265,15 @@
           hits++;
         } else diffs.push(c);
       }
-      // Soft preference for bears whose native bg matches selection (nice when exact mint exists)
-      const bgT = getSelectedTrait("background");
+      // Soft preference for native bg match
       if (!bgT.any && !bgT.custom && bear.traits.background === bgT.id) score += 0.15;
+      // Prefer unmasked bases when applying an approx mask overlay (or selecting None)
+      if (wantUnmasked && bear.traits.mask === "none") score += 0.8;
+      // Soft native mask match when not remasking via overlay
+      if (!wantUnmasked && !maskT.any && !maskT.custom && bear.traits.mask === maskT.id) score += 0.25;
+      // Body stability: keep current fur when cycling accessories
+      if (currentBear && bear.traits.fur === currentBear.traits.fur) score += 0.35;
+      if (currentBear && bear.edition === currentBear.edition) score += 0.05;
       return { bear, score, hits, wanted, exact: hits === wanted && wanted > 0, diffs };
     });
     res.sort((a, b) => b.score - a.score
@@ -318,6 +375,24 @@
     }
   }
 
+  function maskInfo(maskId) {
+    return overlayMeta?.layers?.mask?.traits?.[maskId] || null;
+  }
+
+  async function loadMaskPlate(maskId) {
+    if (!maskId || maskId === "none") return null;
+    const info = maskInfo(maskId);
+    if (!info || info.none || !info.file) return null;
+    if (maskPlateCache.has(maskId)) return maskPlateCache.get(maskId);
+    try {
+      const img = await loadOne(info.file, false);
+      maskPlateCache.set(maskId, img);
+      return img;
+    } catch (_) {
+      return null;
+    }
+  }
+
   /** Chroma-key composite → transparent cutout (cached per edition). */
   function makeCutout(img, bear) {
     const key = bear.edition;
@@ -400,6 +475,15 @@
     return loadBgPlate(bgId);
   }
 
+  async function resolveMaskOverlay() {
+    const maskT = getSelectedTrait("mask");
+    if (maskT.custom && maskT.img) return maskT.img;
+    if (maskT.any || maskT.id === "none") return null;
+    // If base bear already has this exact mask, skip overlay (native art)
+    if (currentBear && currentBear.traits.mask === maskT.id) return null;
+    return loadMaskPlate(maskT.id);
+  }
+
   async function showMatch(opts = {}) {
     const m = matches[matchPos];
     if (!m && !currentBear) return;
@@ -426,6 +510,7 @@
       currentImg = img;
       currentCutout = makeCutout(img, currentBear);
       currentBgImg = await resolveBgPlate();
+      currentMaskOverlay = await resolveMaskOverlay();
       if (token !== renderToken) return;
       els.loading.classList.remove("show");
       draw();
@@ -439,7 +524,8 @@
   }
 
   function overlays() {
-    return manifest.layerOrder.map(getSelectedTrait).filter((t) => t.custom).map((t) => t.img);
+    // Custom uploads for body categories (bg/mask customs handled as plates)
+    return BODY_CATEGORIES.map(getSelectedTrait).filter((t) => t.custom && t.img).map((t) => t.img);
   }
 
   function draw() {
@@ -449,23 +535,25 @@
     if (!currentImg && !currentCutout) { els.archPlaceholder.classList.remove("hidden"); return; }
 
     const s = Math.min(W, H);
-    const y = H - s;
+    const x = ((W - s) / 2) | 0;
+    const y = ((H - s) / 2) | 0;
 
-    // 1) Background plate (or stretch of plate into arch crown)
+    // 1) Background plate
     if (currentBgImg) {
-      // Fill arch crown above square with bg (sample top of plate)
-      ctx.drawImage(currentBgImg, 0, 0, 4, 4, 0, 0, W, y + 2);
-      ctx.drawImage(currentBgImg, 0, y, s, s);
+      ctx.drawImage(currentBgImg, x, y, s, s);
     } else if (currentImg) {
-      ctx.drawImage(currentImg, 0, 0, 4, 4, 0, 0, W, y + 2);
+      ctx.drawImage(currentImg, x, y, s, s);
     }
 
-    // 2) Bear cutout on top
+    // 2) Bear cutout
     const bearLayer = currentCutout || currentImg;
-    if (bearLayer) ctx.drawImage(bearLayer, 0, y, s, s);
+    if (bearLayer) ctx.drawImage(bearLayer, x, y, s, s);
 
-    // 3) Custom overlays
-    for (const o of overlays()) ctx.drawImage(o, 0, y, s, s);
+    // 3) Approx mask overlay plate (when remixed onto unmasked / different-mask base)
+    if (currentMaskOverlay) ctx.drawImage(currentMaskOverlay, x, y, s, s);
+
+    // 4) Custom user overlays (non-background)
+    for (const o of overlays()) ctx.drawImage(o, x, y, s, s);
     els.archPlaceholder.classList.add("hidden");
   }
 
@@ -476,27 +564,53 @@
     return currentBear?.traits?.background || null;
   }
 
+  function selectedMaskId() {
+    const t = getSelectedTrait("mask");
+    if (!t.any && !t.custom) return t.id;
+    return currentBear?.traits?.mask || null;
+  }
+
   function bgIsRemixed(m) {
     const bgId = selectedBgId();
     return bgId && m?.bear && m.bear.traits.background !== bgId;
   }
 
+  function maskIsRemixed(m) {
+    const maskT = getSelectedTrait("mask");
+    if (maskT.any || maskT.custom) return false;
+    if (!m?.bear) return false;
+    // Selected mask differs from base bear — will use approx overlay (or none strip via different base)
+    if (m.bear.traits.mask === maskT.id) return false;
+    if (maskT.id === "none") return m.bear.traits.mask !== "none";
+    // Non-none selection on different base → approx overlay plate
+    return !!maskInfo(maskT.id)?.file || maskT.id !== m.bear.traits.mask;
+  }
+
+  function layerRemixParts(m) {
+    const parts = [];
+    if (bgIsRemixed(m)) parts.push("bg");
+    if (maskIsRemixed(m)) parts.push("mask≈");
+    return parts;
+  }
+
   function updateBadge(m) {
     const b = m.bear;
     const link = `https://bithomp.com/nft/${b.nftId}`;
-    const remixed = bgIsRemixed(m);
+    const parts = layerRemixParts(m);
+    const remixed = parts.length > 0;
+    const approx = parts.some((p) => p.includes("≈"));
     let cls, text;
     if (m.wanted === 0) {
-      cls = "any";
-      text = remixed ? `Layer remix · bg swapped` : `Browsing all bears · ${matches.length}`;
+      cls = remixed ? (approx ? "layer-approx" : "layer") : "any";
+      text = remixed ? `Layer remix · ${parts.join(" + ")}` : `Browsing all bears · ${matches.length}`;
     } else if (m.exact && !remixed) {
       cls = "exact";
       text = `✓ Minted · ${matches.length} match${matches.length > 1 ? "es" : ""}`;
     } else if (m.exact && remixed) {
-      cls = "layer";
-      text = `◈ Layer remix · same bear, new background`;
+      cls = approx ? "layer-approx" : "layer";
+      text = `◈ Layer remix · ${parts.join(" + ")}`;
     } else {
-      cls = "near";
+      cls = remixed ? (approx ? "layer-approx" : "layer") : "near";
       text = remixed
         ? `◈ Layer + closest body ${m.hits}/${m.wanted}`
         : `✗ Not minted · closest ${m.hits}/${m.wanted} traits`;
@@ -504,7 +618,7 @@
     els.matchBadge.className = "match-badge " + cls;
     els.matchBadge.innerHTML = `${text} — <a href="${link}" target="_blank" rel="noopener">${escapeHtml(b.name)}</a> <span class="pos">${matchPos + 1}/${matches.length || 1}</span>`;
     els.matchTitle.textContent = remixed
-      ? "Base bear (background layered separately)"
+      ? `Base bear (${parts.join(" + ")} layered separately)`
       : (m.exact && m.wanted ? `Real bears with this mix (${matches.length})` : (m.wanted ? "Closest real bears" : "Real bears"));
   }
 
@@ -520,23 +634,37 @@
     for (const catId of manifest.layerOrder) {
       const t = getSelectedTrait(catId);
       const real = m.bear.traits[catId];
-      const isBg = catId === "background";
-      const remixed = isBg && !t.any && !t.custom && real !== t.id;
-      const off = !isBg && !t.any && !t.custom && real !== t.id;
+      const isLayer = LAYER_CATEGORIES.includes(catId);
+      const isApprox = catId === "mask";
+      const remixed = isLayer && !t.any && !t.custom && real !== t.id;
+      const off = !isLayer && !t.any && !t.custom && real !== t.id;
       const row = document.createElement("div");
-      row.className = "trait-row" + (off ? " diff" : "") + (remixed ? " layer" : "");
+      row.className = "trait-row"
+        + (off ? " diff" : "")
+        + (remixed ? (isApprox ? " layer layer-approx" : " layer") : "");
       row.dataset.cat = catId;
       let val;
       if (t.custom) val = `${escapeHtml(t.name)} ✦`;
       else if (t.any) val = `<em>Any</em> · ${escapeHtml(traitName(catId, real))}`;
       else val = escapeHtml(t.name);
-      if (remixed) val += ` <span class="has">(layer · base had ${escapeHtml(traitName(catId, real))})</span>`;
-      else if (off) val += ` <span class="has">(bear: ${escapeHtml(traitName(catId, real))})</span>`;
-      if (isBg && !t.any) val += ` <span class="tag">layer</span>`;
+      if (remixed) {
+        val += ` <span class="has">(${isApprox ? "approx layer" : "layer"} · base had ${escapeHtml(traitName(catId, real))})</span>`;
+      } else if (off) {
+        val += ` <span class="has">(bear: ${escapeHtml(traitName(catId, real))})</span>`;
+      }
+      if (catId === "background" && !t.any) {
+        val += ` <span class="tag">layer</span>`;
+      } else if (catId === "mask" && !t.any && !t.custom && t.id !== "none") {
+        val += ` <span class="tag approx">approx</span>`;
+      } else if (catId === "mask" && remixed && t.id === "none") {
+        val += ` <span class="tag approx">approx</span>`;
+      }
       row.innerHTML = `<span class="label">${manifest.categories[catId].label}</span><span class="value">${val}</span>`;
-      row.title = isBg
-        ? "Background is a real layer — cycling it keeps this bear and swaps only the backdrop"
-        : "Double-click to set this category to Any (wildcard)";
+      row.title = catId === "background"
+        ? "Background is a true layer — cycling keeps this bear and swaps only the backdrop"
+        : catId === "mask"
+          ? "Mask uses an approximate derived overlay plate — cycling keeps the body when the base is unmasked"
+          : "Double-click to set this category to Any (wildcard)";
       row.addEventListener("click", () => { highlightFocus(catId); });
       row.addEventListener("dblclick", () => { selection[catId] = 0; update(); });
       els.traitStrip.appendChild(row);
@@ -560,14 +688,15 @@
       b.append(img, cap);
       b.addEventListener("click", () => {
         if (img.dataset.src && !img.src) img.src = img.dataset.src;
-        // Keep selected background; adopt body traits from this bear
+        // Keep selected background + mask layers; adopt body traits from this bear
         const keepBg = getSelectedTrait("background");
+        const keepMask = getSelectedTrait("mask");
         for (const c of BODY_CATEGORIES) {
           const cur = getSelectedTrait(c);
           if (!cur.custom) setTrait(c, m.bear.traits[c]);
         }
         if (keepBg.any) setTrait("background", m.bear.traits.background);
-        // else keep current background selection
+        if (keepMask.any) setTrait("mask", m.bear.traits.mask);
         lastCat = null;
         update(m.bear.edition);
       });
@@ -596,19 +725,24 @@
     els.btnRandom.classList.remove("spin");
     void els.btnRandom.offsetWidth;
     els.btnRandom.classList.add("spin");
-    if (Math.random() < 0.45) {
+    const r = Math.random();
+    if (r < 0.40) {
       adoptBear(bears[Math.floor(Math.random() * bears.length)]);
       toast("Random real bear");
-    } else if (Math.random() < 0.5 && currentBear) {
-      // Keep bear, randomize background only — shows off layer remix
+    } else if (r < 0.62 && currentBear) {
+      // Keep bear, randomize background only
       const bgs = getTraits("background");
       selection.background = 1 + Math.floor(Math.random() * (bgs.length - 1));
       lastCat = "background";
       highlightFocus("background");
-      updateBadgeForLayer();
-      updateTraitStrip(matches[matchPos] || { bear: currentBear, exact: false, wanted: 0, hits: 0 });
-      showMatch({ keepBear: true });
-      toast(`Random background → ${getSelectedTrait("background").name}`);
+      cycleLayer("background");
+    } else if (r < 0.78 && currentBear) {
+      // Keep body, randomize mask overlay (prefer unmasked base)
+      const masks = getTraits("mask");
+      selection.mask = 1 + Math.floor(Math.random() * (masks.length - 1));
+      lastCat = "mask";
+      highlightFocus("mask");
+      cycleLayer("mask");
     } else {
       lastCat = null;
       for (const c of manifest.layerOrder) {
@@ -616,7 +750,7 @@
         selection[c] = 1 + Math.floor(Math.random() * (t.length - 1));
       }
       update();
-      toast(matches[0]?.exact ? "Random mix — body exists!" : "Random mix — closest body + layered bg");
+      toast(matches[0]?.exact ? "Random mix — body exists!" : "Random mix — closest body + layers");
     }
   }
 
@@ -636,14 +770,16 @@
     else if (currentImg) ctx.drawImage(currentImg, 0, 0, EXPORT_SIZE, EXPORT_SIZE);
     const bearLayer = currentCutout || currentImg;
     if (bearLayer) ctx.drawImage(bearLayer, 0, 0, EXPORT_SIZE, EXPORT_SIZE);
+    if (currentMaskOverlay) ctx.drawImage(currentMaskOverlay, 0, 0, EXPORT_SIZE, EXPORT_SIZE);
     for (const o of overlays()) ctx.drawImage(o, 0, 0, EXPORT_SIZE, EXPORT_SIZE);
     try {
       out.toBlob((blob) => {
         if (!blob) return toast("Export failed");
         const a = document.createElement("a");
         const bgId = selectedBgId() || "bg";
+        const maskId = selectedMaskId() || "mask";
         const custom = overlays().length ? "-custom" : "";
-        a.download = `raebyzzuF-${currentBear.edition}-${bgId}${custom}.png`;
+        a.download = `raebyzzuF-${currentBear.edition}-${bgId}-${maskId}${custom}.png`;
         a.href = URL.createObjectURL(blob);
         a.click();
         setTimeout(() => URL.revokeObjectURL(a.href), 1000);
@@ -685,17 +821,16 @@
       item.className = "search-item";
       const hl = escapeHtml(hit.name).replace(new RegExp(`(${escapeRegex(q)})`, "ig"), "<mark>$1</mark>");
       const extra = hit.kind === "trait" && hit.trait.count ? ` <small>×${hit.trait.count}</small>` : "";
-      const layerTag = hit.catId === "background" ? " · layer" : "";
+      const layerTag = hit.catId === "background" ? " · layer"
+        : hit.catId === "mask" ? " · approx" : "";
       item.innerHTML = `<span>${hl}${hit.trait?.custom ? " ✦" : ""}${extra}</span><span class="cat">${escapeHtml(hit.label)}${layerTag}</span>`;
       item.addEventListener("click", () => {
         if (hit.kind === "bear") adoptBear(hit.bear);
-        else if (hit.catId === "background") {
+        else if (LAYER_CATEGORIES.includes(hit.catId)) {
           selection[hit.catId] = hit.idx;
           lastCat = hit.catId;
           highlightFocus(hit.catId);
-          updateBadgeForLayer();
-          updateTraitStrip(matches[matchPos] || { bear: currentBear, exact: false, wanted: 0, hits: 0 });
-          showMatch({ keepBear: true });
+          cycleLayer(hit.catId);
         } else {
           selection[hit.catId] = hit.idx;
           lastCat = hit.catId;
@@ -717,7 +852,8 @@
     for (const catId of manifest.layerOrder) {
       const opt = document.createElement("option");
       opt.value = catId;
-      opt.textContent = manifest.categories[catId].label + (catId === "background" ? " (layer)" : "");
+      opt.textContent = manifest.categories[catId].label
+        + (catId === "background" ? " (layer)" : catId === "mask" ? " (approx overlay)" : "");
       els.uploadCat.appendChild(opt);
     }
     els.uploadName.value = "";
@@ -743,17 +879,26 @@
     const id = "custom-" + Date.now().toString(36);
 
     if (catId === "background") {
-      // Custom background becomes a plate: store as custom trait; draw path uses it via overlays? 
-      // Better: treat custom bg as plate — stash on trait and use in showMatch
       customTraits.push({ categoryId: catId, id, name, img, plate: true });
       selection[catId] = getTraits(catId).length - 1;
       closeUploadModal();
-      // Patch loadBgPlate path: custom traits with plate draw as bg
       currentBgImg = img;
       updateBadgeForLayer();
       updateTraitStrip(matches[matchPos] || { bear: currentBear, exact: false, wanted: 0, hits: 0 });
       draw();
       toast(`Added “${name}” as Background layer`);
+      return;
+    }
+
+    if (catId === "mask") {
+      customTraits.push({ categoryId: catId, id, name, img, plate: true });
+      selection[catId] = getTraits(catId).length - 1;
+      closeUploadModal();
+      currentMaskOverlay = img;
+      updateBadgeForLayer();
+      updateTraitStrip(matches[matchPos] || { bear: currentBear, exact: false, wanted: 0, hits: 0 });
+      draw();
+      toast(`Added “${name}” as Mask overlay`);
       return;
     }
 

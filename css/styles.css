@@ -199,7 +199,7 @@ body {
   line-height: 1;
 }
 
-/* Preview arch (tombstone) */
+/* Preview frame (square / lightly rounded) */
 .preview-wrap {
   display: flex;
   flex-direction: column;
@@ -209,28 +209,32 @@ body {
   position: relative;
 }
 
-.arch {
+.arch,
+.frame {
   width: 100%;
   max-width: 320px;
-  aspect-ratio: 3 / 4;
-  max-height: min(62dvh, 520px);
+  aspect-ratio: 1 / 1;
+  max-height: min(56dvh, 420px);
   background: var(--arch-bg);
   border: 3px solid var(--border);
-  border-radius: 999px 999px 18px 18px;
+  border-radius: 12px;
   position: relative;
   overflow: hidden;
   box-shadow: 0 0 24px var(--red-glow), inset 0 0 40px rgba(0,0,0,0.6);
 }
 
-.arch canvas {
+.arch canvas,
+.frame canvas {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
+  border-radius: 9px;
 }
 
-.arch-placeholder {
+.arch-placeholder,
+.frame-placeholder {
   position: absolute;
   inset: 0;
   display: grid;
@@ -244,9 +248,10 @@ body {
   font-family: Georgia, serif;
 }
 
-.arch-placeholder.hidden { display: none; }
+.arch-placeholder.hidden,
+.frame-placeholder.hidden { display: none; }
 
-/* Trait labels under arch */
+/* Trait labels under frame */
 .trait-strip {
   margin-top: 8px;
   width: 100%;
@@ -466,12 +471,14 @@ body {
 }
 
 /* ---- Real-collection match UI ---- */
-.arch-loading {
+.arch-loading,
+.frame-loading {
   position: absolute; left: 0; right: 0; bottom: 10px; text-align: center;
   font-size: 11px; color: #fff; text-shadow: 0 1px 3px #000; opacity: 0;
   transition: opacity .2s; pointer-events: none;
 }
-.arch-loading.show { opacity: .9; }
+.arch-loading.show,
+.frame-loading.show { opacity: .9; }
 .match-nav { display: flex; align-items: center; gap: 4px; width: 100%; max-width: 320px; margin-top: 8px; }
 .match-btn {
   width: 44px; height: 44px; min-width: 44px; min-height: 44px; flex-shrink: 0;
@@ -505,6 +512,12 @@ body {
   margin-left: 3px;
   vertical-align: middle;
 }
+.trait-row .tag.approx {
+  color: #ce93d8;
+  border-color: #7b1fa2;
+}
+.trait-row.layer-approx .value { color: #ce93d8; }
+.match-badge.layer-approx { border-color: #7b1fa2; color: #ce93d8; background: #120818; }
 .trait-row.diff .value { color: #ffb74d; }
 .trait-row .value em { color: var(--text-muted); font-style: normal; }
 .trait-row .has { color: var(--text-muted); font-size: 10px; }

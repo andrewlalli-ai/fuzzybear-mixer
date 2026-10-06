@@ -1,0 +1,48 @@
+{
+  "size": 512,
+  "note": "Approximate mask overlays derived by consensus pixel-diff of same-headwear masked vs unmasked composites. Not official trait sheets \u2014 best-effort plates for layer remix.",
+  "layers": {
+    "mask": {
+      "kind": "overlay",
+      "z": 6,
+      "trueLayer": true,
+      "approx": true,
+      "traits": {
+        "none": {
+          "id": "none",
+          "name": "None",
+          "file": null,
+          "none": true,
+          "count": 1049
+        },
+        "gold-mask": {
+          "id": "gold-mask",
+          "name": "Gold Mask",
+          "file": "assets/overlays/masks/gold-mask.webp",
+          "none": false,
+          "count": 100,
+          "derivedFrom": 15,
+          "approx": true
+        },
+        "diamond-mask": {
+          "id": "diamond-mask",
+          "name": "Diamond Mask",
+          "file": "assets/overlays/masks/diamond-mask.webp",
+          "none": false,
+          "count": 50,
+          "derivedFrom": 15,
+          "approx": true
+        },
+        "mardi-gras-mask": {
+          "id": "mardi-gras-mask",
+          "name": "Mardi Gras Mask",
+          "file": "assets/overlays/masks/mardi-gras-mask.webp",
+          "none": false,
+          "count": 21,
+          "derivedFrom": 15,
+          "approx": true
+        }
+      }
+    }
+  }
+}

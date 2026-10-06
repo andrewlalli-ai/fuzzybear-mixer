@@ -32,10 +32,10 @@
       <div id="arrows-left" class="arrow-col" aria-label="Previous trait controls"></div>
 
       <div class="preview-wrap">
-        <div class="arch" aria-label="NFT preview">
-          <canvas id="preview-canvas" width="512" height="683"></canvas>
-          <div id="arch-loading" class="arch-loading"></div>
-          <div id="arch-placeholder" class="arch-placeholder">NFT</div>
+        <div class="frame arch" aria-label="NFT preview">
+          <canvas id="preview-canvas" width="512" height="512"></canvas>
+          <div id="arch-loading" class="arch-loading frame-loading"></div>
+          <div id="arch-placeholder" class="arch-placeholder frame-placeholder">NFT</div>
         </div>
         <div class="match-nav">
           <button id="match-prev" class="match-btn" type="button" title="Previous matching bear ([)" aria-label="Previous matching bear">‹</button>
@@ -60,7 +60,8 @@
     </div>
 
     <p class="footer-note">
-      Real <strong>sraebyzzuF</strong> artwork (<span id="bear-count">…</span> bears). <strong>Background</strong> cycles as a true layer (bear stays put).<br />
+      Real <strong>sraebyzzuF</strong> artwork (<span id="bear-count">…</span> bears).
+      <strong>Background</strong> = true layer · <strong>Mask</strong> = approx overlay plate (derived).<br />
       Fan demo · not affiliated with Fuzzybear · art © its creators. Other traits nearest-match a minted body.
     </p>
   </div>
