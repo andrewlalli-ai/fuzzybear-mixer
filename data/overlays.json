@@ -1,18 +1,27 @@
 {
   "size": 512,
-  "note": "Approximate mask overlays derived by consensus pixel-diff of same-headwear masked vs unmasked composites. Not official trait sheets \u2014 best-effort plates for layer remix.",
+  "note": "Approximate overlay plates derived by consensus pixel-diff of composites that share a base but differ on one trait. Not official trait sheets \u2014 best-effort plates for layer remix. Fur is not extracted (whole-body recolor).",
+  "baselines": {
+    "mask": "none",
+    "headwear": "none",
+    "clothes": "none",
+    "eyes": "blue",
+    "mouth": "normal"
+  },
   "layers": {
     "mask": {
       "kind": "overlay",
-      "z": 6,
+      "z": 7,
       "trueLayer": true,
       "approx": true,
+      "baseline": "none",
       "traits": {
         "none": {
           "id": "none",
           "name": "None",
           "file": null,
           "none": true,
+          "baseline": true,
           "count": 1049
         },
         "gold-mask": {
@@ -22,7 +31,9 @@
           "none": false,
           "count": 100,
           "derivedFrom": 15,
-          "approx": true
+          "opaque": 22166,
+          "approx": true,
+          "relaxedFur": false
         },
         "diamond-mask": {
           "id": "diamond-mask",
@@ -31,7 +42,9 @@
           "none": false,
           "count": 50,
           "derivedFrom": 15,
-          "approx": true
+          "opaque": 10920,
+          "approx": true,
+          "relaxedFur": false
         },
         "mardi-gras-mask": {
           "id": "mardi-gras-mask",
@@ -40,7 +53,1122 @@
           "none": false,
           "count": 21,
           "derivedFrom": 15,
-          "approx": true
+          "opaque": 11142,
+          "approx": true,
+          "relaxedFur": false
+        }
+      }
+    },
+    "headwear": {
+      "kind": "overlay",
+      "z": 6,
+      "trueLayer": true,
+      "approx": true,
+      "baseline": "none",
+      "traits": {
+        "none": {
+          "id": "none",
+          "name": "None",
+          "file": null,
+          "none": true,
+          "baseline": true,
+          "count": 61
+        },
+        "golf-club": {
+          "id": "golf-club",
+          "name": "Golf Club",
+          "file": "assets/overlays/headwear/golf-club.webp",
+          "none": false,
+          "count": 50,
+          "derivedFrom": 12,
+          "opaque": 17800,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "western": {
+          "id": "western",
+          "name": "Western",
+          "file": "assets/overlays/headwear/western.webp",
+          "none": false,
+          "count": 48,
+          "derivedFrom": 12,
+          "opaque": 30398,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "bucket-hat": {
+          "id": "bucket-hat",
+          "name": "Bucket Hat",
+          "file": "assets/overlays/headwear/bucket-hat.webp",
+          "none": false,
+          "count": 48,
+          "derivedFrom": 12,
+          "opaque": 17077,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "shroom": {
+          "id": "shroom",
+          "name": "Shroom",
+          "file": "assets/overlays/headwear/shroom.webp",
+          "none": false,
+          "count": 46,
+          "derivedFrom": 12,
+          "opaque": 32488,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "kabuto": {
+          "id": "kabuto",
+          "name": "Kabuto",
+          "file": "assets/overlays/headwear/kabuto.webp",
+          "none": false,
+          "count": 46,
+          "derivedFrom": 12,
+          "opaque": 27325,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "firefighter": {
+          "id": "firefighter",
+          "name": "Firefighter",
+          "file": "assets/overlays/headwear/firefighter.webp",
+          "none": false,
+          "count": 45,
+          "derivedFrom": 12,
+          "opaque": 25817,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "chocolatier": {
+          "id": "chocolatier",
+          "name": "Chocolatier",
+          "file": "assets/overlays/headwear/chocolatier.webp",
+          "none": false,
+          "count": 45,
+          "derivedFrom": 12,
+          "opaque": 18873,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "patrol-cap": {
+          "id": "patrol-cap",
+          "name": "Patrol Cap",
+          "file": "assets/overlays/headwear/patrol-cap.webp",
+          "none": false,
+          "count": 44,
+          "derivedFrom": 12,
+          "opaque": 15666,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "paper-hat": {
+          "id": "paper-hat",
+          "name": "Paper Hat",
+          "file": "assets/overlays/headwear/paper-hat.webp",
+          "none": false,
+          "count": 43,
+          "derivedFrom": 12,
+          "opaque": 12223,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "lock-in-helmet": {
+          "id": "lock-in-helmet",
+          "name": "Lock In Helmet",
+          "file": "assets/overlays/headwear/lock-in-helmet.webp",
+          "none": false,
+          "count": 41,
+          "derivedFrom": 12,
+          "opaque": 18403,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "hard-hat": {
+          "id": "hard-hat",
+          "name": "Hard Hat",
+          "file": "assets/overlays/headwear/hard-hat.webp",
+          "none": false,
+          "count": 41,
+          "derivedFrom": 12,
+          "opaque": 17698,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "dragon": {
+          "id": "dragon",
+          "name": "Dragon",
+          "file": "assets/overlays/headwear/dragon.webp",
+          "none": false,
+          "count": 41,
+          "derivedFrom": 12,
+          "opaque": 23899,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "saiyan": {
+          "id": "saiyan",
+          "name": "Saiyan",
+          "file": "assets/overlays/headwear/saiyan.webp",
+          "none": false,
+          "count": 39,
+          "derivedFrom": 12,
+          "opaque": 36205,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "mindblown": {
+          "id": "mindblown",
+          "name": "Mindblown",
+          "file": "assets/overlays/headwear/mindblown.webp",
+          "none": false,
+          "count": 39,
+          "derivedFrom": 12,
+          "opaque": 31501,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "eagle": {
+          "id": "eagle",
+          "name": "Eagle",
+          "file": "assets/overlays/headwear/eagle.webp",
+          "none": false,
+          "count": 38,
+          "derivedFrom": 12,
+          "opaque": 17215,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "warrior": {
+          "id": "warrior",
+          "name": "Warrior",
+          "file": "assets/overlays/headwear/warrior.webp",
+          "none": false,
+          "count": 37,
+          "derivedFrom": 12,
+          "opaque": 13859,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "fedora": {
+          "id": "fedora",
+          "name": "Fedora",
+          "file": "assets/overlays/headwear/fedora.webp",
+          "none": false,
+          "count": 37,
+          "derivedFrom": 12,
+          "opaque": 19374,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "tactical": {
+          "id": "tactical",
+          "name": "Tactical",
+          "file": "assets/overlays/headwear/tactical.webp",
+          "none": false,
+          "count": 36,
+          "derivedFrom": 12,
+          "opaque": 23201,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "peaked-cap": {
+          "id": "peaked-cap",
+          "name": "Peaked Cap",
+          "file": "assets/overlays/headwear/peaked-cap.webp",
+          "none": false,
+          "count": 34,
+          "derivedFrom": 12,
+          "opaque": 19596,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "rough-rider": {
+          "id": "rough-rider",
+          "name": "Rough Rider",
+          "file": "assets/overlays/headwear/rough-rider.webp",
+          "none": false,
+          "count": 34,
+          "derivedFrom": 12,
+          "opaque": 21014,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "dark-maga": {
+          "id": "dark-maga",
+          "name": "Dark MAGA",
+          "file": "assets/overlays/headwear/dark-maga.webp",
+          "none": false,
+          "count": 34,
+          "derivedFrom": 12,
+          "opaque": 15717,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "flag": {
+          "id": "flag",
+          "name": "Flag",
+          "file": "assets/overlays/headwear/flag.webp",
+          "none": false,
+          "count": 33,
+          "derivedFrom": 12,
+          "opaque": 6964,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "sensei": {
+          "id": "sensei",
+          "name": "Sensei",
+          "file": "assets/overlays/headwear/sensei.webp",
+          "none": false,
+          "count": 32,
+          "derivedFrom": 12,
+          "opaque": 5880,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "flat-cap": {
+          "id": "flat-cap",
+          "name": "Flat Cap",
+          "file": "assets/overlays/headwear/flat-cap.webp",
+          "none": false,
+          "count": 31,
+          "derivedFrom": 12,
+          "opaque": 16687,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "rasta": {
+          "id": "rasta",
+          "name": "Rasta",
+          "file": "assets/overlays/headwear/rasta.webp",
+          "none": false,
+          "count": 31,
+          "derivedFrom": 12,
+          "opaque": 17703,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "chief": {
+          "id": "chief",
+          "name": "Chief",
+          "file": "assets/overlays/headwear/chief.webp",
+          "none": false,
+          "count": 30,
+          "derivedFrom": 12,
+          "opaque": 40477,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "chullo": {
+          "id": "chullo",
+          "name": "Chullo",
+          "file": "assets/overlays/headwear/chullo.webp",
+          "none": false,
+          "count": 29,
+          "derivedFrom": 12,
+          "opaque": 12228,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "mardi-gras": {
+          "id": "mardi-gras",
+          "name": "Mardi Gras",
+          "file": "assets/overlays/headwear/mardi-gras.webp",
+          "none": false,
+          "count": 28,
+          "derivedFrom": 12,
+          "opaque": 32639,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "ridpler": {
+          "id": "ridpler",
+          "name": "Ridpler",
+          "file": "assets/overlays/headwear/ridpler.webp",
+          "none": false,
+          "count": 28,
+          "derivedFrom": 12,
+          "opaque": 14949,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "trump": {
+          "id": "trump",
+          "name": "Trump",
+          "file": "assets/overlays/headwear/trump.webp",
+          "none": false,
+          "count": 26,
+          "derivedFrom": 12,
+          "opaque": 10405,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "peruke": {
+          "id": "peruke",
+          "name": "Peruke",
+          "file": "assets/overlays/headwear/peruke.webp",
+          "none": false,
+          "count": 25,
+          "derivedFrom": 12,
+          "opaque": 9816,
+          "approx": true,
+          "relaxedFur": false
+        }
+      }
+    },
+    "clothes": {
+      "kind": "overlay",
+      "z": 3,
+      "trueLayer": true,
+      "approx": true,
+      "baseline": "none",
+      "traits": {
+        "none": {
+          "id": "none",
+          "name": "None",
+          "file": null,
+          "none": true,
+          "baseline": true,
+          "count": 12
+        },
+        "embroidery": {
+          "id": "embroidery",
+          "name": "Embroidery",
+          "file": "assets/overlays/clothes/embroidery.webp",
+          "none": false,
+          "count": 52,
+          "derivedFrom": 12,
+          "opaque": 47467,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "dog-tag": {
+          "id": "dog-tag",
+          "name": "Dog Tag",
+          "file": "assets/overlays/clothes/dog-tag.webp",
+          "none": false,
+          "count": 47,
+          "derivedFrom": 12,
+          "opaque": 18862,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "perseverance": {
+          "id": "perseverance",
+          "name": "Perseverance",
+          "file": "assets/overlays/clothes/perseverance.webp",
+          "none": false,
+          "count": 46,
+          "derivedFrom": 12,
+          "opaque": 44030,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "flannel": {
+          "id": "flannel",
+          "name": "Flannel",
+          "file": "assets/overlays/clothes/flannel.webp",
+          "none": false,
+          "count": 45,
+          "derivedFrom": 12,
+          "opaque": 61884,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "presidential": {
+          "id": "presidential",
+          "name": "Presidential",
+          "file": "assets/overlays/clothes/presidential.webp",
+          "none": false,
+          "count": 45,
+          "derivedFrom": 12,
+          "opaque": 59786,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "samurai": {
+          "id": "samurai",
+          "name": "Samurai",
+          "file": "assets/overlays/clothes/samurai.webp",
+          "none": false,
+          "count": 44,
+          "derivedFrom": 12,
+          "opaque": 60433,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "lock-in": {
+          "id": "lock-in",
+          "name": "Lock In",
+          "file": "assets/overlays/clothes/lock-in.webp",
+          "none": false,
+          "count": 44,
+          "derivedFrom": 12,
+          "opaque": 48717,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "race-suit": {
+          "id": "race-suit",
+          "name": "Race Suit",
+          "file": "assets/overlays/clothes/race-suit.webp",
+          "none": false,
+          "count": 43,
+          "derivedFrom": 12,
+          "opaque": 60868,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "purple": {
+          "id": "purple",
+          "name": "Purple",
+          "file": "assets/overlays/clothes/purple.webp",
+          "none": false,
+          "count": 41,
+          "derivedFrom": 12,
+          "opaque": 59142,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "heart": {
+          "id": "heart",
+          "name": "Heart",
+          "file": "assets/overlays/clothes/heart.webp",
+          "none": false,
+          "count": 41,
+          "derivedFrom": 12,
+          "opaque": 65526,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "three-piece": {
+          "id": "three-piece",
+          "name": "Three-Piece",
+          "file": "assets/overlays/clothes/three-piece.webp",
+          "none": false,
+          "count": 41,
+          "derivedFrom": 12,
+          "opaque": 55738,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "lei": {
+          "id": "lei",
+          "name": "Lei",
+          "file": "assets/overlays/clothes/lei.webp",
+          "none": false,
+          "count": 40,
+          "derivedFrom": 12,
+          "opaque": 38501,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "ammo": {
+          "id": "ammo",
+          "name": "Ammo",
+          "file": "assets/overlays/clothes/ammo.webp",
+          "none": false,
+          "count": 39,
+          "derivedFrom": 12,
+          "opaque": 40244,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "teddy": {
+          "id": "teddy",
+          "name": "Teddy",
+          "file": "assets/overlays/clothes/teddy.webp",
+          "none": false,
+          "count": 39,
+          "derivedFrom": 12,
+          "opaque": 63535,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "diamondback": {
+          "id": "diamondback",
+          "name": "Diamondback",
+          "file": "assets/overlays/clothes/diamondback.webp",
+          "none": false,
+          "count": 38,
+          "derivedFrom": 12,
+          "opaque": 35281,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "black-ops": {
+          "id": "black-ops",
+          "name": "Black Ops",
+          "file": "assets/overlays/clothes/black-ops.webp",
+          "none": false,
+          "count": 38,
+          "derivedFrom": 12,
+          "opaque": 52523,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "raider": {
+          "id": "raider",
+          "name": "Raider",
+          "file": "assets/overlays/clothes/raider.webp",
+          "none": false,
+          "count": 37,
+          "derivedFrom": 12,
+          "opaque": 56345,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "victory": {
+          "id": "victory",
+          "name": "Victory",
+          "file": "assets/overlays/clothes/victory.webp",
+          "none": false,
+          "count": 36,
+          "derivedFrom": 12,
+          "opaque": 52727,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "name-tag": {
+          "id": "name-tag",
+          "name": "Name Tag",
+          "file": "assets/overlays/clothes/name-tag.webp",
+          "none": false,
+          "count": 35,
+          "derivedFrom": 12,
+          "opaque": 21649,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "general": {
+          "id": "general",
+          "name": "General",
+          "file": "assets/overlays/clothes/general.webp",
+          "none": false,
+          "count": 35,
+          "derivedFrom": 12,
+          "opaque": 55050,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "garbage": {
+          "id": "garbage",
+          "name": "Garbage",
+          "file": "assets/overlays/clothes/garbage.webp",
+          "none": false,
+          "count": 34,
+          "derivedFrom": 12,
+          "opaque": 60343,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "mcdonald": {
+          "id": "mcdonald",
+          "name": "McDonald",
+          "file": "assets/overlays/clothes/mcdonald.webp",
+          "none": false,
+          "count": 34,
+          "derivedFrom": 12,
+          "opaque": 61346,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "phoenix": {
+          "id": "phoenix",
+          "name": "Phoenix",
+          "file": "assets/overlays/clothes/phoenix.webp",
+          "none": false,
+          "count": 32,
+          "derivedFrom": 12,
+          "opaque": 30213,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "sign": {
+          "id": "sign",
+          "name": "Sign",
+          "file": "assets/overlays/clothes/sign.webp",
+          "none": false,
+          "count": 32,
+          "derivedFrom": 12,
+          "opaque": 43899,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "cowboy": {
+          "id": "cowboy",
+          "name": "Cowboy",
+          "file": "assets/overlays/clothes/cowboy.webp",
+          "none": false,
+          "count": 31,
+          "derivedFrom": 12,
+          "opaque": 56194,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "sweatshirt": {
+          "id": "sweatshirt",
+          "name": "Sweatshirt",
+          "file": "assets/overlays/clothes/sweatshirt.webp",
+          "none": false,
+          "count": 31,
+          "derivedFrom": 12,
+          "opaque": 60780,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "super": {
+          "id": "super",
+          "name": "Super",
+          "file": "assets/overlays/clothes/super.webp",
+          "none": false,
+          "count": 30,
+          "derivedFrom": 12,
+          "opaque": 68583,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "retro": {
+          "id": "retro",
+          "name": "Retro",
+          "file": "assets/overlays/clothes/retro.webp",
+          "none": false,
+          "count": 28,
+          "derivedFrom": 12,
+          "opaque": 55812,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "pajamas": {
+          "id": "pajamas",
+          "name": "Pajamas",
+          "file": "assets/overlays/clothes/pajamas.webp",
+          "none": false,
+          "count": 27,
+          "derivedFrom": 12,
+          "opaque": 59711,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "continental": {
+          "id": "continental",
+          "name": "Continental",
+          "file": "assets/overlays/clothes/continental.webp",
+          "none": false,
+          "count": 27,
+          "derivedFrom": 12,
+          "opaque": 59373,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "snappy-casual": {
+          "id": "snappy-casual",
+          "name": "Snappy Casual",
+          "file": "assets/overlays/clothes/snappy-casual.webp",
+          "none": false,
+          "count": 26,
+          "derivedFrom": 12,
+          "opaque": 65242,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "tube": {
+          "id": "tube",
+          "name": "Tube",
+          "file": "assets/overlays/clothes/tube.webp",
+          "none": false,
+          "count": 26,
+          "derivedFrom": 12,
+          "opaque": 39808,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "cloak": {
+          "id": "cloak",
+          "name": "Cloak",
+          "file": "assets/overlays/clothes/cloak.webp",
+          "none": false,
+          "count": 24,
+          "derivedFrom": 12,
+          "opaque": 66108,
+          "approx": true,
+          "relaxedFur": false
+        }
+      }
+    },
+    "eyes": {
+      "kind": "overlay",
+      "z": 5,
+      "trueLayer": true,
+      "approx": true,
+      "baseline": "blue",
+      "traits": {
+        "blue": {
+          "id": "blue",
+          "name": "Blue",
+          "file": null,
+          "none": false,
+          "baseline": true,
+          "count": 208
+        },
+        "laser-x-eyes": {
+          "id": "laser-x-eyes",
+          "name": "Laser X-Eyes",
+          "file": "assets/overlays/eyes/laser-x-eyes.webp",
+          "none": false,
+          "count": 122,
+          "derivedFrom": 12,
+          "opaque": 3773,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "side-eyes": {
+          "id": "side-eyes",
+          "name": "Side-Eyes",
+          "file": "assets/overlays/eyes/side-eyes.webp",
+          "none": false,
+          "count": 96,
+          "derivedFrom": 12,
+          "opaque": 15195,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "happy-eyes": {
+          "id": "happy-eyes",
+          "name": "Happy Eyes",
+          "file": "assets/overlays/eyes/happy-eyes.webp",
+          "none": false,
+          "count": 60,
+          "derivedFrom": 12,
+          "opaque": 12075,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "star-eyes": {
+          "id": "star-eyes",
+          "name": "Star Eyes",
+          "file": "assets/overlays/eyes/star-eyes.webp",
+          "none": false,
+          "count": 59,
+          "derivedFrom": 12,
+          "opaque": 11779,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "lightning": {
+          "id": "lightning",
+          "name": "Lightning",
+          "file": "assets/overlays/eyes/lightning.webp",
+          "none": false,
+          "count": 57,
+          "derivedFrom": 12,
+          "opaque": 9444,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "fire-eyes": {
+          "id": "fire-eyes",
+          "name": "Fire Eyes",
+          "file": "assets/overlays/eyes/fire-eyes.webp",
+          "none": false,
+          "count": 56,
+          "derivedFrom": 12,
+          "opaque": 19885,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "moon-club": {
+          "id": "moon-club",
+          "name": "Moon Club",
+          "file": "assets/overlays/eyes/moon-club.webp",
+          "none": false,
+          "count": 53,
+          "derivedFrom": 12,
+          "opaque": 22579,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "neo": {
+          "id": "neo",
+          "name": "Neo",
+          "file": "assets/overlays/eyes/neo.webp",
+          "none": false,
+          "count": 52,
+          "derivedFrom": 12,
+          "opaque": 16327,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "clawed": {
+          "id": "clawed",
+          "name": "Clawed",
+          "file": "assets/overlays/eyes/clawed.webp",
+          "none": false,
+          "count": 50,
+          "derivedFrom": 12,
+          "opaque": 8287,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "aviators": {
+          "id": "aviators",
+          "name": "Aviators",
+          "file": "assets/overlays/eyes/aviators.webp",
+          "none": false,
+          "count": 49,
+          "derivedFrom": 12,
+          "opaque": 12501,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "monocle": {
+          "id": "monocle",
+          "name": "Monocle",
+          "file": "assets/overlays/eyes/monocle.webp",
+          "none": false,
+          "count": 47,
+          "derivedFrom": 12,
+          "opaque": 11481,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "nuclear": {
+          "id": "nuclear",
+          "name": "Nuclear",
+          "file": "assets/overlays/eyes/nuclear.webp",
+          "none": false,
+          "count": 43,
+          "derivedFrom": 12,
+          "opaque": 19706,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "eyeglasses": {
+          "id": "eyeglasses",
+          "name": "Eyeglasses",
+          "file": "assets/overlays/eyes/eyeglasses.webp",
+          "none": false,
+          "count": 36,
+          "derivedFrom": 12,
+          "opaque": 19149,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "visor": {
+          "id": "visor",
+          "name": "Visor",
+          "file": "assets/overlays/eyes/visor.webp",
+          "none": false,
+          "count": 35,
+          "derivedFrom": 12,
+          "opaque": 20349,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "tears": {
+          "id": "tears",
+          "name": "Tears",
+          "file": "assets/overlays/eyes/tears.webp",
+          "none": false,
+          "count": 34,
+          "derivedFrom": 12,
+          "opaque": 12279,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "trippy-eyes": {
+          "id": "trippy-eyes",
+          "name": "Trippy Eyes",
+          "file": "assets/overlays/eyes/trippy-eyes.webp",
+          "none": false,
+          "count": 32,
+          "derivedFrom": 12,
+          "opaque": 15393,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "vr": {
+          "id": "vr",
+          "name": "VR",
+          "file": "assets/overlays/eyes/vr.webp",
+          "none": false,
+          "count": 31,
+          "derivedFrom": 12,
+          "opaque": 20362,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "kaleidoscope": {
+          "id": "kaleidoscope",
+          "name": "Kaleidoscope",
+          "file": "assets/overlays/eyes/kaleidoscope.webp",
+          "none": false,
+          "count": 30,
+          "derivedFrom": 12,
+          "opaque": 20074,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "redeye": {
+          "id": "redeye",
+          "name": "Redeye",
+          "file": "assets/overlays/eyes/redeye.webp",
+          "none": false,
+          "count": 24,
+          "derivedFrom": 12,
+          "opaque": 14105,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "light-rays": {
+          "id": "light-rays",
+          "name": "Light Rays",
+          "file": "assets/overlays/eyes/light-rays.webp",
+          "none": false,
+          "count": 23,
+          "derivedFrom": 12,
+          "opaque": 23579,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "sleeping-mask": {
+          "id": "sleeping-mask",
+          "name": "Sleeping Mask",
+          "file": "assets/overlays/eyes/sleeping-mask.webp",
+          "none": false,
+          "count": 23,
+          "derivedFrom": 12,
+          "opaque": 24273,
+          "approx": true,
+          "relaxedFur": false
+        }
+      }
+    },
+    "mouth": {
+      "kind": "overlay",
+      "z": 4,
+      "trueLayer": true,
+      "approx": true,
+      "baseline": "normal",
+      "traits": {
+        "normal": {
+          "id": "normal",
+          "name": "Normal",
+          "file": null,
+          "none": false,
+          "baseline": true,
+          "count": 202
+        },
+        "sharp": {
+          "id": "sharp",
+          "name": "Sharp",
+          "file": "assets/overlays/mouths/sharp.webp",
+          "none": false,
+          "count": 158,
+          "derivedFrom": 12,
+          "opaque": 9294,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "tongue": {
+          "id": "tongue",
+          "name": "Tongue",
+          "file": "assets/overlays/mouths/tongue.webp",
+          "none": false,
+          "count": 153,
+          "derivedFrom": 12,
+          "opaque": 9621,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "goofy": {
+          "id": "goofy",
+          "name": "Goofy",
+          "file": "assets/overlays/mouths/goofy.webp",
+          "none": false,
+          "count": 139,
+          "derivedFrom": 12,
+          "opaque": 6578,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "coin": {
+          "id": "coin",
+          "name": "Coin",
+          "file": "assets/overlays/mouths/coin.webp",
+          "none": false,
+          "count": 119,
+          "derivedFrom": 12,
+          "opaque": 6990,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "cigar": {
+          "id": "cigar",
+          "name": "Cigar",
+          "file": "assets/overlays/mouths/cigar.webp",
+          "none": false,
+          "count": 115,
+          "derivedFrom": 12,
+          "opaque": 9919,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "pipe": {
+          "id": "pipe",
+          "name": "Pipe",
+          "file": "assets/overlays/mouths/pipe.webp",
+          "none": false,
+          "count": 97,
+          "derivedFrom": 12,
+          "opaque": 8407,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "diamond": {
+          "id": "diamond",
+          "name": "Diamond",
+          "file": "assets/overlays/mouths/diamond.webp",
+          "none": false,
+          "count": 79,
+          "derivedFrom": 12,
+          "opaque": 9554,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "honeycomb": {
+          "id": "honeycomb",
+          "name": "Honeycomb",
+          "file": "assets/overlays/mouths/honeycomb.webp",
+          "none": false,
+          "count": 72,
+          "derivedFrom": 12,
+          "opaque": 21149,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "beard": {
+          "id": "beard",
+          "name": "Beard",
+          "file": "assets/overlays/mouths/beard.webp",
+          "none": false,
+          "count": 63,
+          "derivedFrom": 12,
+          "opaque": 16355,
+          "approx": true,
+          "relaxedFur": false
+        },
+        "bandana": {
+          "id": "bandana",
+          "name": "Bandana",
+          "file": "assets/overlays/mouths/bandana.webp",
+          "none": false,
+          "count": 23,
+          "derivedFrom": 12,
+          "opaque": 24944,
+          "approx": true,
+          "relaxedFur": false
         }
       }
     }
