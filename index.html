@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Mix & match Fuzzybear / raebyzzuF NFT traits — fun custom looks" />
+  <title>raebyzzuF Trait Mixer · Fuzzybear</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <div class="app-title"><strong>raebyzzuF</strong> · Fuzzybear Mixer</div>
+
+    <div class="top-bar">
+      <div class="search-wrap">
+        <input
+          id="search"
+          class="search-input"
+          type="search"
+          placeholder="Search trait"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Search trait"
+        />
+        <div id="search-results" class="search-results" role="listbox"></div>
+      </div>
+      <button id="btn-random" class="btn-random" type="button" title="Randomize all traits" aria-label="Randomize">?</button>
+    </div>
+
+    <div class="stage">
+      <div id="arrows-left" class="arrow-col" aria-label="Previous trait controls"></div>
+
+      <div class="preview-wrap">
+        <div class="arch" aria-label="NFT preview">
+          <canvas id="preview-canvas" width="512" height="683"></canvas>
+          <div id="arch-loading" class="arch-loading"></div>
+          <div id="arch-placeholder" class="arch-placeholder">NFT</div>
+        </div>
+        <div class="match-nav">
+          <button id="match-prev" class="match-btn" type="button" title="Previous matching bear ([)" aria-label="Previous matching bear">‹</button>
+          <div id="match-badge" class="match-badge" aria-live="polite">Loading…</div>
+          <button id="match-next" class="match-btn" type="button" title="Next matching bear (])" aria-label="Next matching bear">›</button>
+        </div>
+        <div id="trait-strip" class="trait-strip" aria-live="polite"></div>
+      </div>
+
+      <div id="arrows-right" class="arrow-col" aria-label="Next trait controls"></div>
+    </div>
+
+    <div class="matches">
+      <div id="match-title" class="matches-title">Real bears</div>
+      <div id="match-strip" class="match-strip"></div>
+    </div>
+
+    <div class="actions">
+      <button id="btn-upload" class="btn" type="button" title="Upload a custom trait image">＋ Custom</button>
+      <button id="btn-reset" class="btn" type="button" title="Set every trait to Any and browse the whole collection">Any</button>
+      <button id="btn-export" class="btn btn-primary" type="button" title="Download composed PNG">↓ PNG</button>
+    </div>
+
+    <p class="footer-note">
+      Real <strong>sraebyzzuF</strong> artwork (<span id="bear-count">…</span> bears, on-chain IPFS metadata).<br />
+      Fan demo · not affiliated with Fuzzybear · art © its creators. Mixes that were never minted show the closest real bear.
+    </p>
+  </div>
+
+  <!-- Upload modal -->
+  <div id="upload-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="upload-title">
+    <div class="modal">
+      <h2 id="upload-title">Add custom trait</h2>
+      <p style="font-size:12px;color:#888;margin-bottom:8px">
+        Upload a transparent PNG/SVG (square works best). It is drawn as an overlay on top of the real bear and joins that category’s cycle and search.
+      </p>
+      <label for="upload-category">Category</label>
+      <select id="upload-category"></select>
+      <label for="upload-name">Trait name</label>
+      <input id="upload-name" type="text" placeholder="My Cool Hat" maxlength="48" />
+      <label for="upload-file">Image file</label>
+      <input id="upload-file" type="file" accept="image/png,image/svg+xml,image/webp,image/jpeg" />
+      <div class="modal-actions">
+        <button id="upload-cancel" class="btn" type="button">Cancel</button>
+        <button id="upload-confirm" class="btn btn-primary" type="button">Add trait</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

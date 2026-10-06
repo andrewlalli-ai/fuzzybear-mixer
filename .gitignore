@@ -1,0 +1,26 @@
+# Python
+scripts/__pycache__/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Secrets / local env (never commit)
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Local scratch
+js/app.js.bak
+
+# Heavy local caches (not needed on Pages — WebPs live in assets/bears/)
+data/meta-cache/

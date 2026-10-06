@@ -1,0 +1,951 @@
+{
+ "collection": "sraebyzzuf",
+ "displayName": "raebyzzuF (Fuzzybear)",
+ "issuer": "r3NftTqH2hv3skuWAEDWKvqnxjtuqcFWYR",
+ "description": "Trait catalog generated from on-chain IPFS metadata. Art = real composite PNGs (no separable layers exist publicly).",
+ "canvasSize": 512,
+ "layerOrder": [
+  "background",
+  "fur",
+  "clothes",
+  "mouth",
+  "eyes",
+  "headwear",
+  "mask"
+ ],
+ "mode": "composites",
+ "bearCount": 1220,
+ "categories": {
+  "background": {
+   "id": "background",
+   "label": "Background",
+   "zIndex": 0,
+   "traits": [
+    {
+     "id": "xrpl-blue",
+     "name": "XRPL Blue",
+     "onChain": "eulB LPRX",
+     "count": 186,
+     "none": false
+    },
+    {
+     "id": "xrpl-grey",
+     "name": "XRPL Grey",
+     "onChain": "yerG LPRX",
+     "count": 173,
+     "none": false
+    },
+    {
+     "id": "xrpl-green",
+     "name": "XRPL Green",
+     "onChain": "neerG LPRX",
+     "count": 166,
+     "none": false
+    },
+    {
+     "id": "xrpl-blue-purple",
+     "name": "XRPL Blue-Purple",
+     "onChain": "elpruP-eulB LPRX",
+     "count": 155,
+     "none": false
+    },
+    {
+     "id": "xrpl-red-purple",
+     "name": "XRPL Red-Purple",
+     "onChain": "elpruP-deR LPRX",
+     "count": 133,
+     "none": false
+    },
+    {
+     "id": "xrpl-yellow",
+     "name": "XRPL Yellow",
+     "onChain": "wolleY LPRX",
+     "count": 128,
+     "none": false
+    },
+    {
+     "id": "xrpl-magenta",
+     "name": "XRPL Magenta",
+     "onChain": "atnegaM LPRX",
+     "count": 126,
+     "none": false
+    },
+    {
+     "id": "xrpl-orange",
+     "name": "XRPL Orange",
+     "onChain": "egnarO LPRX",
+     "count": 110,
+     "none": false
+    },
+    {
+     "id": "coded",
+     "name": "Coded",
+     "onChain": "dedoC",
+     "count": 33,
+     "none": false
+    },
+    {
+     "id": "vignette",
+     "name": "Vignette",
+     "onChain": "ettengiV",
+     "count": 10,
+     "none": false
+    }
+   ]
+  },
+  "fur": {
+   "id": "fur",
+   "label": "Fur",
+   "zIndex": 1,
+   "traits": [
+    {
+     "id": "brown",
+     "name": "Brown",
+     "onChain": "nworB",
+     "count": 429,
+     "none": false
+    },
+    {
+     "id": "black",
+     "name": "Black",
+     "onChain": "kcalB",
+     "count": 135,
+     "none": false
+    },
+    {
+     "id": "polar",
+     "name": "Polar",
+     "onChain": "raloP",
+     "count": 124,
+     "none": false
+    },
+    {
+     "id": "honey",
+     "name": "Honey",
+     "onChain": "yenoH",
+     "count": 86,
+     "none": false
+    },
+    {
+     "id": "ripple",
+     "name": "Ripple",
+     "onChain": "elppiR",
+     "count": 84,
+     "none": false
+    },
+    {
+     "id": "dmt",
+     "name": "DMT",
+     "onChain": "TMD",
+     "count": 82,
+     "none": false
+    },
+    {
+     "id": "panda",
+     "name": "Panda",
+     "onChain": "adnaP",
+     "count": 79,
+     "none": false
+    },
+    {
+     "id": "patriot",
+     "name": "Patriot",
+     "onChain": "toirtaP",
+     "count": 59,
+     "none": false
+    },
+    {
+     "id": "trippy",
+     "name": "Trippy",
+     "onChain": "yppirT",
+     "count": 48,
+     "none": false
+    },
+    {
+     "id": "extra-fuzzy",
+     "name": "Extra Fuzzy",
+     "onChain": "yzzuF artxE",
+     "count": 39,
+     "none": false
+    },
+    {
+     "id": "joker",
+     "name": "Joker",
+     "onChain": "rekoJ",
+     "count": 33,
+     "none": false
+    },
+    {
+     "id": "ghost",
+     "name": "Ghost",
+     "onChain": "tsohG",
+     "count": 12,
+     "none": false
+    },
+    {
+     "id": "golden",
+     "name": "Golden",
+     "onChain": "nedloG",
+     "count": 10,
+     "none": false
+    }
+   ]
+  },
+  "clothes": {
+   "id": "clothes",
+   "label": "Clothes",
+   "zIndex": 2,
+   "traits": [
+    {
+     "id": "none",
+     "name": "None",
+     "onChain": null,
+     "count": 12,
+     "none": true
+    },
+    {
+     "id": "embroidery",
+     "name": "Embroidery",
+     "onChain": "yrediorbmE",
+     "count": 52,
+     "none": false
+    },
+    {
+     "id": "dog-tag",
+     "name": "Dog Tag",
+     "onChain": "gaT goD",
+     "count": 47,
+     "none": false
+    },
+    {
+     "id": "perseverance",
+     "name": "Perseverance",
+     "onChain": "ecnarevesreP",
+     "count": 46,
+     "none": false
+    },
+    {
+     "id": "flannel",
+     "name": "Flannel",
+     "onChain": "lennalF",
+     "count": 45,
+     "none": false
+    },
+    {
+     "id": "presidential",
+     "name": "Presidential",
+     "onChain": "laitnediserP",
+     "count": 45,
+     "none": false
+    },
+    {
+     "id": "samurai",
+     "name": "Samurai",
+     "onChain": "iarumaS",
+     "count": 44,
+     "none": false
+    },
+    {
+     "id": "lock-in",
+     "name": "Lock In",
+     "onChain": "nI kcoL",
+     "count": 44,
+     "none": false
+    },
+    {
+     "id": "race-suit",
+     "name": "Race Suit",
+     "onChain": "tiuS ecaR",
+     "count": 43,
+     "none": false
+    },
+    {
+     "id": "purple",
+     "name": "Purple",
+     "onChain": "elpruP",
+     "count": 41,
+     "none": false
+    },
+    {
+     "id": "heart",
+     "name": "Heart",
+     "onChain": "traeH",
+     "count": 41,
+     "none": false
+    },
+    {
+     "id": "three-piece",
+     "name": "Three-Piece",
+     "onChain": "eceiP-eerhT",
+     "count": 41,
+     "none": false
+    },
+    {
+     "id": "lei",
+     "name": "Lei",
+     "onChain": "ieL",
+     "count": 40,
+     "none": false
+    },
+    {
+     "id": "ammo",
+     "name": "Ammo",
+     "onChain": "ommA",
+     "count": 39,
+     "none": false
+    },
+    {
+     "id": "teddy",
+     "name": "Teddy",
+     "onChain": "yddeT",
+     "count": 39,
+     "none": false
+    },
+    {
+     "id": "diamondback",
+     "name": "Diamondback",
+     "onChain": "kcabdnomaiD",
+     "count": 38,
+     "none": false
+    },
+    {
+     "id": "black-ops",
+     "name": "Black Ops",
+     "onChain": "spO kcalB",
+     "count": 38,
+     "none": false
+    },
+    {
+     "id": "raider",
+     "name": "Raider",
+     "onChain": "rediaR",
+     "count": 37,
+     "none": false
+    },
+    {
+     "id": "victory",
+     "name": "Victory",
+     "onChain": "yrotciV",
+     "count": 36,
+     "none": false
+    },
+    {
+     "id": "name-tag",
+     "name": "Name Tag",
+     "onChain": "gaT emaN",
+     "count": 35,
+     "none": false
+    },
+    {
+     "id": "general",
+     "name": "General",
+     "onChain": "lareneG",
+     "count": 35,
+     "none": false
+    },
+    {
+     "id": "garbage",
+     "name": "Garbage",
+     "onChain": "egabraG",
+     "count": 34,
+     "none": false
+    },
+    {
+     "id": "mcdonald",
+     "name": "McDonald",
+     "onChain": "dlanoDcM",
+     "count": 34,
+     "none": false
+    },
+    {
+     "id": "phoenix",
+     "name": "Phoenix",
+     "onChain": "xineohP",
+     "count": 32,
+     "none": false
+    },
+    {
+     "id": "sign",
+     "name": "Sign",
+     "onChain": "ngiS",
+     "count": 32,
+     "none": false
+    },
+    {
+     "id": "cowboy",
+     "name": "Cowboy",
+     "onChain": "yobwoC",
+     "count": 31,
+     "none": false
+    },
+    {
+     "id": "sweatshirt",
+     "name": "Sweatshirt",
+     "onChain": "trihstaewS",
+     "count": 31,
+     "none": false
+    },
+    {
+     "id": "super",
+     "name": "Super",
+     "onChain": "repuS",
+     "count": 30,
+     "none": false
+    },
+    {
+     "id": "retro",
+     "name": "Retro",
+     "onChain": "orteR",
+     "count": 28,
+     "none": false
+    },
+    {
+     "id": "pajamas",
+     "name": "Pajamas",
+     "onChain": "samajaP",
+     "count": 27,
+     "none": false
+    },
+    {
+     "id": "continental",
+     "name": "Continental",
+     "onChain": "latnenitnoC",
+     "count": 27,
+     "none": false
+    },
+    {
+     "id": "snappy-casual",
+     "name": "Snappy Casual",
+     "onChain": "lausaC yppanS",
+     "count": 26,
+     "none": false
+    },
+    {
+     "id": "tube",
+     "name": "Tube",
+     "onChain": "ebuT",
+     "count": 26,
+     "none": false
+    },
+    {
+     "id": "cloak",
+     "name": "Cloak",
+     "onChain": "kaolC",
+     "count": 24,
+     "none": false
+    }
+   ]
+  },
+  "mouth": {
+   "id": "mouth",
+   "label": "Mouth",
+   "zIndex": 3,
+   "traits": [
+    {
+     "id": "normal",
+     "name": "Normal",
+     "onChain": "lamroN",
+     "count": 202,
+     "none": false
+    },
+    {
+     "id": "sharp",
+     "name": "Sharp",
+     "onChain": "prahS",
+     "count": 158,
+     "none": false
+    },
+    {
+     "id": "tongue",
+     "name": "Tongue",
+     "onChain": "eugnoT",
+     "count": 153,
+     "none": false
+    },
+    {
+     "id": "goofy",
+     "name": "Goofy",
+     "onChain": "yfooG",
+     "count": 139,
+     "none": false
+    },
+    {
+     "id": "coin",
+     "name": "Coin",
+     "onChain": "nioC",
+     "count": 119,
+     "none": false
+    },
+    {
+     "id": "cigar",
+     "name": "Cigar",
+     "onChain": "ragiC",
+     "count": 115,
+     "none": false
+    },
+    {
+     "id": "pipe",
+     "name": "Pipe",
+     "onChain": "epiP",
+     "count": 97,
+     "none": false
+    },
+    {
+     "id": "diamond",
+     "name": "Diamond",
+     "onChain": "dnomaiD",
+     "count": 79,
+     "none": false
+    },
+    {
+     "id": "honeycomb",
+     "name": "Honeycomb",
+     "onChain": "bmocyenoH",
+     "count": 72,
+     "none": false
+    },
+    {
+     "id": "beard",
+     "name": "Beard",
+     "onChain": "draeB",
+     "count": 63,
+     "none": false
+    },
+    {
+     "id": "bandana",
+     "name": "Bandana",
+     "onChain": "anadnaB",
+     "count": 23,
+     "none": false
+    }
+   ]
+  },
+  "eyes": {
+   "id": "eyes",
+   "label": "Eyes",
+   "zIndex": 4,
+   "traits": [
+    {
+     "id": "blue",
+     "name": "Blue",
+     "onChain": "eulB",
+     "count": 208,
+     "none": false
+    },
+    {
+     "id": "laser-x-eyes",
+     "name": "Laser X-Eyes",
+     "onChain": "seyE-X resaL",
+     "count": 122,
+     "none": false
+    },
+    {
+     "id": "side-eyes",
+     "name": "Side-Eyes",
+     "onChain": "seyE-ediS",
+     "count": 96,
+     "none": false
+    },
+    {
+     "id": "happy-eyes",
+     "name": "Happy Eyes",
+     "onChain": "seyE yppaH",
+     "count": 60,
+     "none": false
+    },
+    {
+     "id": "star-eyes",
+     "name": "Star Eyes",
+     "onChain": "seyE ratS",
+     "count": 59,
+     "none": false
+    },
+    {
+     "id": "lightning",
+     "name": "Lightning",
+     "onChain": "gninthgiL",
+     "count": 57,
+     "none": false
+    },
+    {
+     "id": "fire-eyes",
+     "name": "Fire Eyes",
+     "onChain": "seyE eriF",
+     "count": 56,
+     "none": false
+    },
+    {
+     "id": "moon-club",
+     "name": "Moon Club",
+     "onChain": "bulC nooM",
+     "count": 53,
+     "none": false
+    },
+    {
+     "id": "neo",
+     "name": "Neo",
+     "onChain": "oeN",
+     "count": 52,
+     "none": false
+    },
+    {
+     "id": "clawed",
+     "name": "Clawed",
+     "onChain": "dewalC",
+     "count": 50,
+     "none": false
+    },
+    {
+     "id": "aviators",
+     "name": "Aviators",
+     "onChain": "srotaivA",
+     "count": 49,
+     "none": false
+    },
+    {
+     "id": "monocle",
+     "name": "Monocle",
+     "onChain": "elconoM",
+     "count": 47,
+     "none": false
+    },
+    {
+     "id": "nuclear",
+     "name": "Nuclear",
+     "onChain": "raelcuN",
+     "count": 43,
+     "none": false
+    },
+    {
+     "id": "eyeglasses",
+     "name": "Eyeglasses",
+     "onChain": "sessalgeyE",
+     "count": 36,
+     "none": false
+    },
+    {
+     "id": "visor",
+     "name": "Visor",
+     "onChain": "rosiV",
+     "count": 35,
+     "none": false
+    },
+    {
+     "id": "tears",
+     "name": "Tears",
+     "onChain": "sraeT",
+     "count": 34,
+     "none": false
+    },
+    {
+     "id": "trippy-eyes",
+     "name": "Trippy Eyes",
+     "onChain": "seyE yppirT",
+     "count": 32,
+     "none": false
+    },
+    {
+     "id": "vr",
+     "name": "VR",
+     "onChain": "RV",
+     "count": 31,
+     "none": false
+    },
+    {
+     "id": "kaleidoscope",
+     "name": "Kaleidoscope",
+     "onChain": "epocsodielaK",
+     "count": 30,
+     "none": false
+    },
+    {
+     "id": "redeye",
+     "name": "Redeye",
+     "onChain": "eyedeR",
+     "count": 24,
+     "none": false
+    },
+    {
+     "id": "light-rays",
+     "name": "Light Rays",
+     "onChain": "syaR thgiL",
+     "count": 23,
+     "none": false
+    },
+    {
+     "id": "sleeping-mask",
+     "name": "Sleeping Mask",
+     "onChain": "ksaM gnipeelS",
+     "count": 23,
+     "none": false
+    }
+   ]
+  },
+  "headwear": {
+   "id": "headwear",
+   "label": "Headwear",
+   "zIndex": 5,
+   "traits": [
+    {
+     "id": "none",
+     "name": "None",
+     "onChain": null,
+     "count": 61,
+     "none": true
+    },
+    {
+     "id": "golf-club",
+     "name": "Golf Club",
+     "onChain": "bulC floG",
+     "count": 50,
+     "none": false
+    },
+    {
+     "id": "western",
+     "name": "Western",
+     "onChain": "nretseW",
+     "count": 48,
+     "none": false
+    },
+    {
+     "id": "bucket-hat",
+     "name": "Bucket Hat",
+     "onChain": "taH tekcuB",
+     "count": 48,
+     "none": false
+    },
+    {
+     "id": "shroom",
+     "name": "Shroom",
+     "onChain": "moorhS",
+     "count": 46,
+     "none": false
+    },
+    {
+     "id": "kabuto",
+     "name": "Kabuto",
+     "onChain": "otubaK",
+     "count": 46,
+     "none": false
+    },
+    {
+     "id": "firefighter",
+     "name": "Firefighter",
+     "onChain": "rethgiferiF",
+     "count": 45,
+     "none": false
+    },
+    {
+     "id": "chocolatier",
+     "name": "Chocolatier",
+     "onChain": "reitalocohC",
+     "count": 45,
+     "none": false
+    },
+    {
+     "id": "patrol-cap",
+     "name": "Patrol Cap",
+     "onChain": "paC lortaP",
+     "count": 44,
+     "none": false
+    },
+    {
+     "id": "paper-hat",
+     "name": "Paper Hat",
+     "onChain": "taH repaP",
+     "count": 43,
+     "none": false
+    },
+    {
+     "id": "lock-in-helmet",
+     "name": "Lock In Helmet",
+     "onChain": "temleH nI kcoL",
+     "count": 41,
+     "none": false
+    },
+    {
+     "id": "hard-hat",
+     "name": "Hard Hat",
+     "onChain": "taH draH",
+     "count": 41,
+     "none": false
+    },
+    {
+     "id": "dragon",
+     "name": "Dragon",
+     "onChain": "nogarD",
+     "count": 41,
+     "none": false
+    },
+    {
+     "id": "saiyan",
+     "name": "Saiyan",
+     "onChain": "nayiaS",
+     "count": 39,
+     "none": false
+    },
+    {
+     "id": "mindblown",
+     "name": "Mindblown",
+     "onChain": "nwolbdniM",
+     "count": 39,
+     "none": false
+    },
+    {
+     "id": "eagle",
+     "name": "Eagle",
+     "onChain": "elgaE",
+     "count": 38,
+     "none": false
+    },
+    {
+     "id": "warrior",
+     "name": "Warrior",
+     "onChain": "roirraW",
+     "count": 37,
+     "none": false
+    },
+    {
+     "id": "fedora",
+     "name": "Fedora",
+     "onChain": "arodeF",
+     "count": 37,
+     "none": false
+    },
+    {
+     "id": "tactical",
+     "name": "Tactical",
+     "onChain": "lacitcaT",
+     "count": 36,
+     "none": false
+    },
+    {
+     "id": "peaked-cap",
+     "name": "Peaked Cap",
+     "onChain": "paC dekaeP",
+     "count": 34,
+     "none": false
+    },
+    {
+     "id": "rough-rider",
+     "name": "Rough Rider",
+     "onChain": "rediR hguoR",
+     "count": 34,
+     "none": false
+    },
+    {
+     "id": "dark-maga",
+     "name": "Dark MAGA",
+     "onChain": "AGAM kraD",
+     "count": 34,
+     "none": false
+    },
+    {
+     "id": "flag",
+     "name": "Flag",
+     "onChain": "galF",
+     "count": 33,
+     "none": false
+    },
+    {
+     "id": "sensei",
+     "name": "Sensei",
+     "onChain": "iesneS",
+     "count": 32,
+     "none": false
+    },
+    {
+     "id": "flat-cap",
+     "name": "Flat Cap",
+     "onChain": "paC talF",
+     "count": 31,
+     "none": false
+    },
+    {
+     "id": "rasta",
+     "name": "Rasta",
+     "onChain": "atsaR",
+     "count": 31,
+     "none": false
+    },
+    {
+     "id": "chief",
+     "name": "Chief",
+     "onChain": "feihC",
+     "count": 30,
+     "none": false
+    },
+    {
+     "id": "chullo",
+     "name": "Chullo",
+     "onChain": "olluhC",
+     "count": 29,
+     "none": false
+    },
+    {
+     "id": "mardi-gras",
+     "name": "Mardi Gras",
+     "onChain": "sarG idraM",
+     "count": 28,
+     "none": false
+    },
+    {
+     "id": "ridpler",
+     "name": "Ridpler",
+     "onChain": "relpdiR",
+     "count": 28,
+     "none": false
+    },
+    {
+     "id": "trump",
+     "name": "Trump",
+     "onChain": "pmurT",
+     "count": 26,
+     "none": false
+    },
+    {
+     "id": "peruke",
+     "name": "Peruke",
+     "onChain": "ekureP",
+     "count": 25,
+     "none": false
+    }
+   ]
+  },
+  "mask": {
+   "id": "mask",
+   "label": "Mask",
+   "zIndex": 6,
+   "traits": [
+    {
+     "id": "none",
+     "name": "None",
+     "onChain": null,
+     "count": 1049,
+     "none": true
+    },
+    {
+     "id": "gold-mask",
+     "name": "Gold Mask",
+     "onChain": "ksaM dloG",
+     "count": 100,
+     "none": false
+    },
+    {
+     "id": "diamond-mask",
+     "name": "Diamond Mask",
+     "onChain": "ksaM dnomaiD",
+     "count": 50,
+     "none": false
+    },
+    {
+     "id": "mardi-gras-mask",
+     "name": "Mardi Gras Mask",
+     "onChain": "ksaM sarG idraM",
+     "count": 21,
+     "none": false
+    }
+   ]
+  }
+ }
+}
