@@ -53,10 +53,10 @@
       "approx": 10
     },
     "eyes": {
-      "files": 21,
+      "files": 18,
       "baseline": 1,
       "solid": 0,
-      "approx": 21
+      "approx": 18
     },
     "headwear": {
       "files": 31,
@@ -245,16 +245,16 @@
           "file": "assets/traits/Fur/golden.webp",
           "quality": "approx",
           "derivedFrom": 10,
-          "opaque": 118062,
+          "opaque": 113692,
           "donors": [
-            1230,
             589,
+            1230,
+            777,
+            1,
             7,
             77,
             321,
-            777,
-            985,
-            1
+            985
           ]
         },
         {
@@ -266,7 +266,7 @@
           "file": "assets/traits/Fur/ghost.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 121167,
+          "opaque": 117053,
           "donors": [
             127,
             260,
@@ -286,8 +286,8 @@
           "none": false,
           "file": "assets/traits/Fur/joker.webp",
           "quality": "approx",
-          "derivedFrom": 14,
-          "opaque": 114243,
+          "derivedFrom": 16,
+          "opaque": 112464,
           "donors": [
             747,
             749,
@@ -307,15 +307,15 @@
           "none": false,
           "file": "assets/traits/Fur/extra-fuzzy.webp",
           "quality": "approx",
-          "derivedFrom": 14,
-          "opaque": 116164,
+          "derivedFrom": 16,
+          "opaque": 113374,
           "donors": [
             48,
             792,
-            26,
-            467,
             999,
+            26,
             165,
+            467,
             888,
             76
           ]
@@ -328,17 +328,17 @@
           "none": false,
           "file": "assets/traits/Fur/trippy.webp",
           "quality": "approx",
-          "derivedFrom": 14,
-          "opaque": 114594,
+          "derivedFrom": 16,
+          "opaque": 112925,
           "donors": [
             642,
             666,
             1019,
             111,
-            330,
-            367,
             432,
-            356
+            330,
+            356,
+            367
           ]
         },
         {
@@ -349,13 +349,13 @@
           "none": false,
           "file": "assets/traits/Fur/patriot.webp",
           "quality": "approx",
-          "derivedFrom": 14,
-          "opaque": 111675,
+          "derivedFrom": 16,
+          "opaque": 107773,
           "donors": [
             250,
             776,
-            55,
             235,
+            55,
             1114,
             9,
             17,
@@ -370,15 +370,15 @@
           "none": false,
           "file": "assets/traits/Fur/panda.webp",
           "quality": "approx",
-          "derivedFrom": 14,
-          "opaque": 118406,
+          "derivedFrom": 16,
+          "opaque": 116490,
           "donors": [
             441,
             126,
             382,
-            262,
             515,
             963,
+            262,
             762,
             5
           ]
@@ -391,17 +391,17 @@
           "none": false,
           "file": "assets/traits/Fur/dmt.webp",
           "quality": "approx",
-          "derivedFrom": 14,
-          "opaque": 113561,
+          "derivedFrom": 16,
+          "opaque": 110227,
           "donors": [
             1004,
             1118,
             414,
             65,
-            479,
             680,
             1000,
-            420
+            420,
+            479
           ]
         },
         {
@@ -412,14 +412,14 @@
           "none": false,
           "file": "assets/traits/Fur/ripple.webp",
           "quality": "approx",
-          "derivedFrom": 14,
-          "opaque": 119261,
+          "derivedFrom": 16,
+          "opaque": 113022,
           "donors": [
             919,
             713,
             405,
-            553,
             710,
+            553,
             40,
             52,
             66
@@ -433,17 +433,17 @@
           "none": false,
           "file": "assets/traits/Fur/honey.webp",
           "quality": "approx",
-          "derivedFrom": 14,
-          "opaque": 117075,
+          "derivedFrom": 16,
+          "opaque": 113532,
           "donors": [
             175,
             222,
             867,
+            444,
             39,
             128,
             245,
-            249,
-            302
+            249
           ]
         },
         {
@@ -454,8 +454,8 @@
           "none": false,
           "file": "assets/traits/Fur/polar.webp",
           "quality": "approx",
-          "derivedFrom": 14,
-          "opaque": 116031,
+          "derivedFrom": 16,
+          "opaque": 113559,
           "donors": [
             106,
             108,
@@ -475,17 +475,17 @@
           "none": false,
           "file": "assets/traits/Fur/black.webp",
           "quality": "approx",
-          "derivedFrom": 14,
-          "opaque": 112990,
+          "derivedFrom": 16,
+          "opaque": 111375,
           "donors": [
             844,
             593,
             555,
-            1115,
-            1148,
             473,
             675,
-            19
+            1115,
+            1148,
+            91
           ]
         },
         {
@@ -496,8 +496,8 @@
           "none": false,
           "file": "assets/traits/Fur/brown.webp",
           "quality": "approx",
-          "derivedFrom": 14,
-          "opaque": 112639,
+          "derivedFrom": 16,
+          "opaque": 112912,
           "donors": [
             454,
             1209,
@@ -536,7 +536,7 @@
           "file": "assets/traits/Clothes/cloak.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 66108
+          "opaque": 40274
         },
         {
           "id": "snappy-casual",
@@ -546,8 +546,8 @@
           "none": false,
           "file": "assets/traits/Clothes/snappy-casual.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 65242
+          "derivedFrom": 5,
+          "opaque": 55127
         },
         {
           "id": "tube",
@@ -557,8 +557,8 @@
           "none": false,
           "file": "assets/traits/Clothes/tube.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 39808
+          "derivedFrom": 7,
+          "opaque": 34201
         },
         {
           "id": "continental",
@@ -568,8 +568,8 @@
           "none": false,
           "file": "assets/traits/Clothes/continental.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 59373
+          "derivedFrom": 5,
+          "opaque": 47058
         },
         {
           "id": "pajamas",
@@ -579,8 +579,8 @@
           "none": false,
           "file": "assets/traits/Clothes/pajamas.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 59711
+          "derivedFrom": 6,
+          "opaque": 52425
         },
         {
           "id": "retro",
@@ -590,8 +590,8 @@
           "none": false,
           "file": "assets/traits/Clothes/retro.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 55812
+          "derivedFrom": 9,
+          "opaque": 47651
         },
         {
           "id": "super",
@@ -601,8 +601,8 @@
           "none": false,
           "file": "assets/traits/Clothes/super.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 68583
+          "derivedFrom": 5,
+          "opaque": 47778
         },
         {
           "id": "cowboy",
@@ -612,8 +612,8 @@
           "none": false,
           "file": "assets/traits/Clothes/cowboy.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 56194
+          "derivedFrom": 5,
+          "opaque": 26751
         },
         {
           "id": "sweatshirt",
@@ -623,8 +623,8 @@
           "none": false,
           "file": "assets/traits/Clothes/sweatshirt.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 60780
+          "derivedFrom": 7,
+          "opaque": 52137
         },
         {
           "id": "phoenix",
@@ -634,8 +634,8 @@
           "none": false,
           "file": "assets/traits/Clothes/phoenix.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 30213
+          "derivedFrom": 7,
+          "opaque": 7749
         },
         {
           "id": "sign",
@@ -645,8 +645,8 @@
           "none": false,
           "file": "assets/traits/Clothes/sign.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 43899
+          "derivedFrom": 5,
+          "opaque": 33129
         },
         {
           "id": "garbage",
@@ -656,8 +656,8 @@
           "none": false,
           "file": "assets/traits/Clothes/garbage.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 60343
+          "derivedFrom": 8,
+          "opaque": 49100
         },
         {
           "id": "mcdonald",
@@ -667,8 +667,8 @@
           "none": false,
           "file": "assets/traits/Clothes/mcdonald.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 61346
+          "derivedFrom": 6,
+          "opaque": 49404
         },
         {
           "id": "general",
@@ -678,8 +678,8 @@
           "none": false,
           "file": "assets/traits/Clothes/general.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 55050
+          "derivedFrom": 6,
+          "opaque": 28686
         },
         {
           "id": "name-tag",
@@ -689,8 +689,8 @@
           "none": false,
           "file": "assets/traits/Clothes/name-tag.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 21649
+          "derivedFrom": 7,
+          "opaque": 8060
         },
         {
           "id": "victory",
@@ -700,8 +700,8 @@
           "none": false,
           "file": "assets/traits/Clothes/victory.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 52727
+          "derivedFrom": 4,
+          "opaque": 41872
         },
         {
           "id": "raider",
@@ -711,8 +711,8 @@
           "none": false,
           "file": "assets/traits/Clothes/raider.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 56345
+          "derivedFrom": 9,
+          "opaque": 40474
         },
         {
           "id": "black-ops",
@@ -722,8 +722,8 @@
           "none": false,
           "file": "assets/traits/Clothes/black-ops.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 52523
+          "derivedFrom": 4,
+          "opaque": 40738
         },
         {
           "id": "diamondback",
@@ -733,8 +733,8 @@
           "none": false,
           "file": "assets/traits/Clothes/diamondback.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 35281
+          "derivedFrom": 8,
+          "opaque": 10121
         },
         {
           "id": "ammo",
@@ -744,8 +744,8 @@
           "none": false,
           "file": "assets/traits/Clothes/ammo.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 40244
+          "derivedFrom": 7,
+          "opaque": 18341
         },
         {
           "id": "teddy",
@@ -755,8 +755,8 @@
           "none": false,
           "file": "assets/traits/Clothes/teddy.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 63535
+          "derivedFrom": 7,
+          "opaque": 53440
         },
         {
           "id": "lei",
@@ -766,8 +766,8 @@
           "none": false,
           "file": "assets/traits/Clothes/lei.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 38501
+          "derivedFrom": 6,
+          "opaque": 19921
         },
         {
           "id": "heart",
@@ -777,8 +777,8 @@
           "none": false,
           "file": "assets/traits/Clothes/heart.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 65526
+          "derivedFrom": 6,
+          "opaque": 55551
         },
         {
           "id": "purple",
@@ -788,8 +788,8 @@
           "none": false,
           "file": "assets/traits/Clothes/purple.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 59142
+          "derivedFrom": 7,
+          "opaque": 41630
         },
         {
           "id": "three-piece",
@@ -799,8 +799,8 @@
           "none": false,
           "file": "assets/traits/Clothes/three-piece.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 55738
+          "derivedFrom": 8,
+          "opaque": 33826
         },
         {
           "id": "race-suit",
@@ -810,8 +810,8 @@
           "none": false,
           "file": "assets/traits/Clothes/race-suit.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 60868
+          "derivedFrom": 3,
+          "opaque": 26150
         },
         {
           "id": "lock-in",
@@ -821,8 +821,8 @@
           "none": false,
           "file": "assets/traits/Clothes/lock-in.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 48717
+          "derivedFrom": 8,
+          "opaque": 29685
         },
         {
           "id": "samurai",
@@ -833,7 +833,7 @@
           "file": "assets/traits/Clothes/samurai.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 60433
+          "opaque": 28109
         },
         {
           "id": "flannel",
@@ -843,8 +843,8 @@
           "none": false,
           "file": "assets/traits/Clothes/flannel.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 61884
+          "derivedFrom": 9,
+          "opaque": 45070
         },
         {
           "id": "presidential",
@@ -854,8 +854,8 @@
           "none": false,
           "file": "assets/traits/Clothes/presidential.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 59786
+          "derivedFrom": 10,
+          "opaque": 48199
         },
         {
           "id": "perseverance",
@@ -865,8 +865,8 @@
           "none": false,
           "file": "assets/traits/Clothes/perseverance.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 44030
+          "derivedFrom": 7,
+          "opaque": 27751
         },
         {
           "id": "dog-tag",
@@ -876,8 +876,8 @@
           "none": false,
           "file": "assets/traits/Clothes/dog-tag.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 18862
+          "derivedFrom": 5,
+          "opaque": 2464
         },
         {
           "id": "embroidery",
@@ -887,8 +887,8 @@
           "none": false,
           "file": "assets/traits/Clothes/embroidery.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 47467
+          "derivedFrom": 10,
+          "opaque": 40548
         }
       ]
     },
@@ -906,8 +906,8 @@
           "none": false,
           "file": "assets/traits/Mouth/bandana.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 24944
+          "derivedFrom": 14,
+          "opaque": 11858
         },
         {
           "id": "beard",
@@ -917,8 +917,8 @@
           "none": false,
           "file": "assets/traits/Mouth/beard.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 16355
+          "derivedFrom": 14,
+          "opaque": 9479
         },
         {
           "id": "honeycomb",
@@ -928,8 +928,8 @@
           "none": false,
           "file": "assets/traits/Mouth/honeycomb.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 21149
+          "derivedFrom": 14,
+          "opaque": 4392
         },
         {
           "id": "diamond",
@@ -939,8 +939,8 @@
           "none": false,
           "file": "assets/traits/Mouth/diamond.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 9554
+          "derivedFrom": 14,
+          "opaque": 728
         },
         {
           "id": "pipe",
@@ -950,8 +950,8 @@
           "none": false,
           "file": "assets/traits/Mouth/pipe.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 8407
+          "derivedFrom": 14,
+          "opaque": 1116
         },
         {
           "id": "cigar",
@@ -961,8 +961,8 @@
           "none": false,
           "file": "assets/traits/Mouth/cigar.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 9919
+          "derivedFrom": 14,
+          "opaque": 857
         },
         {
           "id": "coin",
@@ -972,8 +972,8 @@
           "none": false,
           "file": "assets/traits/Mouth/coin.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 6990
+          "derivedFrom": 14,
+          "opaque": 577
         },
         {
           "id": "goofy",
@@ -983,8 +983,8 @@
           "none": false,
           "file": "assets/traits/Mouth/goofy.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 6578
+          "derivedFrom": 14,
+          "opaque": 2194
         },
         {
           "id": "tongue",
@@ -994,8 +994,8 @@
           "none": false,
           "file": "assets/traits/Mouth/tongue.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 9621
+          "derivedFrom": 14,
+          "opaque": 283
         },
         {
           "id": "sharp",
@@ -1005,8 +1005,8 @@
           "none": false,
           "file": "assets/traits/Mouth/sharp.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 9294
+          "derivedFrom": 14,
+          "opaque": 356
         },
         {
           "id": "normal",
@@ -1034,8 +1034,8 @@
           "none": false,
           "file": "assets/traits/Eyes/light-rays.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 23579
+          "derivedFrom": 14,
+          "opaque": 3899
         },
         {
           "id": "sleeping-mask",
@@ -1045,8 +1045,8 @@
           "none": false,
           "file": "assets/traits/Eyes/sleeping-mask.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 24273
+          "derivedFrom": 14,
+          "opaque": 6263
         },
         {
           "id": "redeye",
@@ -1054,10 +1054,9 @@
           "onChain": "eyedeR",
           "count": 24,
           "none": false,
-          "file": "assets/traits/Eyes/redeye.webp",
-          "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 14105
+          "file": null,
+          "quality": "missing",
+          "skipped": "low opaque (6)"
         },
         {
           "id": "kaleidoscope",
@@ -1067,8 +1066,8 @@
           "none": false,
           "file": "assets/traits/Eyes/kaleidoscope.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 20074
+          "derivedFrom": 14,
+          "opaque": 4873
         },
         {
           "id": "vr",
@@ -1078,8 +1077,8 @@
           "none": false,
           "file": "assets/traits/Eyes/vr.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 20362
+          "derivedFrom": 14,
+          "opaque": 3896
         },
         {
           "id": "trippy-eyes",
@@ -1089,8 +1088,8 @@
           "none": false,
           "file": "assets/traits/Eyes/trippy-eyes.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 15393
+          "derivedFrom": 14,
+          "opaque": 1375
         },
         {
           "id": "tears",
@@ -1100,8 +1099,8 @@
           "none": false,
           "file": "assets/traits/Eyes/tears.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 12279
+          "derivedFrom": 14,
+          "opaque": 565
         },
         {
           "id": "visor",
@@ -1111,8 +1110,8 @@
           "none": false,
           "file": "assets/traits/Eyes/visor.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 20349
+          "derivedFrom": 14,
+          "opaque": 5585
         },
         {
           "id": "eyeglasses",
@@ -1122,8 +1121,8 @@
           "none": false,
           "file": "assets/traits/Eyes/eyeglasses.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 19149
+          "derivedFrom": 14,
+          "opaque": 1419
         },
         {
           "id": "nuclear",
@@ -1133,8 +1132,8 @@
           "none": false,
           "file": "assets/traits/Eyes/nuclear.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 19706
+          "derivedFrom": 14,
+          "opaque": 4591
         },
         {
           "id": "monocle",
@@ -1144,8 +1143,8 @@
           "none": false,
           "file": "assets/traits/Eyes/monocle.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 11481
+          "derivedFrom": 14,
+          "opaque": 1070
         },
         {
           "id": "aviators",
@@ -1155,8 +1154,8 @@
           "none": false,
           "file": "assets/traits/Eyes/aviators.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 12501
+          "derivedFrom": 14,
+          "opaque": 2430
         },
         {
           "id": "clawed",
@@ -1164,10 +1163,9 @@
           "onChain": "dewalC",
           "count": 50,
           "none": false,
-          "file": "assets/traits/Eyes/clawed.webp",
-          "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 8287
+          "file": null,
+          "quality": "missing",
+          "skipped": "low opaque (91)"
         },
         {
           "id": "neo",
@@ -1177,8 +1175,8 @@
           "none": false,
           "file": "assets/traits/Eyes/neo.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 16327
+          "derivedFrom": 14,
+          "opaque": 463
         },
         {
           "id": "moon-club",
@@ -1188,8 +1186,8 @@
           "none": false,
           "file": "assets/traits/Eyes/moon-club.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 22579
+          "derivedFrom": 14,
+          "opaque": 3715
         },
         {
           "id": "fire-eyes",
@@ -1199,8 +1197,8 @@
           "none": false,
           "file": "assets/traits/Eyes/fire-eyes.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 19885
+          "derivedFrom": 14,
+          "opaque": 1430
         },
         {
           "id": "lightning",
@@ -1210,8 +1208,8 @@
           "none": false,
           "file": "assets/traits/Eyes/lightning.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 9444
+          "derivedFrom": 14,
+          "opaque": 1603
         },
         {
           "id": "star-eyes",
@@ -1221,8 +1219,8 @@
           "none": false,
           "file": "assets/traits/Eyes/star-eyes.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 11779
+          "derivedFrom": 14,
+          "opaque": 1213
         },
         {
           "id": "happy-eyes",
@@ -1230,10 +1228,9 @@
           "onChain": "seyE yppaH",
           "count": 60,
           "none": false,
-          "file": "assets/traits/Eyes/happy-eyes.webp",
-          "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 12075
+          "file": null,
+          "quality": "missing",
+          "skipped": "low opaque (7)"
         },
         {
           "id": "side-eyes",
@@ -1243,8 +1240,8 @@
           "none": false,
           "file": "assets/traits/Eyes/side-eyes.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 15195
+          "derivedFrom": 14,
+          "opaque": 747
         },
         {
           "id": "laser-x-eyes",
@@ -1254,8 +1251,8 @@
           "none": false,
           "file": "assets/traits/Eyes/laser-x-eyes.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 3773
+          "derivedFrom": 14,
+          "opaque": 350
         },
         {
           "id": "blue",
@@ -1284,7 +1281,7 @@
           "file": "assets/traits/Headwear/peruke.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 9816
+          "opaque": 7954
         },
         {
           "id": "trump",
@@ -1295,7 +1292,7 @@
           "file": "assets/traits/Headwear/trump.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 10405
+          "opaque": 9130
         },
         {
           "id": "mardi-gras",
@@ -1306,7 +1303,7 @@
           "file": "assets/traits/Headwear/mardi-gras.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 32639
+          "opaque": 29137
         },
         {
           "id": "ridpler",
@@ -1317,7 +1314,7 @@
           "file": "assets/traits/Headwear/ridpler.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 14949
+          "opaque": 12541
         },
         {
           "id": "chullo",
@@ -1328,7 +1325,7 @@
           "file": "assets/traits/Headwear/chullo.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 12228
+          "opaque": 9560
         },
         {
           "id": "chief",
@@ -1339,7 +1336,7 @@
           "file": "assets/traits/Headwear/chief.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 40477
+          "opaque": 36087
         },
         {
           "id": "flat-cap",
@@ -1350,7 +1347,7 @@
           "file": "assets/traits/Headwear/flat-cap.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 16687
+          "opaque": 14628
         },
         {
           "id": "rasta",
@@ -1361,7 +1358,7 @@
           "file": "assets/traits/Headwear/rasta.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 17703
+          "opaque": 14883
         },
         {
           "id": "sensei",
@@ -1372,7 +1369,7 @@
           "file": "assets/traits/Headwear/sensei.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 5880
+          "opaque": 3146
         },
         {
           "id": "flag",
@@ -1383,7 +1380,7 @@
           "file": "assets/traits/Headwear/flag.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 6964
+          "opaque": 5349
         },
         {
           "id": "dark-maga",
@@ -1394,7 +1391,7 @@
           "file": "assets/traits/Headwear/dark-maga.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 15717
+          "opaque": 13211
         },
         {
           "id": "peaked-cap",
@@ -1405,7 +1402,7 @@
           "file": "assets/traits/Headwear/peaked-cap.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 19596
+          "opaque": 17316
         },
         {
           "id": "rough-rider",
@@ -1416,7 +1413,7 @@
           "file": "assets/traits/Headwear/rough-rider.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 21014
+          "opaque": 18872
         },
         {
           "id": "tactical",
@@ -1427,7 +1424,7 @@
           "file": "assets/traits/Headwear/tactical.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 23201
+          "opaque": 16505
         },
         {
           "id": "fedora",
@@ -1438,7 +1435,7 @@
           "file": "assets/traits/Headwear/fedora.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 19374
+          "opaque": 16130
         },
         {
           "id": "warrior",
@@ -1449,7 +1446,7 @@
           "file": "assets/traits/Headwear/warrior.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 13859
+          "opaque": 11836
         },
         {
           "id": "eagle",
@@ -1460,7 +1457,7 @@
           "file": "assets/traits/Headwear/eagle.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 17215
+          "opaque": 13354
         },
         {
           "id": "mindblown",
@@ -1471,7 +1468,7 @@
           "file": "assets/traits/Headwear/mindblown.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 31501
+          "opaque": 27432
         },
         {
           "id": "saiyan",
@@ -1482,7 +1479,7 @@
           "file": "assets/traits/Headwear/saiyan.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 36205
+          "opaque": 32431
         },
         {
           "id": "dragon",
@@ -1493,7 +1490,7 @@
           "file": "assets/traits/Headwear/dragon.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 23899
+          "opaque": 20759
         },
         {
           "id": "hard-hat",
@@ -1504,7 +1501,7 @@
           "file": "assets/traits/Headwear/hard-hat.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 17698
+          "opaque": 15622
         },
         {
           "id": "lock-in-helmet",
@@ -1515,7 +1512,7 @@
           "file": "assets/traits/Headwear/lock-in-helmet.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 18403
+          "opaque": 15562
         },
         {
           "id": "paper-hat",
@@ -1526,7 +1523,7 @@
           "file": "assets/traits/Headwear/paper-hat.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 12223
+          "opaque": 10519
         },
         {
           "id": "patrol-cap",
@@ -1537,7 +1534,7 @@
           "file": "assets/traits/Headwear/patrol-cap.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 15666
+          "opaque": 13578
         },
         {
           "id": "chocolatier",
@@ -1548,7 +1545,7 @@
           "file": "assets/traits/Headwear/chocolatier.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 18873
+          "opaque": 17137
         },
         {
           "id": "firefighter",
@@ -1559,7 +1556,7 @@
           "file": "assets/traits/Headwear/firefighter.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 25817
+          "opaque": 23015
         },
         {
           "id": "kabuto",
@@ -1570,7 +1567,7 @@
           "file": "assets/traits/Headwear/kabuto.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 27325
+          "opaque": 23403
         },
         {
           "id": "shroom",
@@ -1581,7 +1578,7 @@
           "file": "assets/traits/Headwear/shroom.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 32488
+          "opaque": 29192
         },
         {
           "id": "bucket-hat",
@@ -1592,7 +1589,7 @@
           "file": "assets/traits/Headwear/bucket-hat.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 17077
+          "opaque": 14819
         },
         {
           "id": "western",
@@ -1603,7 +1600,7 @@
           "file": "assets/traits/Headwear/western.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 30398
+          "opaque": 26978
         },
         {
           "id": "golf-club",
@@ -1614,7 +1611,7 @@
           "file": "assets/traits/Headwear/golf-club.webp",
           "quality": "approx",
           "derivedFrom": 12,
-          "opaque": 17800
+          "opaque": 14448
         },
         {
           "id": "none",
@@ -1642,8 +1639,8 @@
           "none": false,
           "file": "assets/traits/Mask/mardi-gras-mask.webp",
           "quality": "approx",
-          "derivedFrom": 15,
-          "opaque": 11142
+          "derivedFrom": 14,
+          "opaque": 2390
         },
         {
           "id": "diamond-mask",
@@ -1653,8 +1650,8 @@
           "none": false,
           "file": "assets/traits/Mask/diamond-mask.webp",
           "quality": "approx",
-          "derivedFrom": 15,
-          "opaque": 10920
+          "derivedFrom": 14,
+          "opaque": 4964
         },
         {
           "id": "gold-mask",
@@ -1664,8 +1661,8 @@
           "none": false,
           "file": "assets/traits/Mask/gold-mask.webp",
           "quality": "approx",
-          "derivedFrom": 15,
-          "opaque": 22166
+          "derivedFrom": 14,
+          "opaque": 4497
         },
         {
           "id": "none",

@@ -284,6 +284,10 @@
   function draw() {
     const ctx = els.ctx;
     const { width: W, height: H } = els.canvas;
+    // Full clear + source-over so cycling traits never double-draws remnants
+    ctx.save();
+    ctx.globalCompositeOperation = "source-over";
+    ctx.globalAlpha = 1;
     ctx.clearRect(0, 0, W, H);
     const order = manifest.layerOrder || ARROW_CATEGORIES;
     let any = false;
@@ -294,9 +298,11 @@
     for (const catId of order) {
       const img = layerImgs.get(catId);
       if (!img) continue;
+      // Plates use hard alpha; draw once in layerOrder only
       ctx.drawImage(img, x, y, s, s);
       any = true;
     }
+    ctx.restore();
 
     els.archPlaceholder.classList.toggle("hidden", any);
   }
@@ -398,6 +404,8 @@
     const out = document.createElement("canvas");
     out.width = out.height = EXPORT_SIZE;
     const ctx = out.getContext("2d");
+    ctx.globalCompositeOperation = "source-over";
+    ctx.clearRect(0, 0, EXPORT_SIZE, EXPORT_SIZE);
     for (const catId of manifest.layerOrder) {
       const img = layerImgs.get(catId);
       if (img) ctx.drawImage(img, 0, 0, EXPORT_SIZE, EXPORT_SIZE);

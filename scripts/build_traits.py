@@ -135,17 +135,17 @@ def clean_isolated(arr: np.ndarray, min_nbs: int = 2) -> np.ndarray:
 def fur_donor_score(t: dict) -> int:
     s = 0
     if t["headwear"] == "none":
-        s += 12
+        s += 20
     if t["mask"] == "none":
-        s += 12
+        s += 14
     if t["clothes"] == "none":
-        s += 8
+        s += 16
     elif t["clothes"] == "snappy-casual":
-        s += 3  # relatively minimal
+        s += 4
     if t["eyes"] == "blue":
-        s += 6
+        s += 8
     if t["mouth"] == "normal":
-        s += 6
+        s += 8
     if t["background"] in SOLID_BGS:
         s += 5
     elif t["background"] == "vignette":
@@ -161,11 +161,99 @@ def bg_kind(bg_id: str) -> str:
     return "solid"
 
 
-def extract_fur_consensus(bears: list, fur_id: str, n: int = 14, thresh_frac: float = 0.40) -> tuple[np.ndarray | None, list]:
-    """Consensus body cutout for one fur — keeps pixels shared across many donors."""
+def _shift_or(a: np.ndarray, dy: int, dx: int) -> np.ndarray:
+    out = np.zeros_like(a)
+    y0s, y1s = max(0, dy), a.shape[0] + min(0, dy)
+    x0s, x1s = max(0, dx), a.shape[1] + min(0, dx)
+    y0d, y1d = max(0, -dy), a.shape[0] + min(0, -dy)
+    x0d, x1d = max(0, -dx), a.shape[1] + min(0, -dx)
+    out[y0d:y1d, x0d:x1d] = a[y0s:y1s, x0s:x1s]
+    return out
+
+
+def binary_erode(mask: np.ndarray, iterations: int = 1) -> np.ndarray:
+    m = mask.astype(bool)
+    for _ in range(iterations):
+        acc = m.copy()
+        for dy in (-1, 0, 1):
+            for dx in (-1, 0, 1):
+                if dy == 0 and dx == 0:
+                    continue
+                acc &= _shift_or(m, dy, dx)
+        m = acc
+    return m
+
+
+def binary_dilate(mask: np.ndarray, iterations: int = 1) -> np.ndarray:
+    m = mask.astype(bool)
+    for _ in range(iterations):
+        acc = m.copy()
+        for dy in (-1, 0, 1):
+            for dx in (-1, 0, 1):
+                if dy == 0 and dx == 0:
+                    continue
+                acc |= _shift_or(m, dy, dx)
+        m = acc
+    return m
+
+
+def clean_fur_plate(arr: np.ndarray) -> np.ndarray:
+    """Hard alpha + light morph — preserve body, kill speckled accessory fringe."""
+    keep = arr[:, :, 3] >= 180
+    nbs = np.zeros(keep.shape, dtype=np.uint8)
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1):
+            if dx == 0 and dy == 0:
+                continue
+            nbs += _shift_or(keep, dy, dx).astype(np.uint8)
+    keep = keep & (nbs >= 2)
+    # light open only (no heavy erode — that punched torso holes)
+    keep = binary_dilate(binary_erode(keep, 1), 1)
+    out = np.zeros_like(arr)
+    out[keep, :3] = arr[keep, :3]
+    out[keep, 3] = 255
+    out[0, :, 3] = 0
+    out[-1, :, 3] = 0
+    out[:, 0, 3] = 0
+    out[:, -1, 3] = 0
+    return out
+
+
+
+def _sample_fur_rgb(out: np.ndarray) -> np.ndarray:
+    """Sample cheek/sideburn fur, avoiding eye band."""
+    patches = [
+        out[230:275, 145:195],
+        out[230:275, 315:365],
+        out[155:185, 145:175],
+        out[155:185, 335:365],
+    ]
+    cols = []
+    for patch in patches:
+        a = patch[:, :, 3] >= 255
+        if not a.any():
+            continue
+        rgb = patch[:, :, :3][a]
+        lum = rgb.astype(np.int16).max(axis=1)
+        keep = (lum > 35) & (lum < 220)
+        if keep.any():
+            cols.append(rgb[keep])
+    if cols:
+        return np.median(np.concatenate(cols, axis=0), axis=0).astype(np.uint8)
+    return np.array([120, 80, 50], dtype=np.uint8)
+
+
+def extract_fur_consensus(
+    bears: list, fur_id: str, n: int = 16, thresh_frac: float = 0.50
+) -> tuple[np.ndarray | None, list]:
+    """Consensus fur cutout with anti-ghost crown handling.
+
+    Colour = mean of consensus donors (preserves painted fur detail).
+    Crown silhouette prefers headwear=none donors so hat outlines don't bake in.
+    Hard alpha + light morph open; no flat torso repaint (that destroyed detail).
+    """
     donors = [b for b in bears if b["traits"]["fur"] == fur_id]
     donors.sort(key=lambda b: (-fur_donor_score(b["traits"]), b["edition"]))
-    # Prefer variety in accessories so unique hats/clothes fall out of consensus
     picked = []
     seen_sig = set()
     for b in donors:
@@ -173,15 +261,13 @@ def extract_fur_consensus(bears: list, fur_id: str, n: int = 14, thresh_frac: fl
         if not (BEARS_DIR / f"{b['edition']}.webp").exists():
             continue
         sig = (t["clothes"], t["headwear"], t["mask"], t["eyes"], t["mouth"])
-        # Always take high-score uniques first, then fill
-        if sig in seen_sig and len(picked) >= 4:
+        if sig in seen_sig and len(picked) >= 6:
             continue
         seen_sig.add(sig)
         picked.append(b)
         if len(picked) >= n:
             break
-    # Top up if needed
-    if len(picked) < min(6, len(donors)):
+    if len(picked) < min(8, len(donors)):
         for b in donors:
             if b in picked:
                 continue
@@ -191,7 +277,6 @@ def extract_fur_consensus(bears: list, fur_id: str, n: int = 14, thresh_frac: fl
                 break
 
     if len(picked) < 2:
-        # Single donor fallback
         if not picked and donors:
             for b in donors:
                 if (BEARS_DIR / f"{b['edition']}.webp").exists():
@@ -199,31 +284,68 @@ def extract_fur_consensus(bears: list, fur_id: str, n: int = 14, thresh_frac: fl
                     break
         if not picked:
             return None, []
-        arr = chroma_key(load_rgba(picked[0]["edition"]), bg_kind(picked[0]["traits"]["background"]))
-        return clean_isolated(arr, 2), picked
+        arr = chroma_key(
+            load_rgba(picked[0]["edition"]),
+            bg_kind(picked[0]["traits"]["background"]),
+        )
+        return clean_fur_plate(clean_isolated(arr, 2)), picked
 
     h = w = 512
     count = np.zeros((h, w), dtype=np.uint16)
     suma = np.zeros((h, w, 3), dtype=np.uint32)
+    crown_count = np.zeros((h, w), dtype=np.uint16)
+    crown_sum = np.zeros((h, w, 3), dtype=np.uint32)
+    crown_donors = 0
+    # Face-clean donors for mid-face colour (reduces baked glasses/masks)
+    face_count = np.zeros((h, w), dtype=np.uint16)
+    face_sum = np.zeros((h, w, 3), dtype=np.uint32)
+    face_donors = 0
 
     for b in picked:
-        raw = load_rgba(b["edition"])
-        cut = chroma_key(raw, bg_kind(b["traits"]["background"]))
-        opaque = cut[:, :, 3] >= 40
+        cut = chroma_key(
+            load_rgba(b["edition"]), bg_kind(b["traits"]["background"])
+        )
+        opaque = cut[:, :, 3] >= 45
         count += opaque.astype(np.uint16)
-        suma[opaque] += cut[:, :, :3][opaque]
+        rgb = cut[:, :, :3]
+        suma[opaque] += rgb[opaque]
+        t = b["traits"]
+        if t["headwear"] == "none":
+            crown_donors += 1
+            crown_count += opaque.astype(np.uint16)
+            crown_sum[opaque] += rgb[opaque]
+        if t["eyes"] == "blue" and t["mouth"] == "normal" and t["mask"] == "none":
+            face_donors += 1
+            face_count += opaque.astype(np.uint16)
+            face_sum[opaque] += rgb[opaque]
 
     thresh = max(2, int(round(len(picked) * thresh_frac)))
     mask = count >= thresh
+
+    crown_zone = np.zeros((h, w), dtype=bool)
+    crown_zone[:150, :] = True
+    if crown_donors >= 2:
+        c_thresh = max(2, int(round(crown_donors * 0.50)))
+        use_crown = crown_zone & (crown_count >= c_thresh)
+        mask = (mask & ~crown_zone) | use_crown | (mask & crown_zone & ~use_crown)
+
     out = np.zeros((h, w, 4), dtype=np.uint8)
     if mask.any():
-        c = count[mask].astype(np.uint32)
-        out[mask, :3] = (suma[mask] // c[:, None]).astype(np.uint8)
-        # Higher consensus → more opaque
-        out[mask, 3] = np.minimum(255, 160 + (95 * c // max(len(picked), 1))).astype(np.uint8)
+        c = np.maximum(count, 1).astype(np.uint32)
+        mean_rgb = (suma // c[:, :, None]).astype(np.uint8)
+        out[mask, :3] = mean_rgb[mask]
+        out[mask, 3] = 255
+        if crown_donors >= 2:
+            cc = np.maximum(crown_count, 1).astype(np.uint32)
+            crown_rgb = (crown_sum // cc[:, :, None]).astype(np.uint8)
+            use = crown_zone & (crown_count >= c_thresh) & mask
+            out[use, :3] = crown_rgb[use]
+        # Note: do NOT paint a rectangular face_zone override — that creates a
+        # visible box ghost on the fur plate when stacked.
 
-    out = clean_isolated(out, 2)
+    out = clean_fur_plate(out)
     return out, picked
+
 
 
 def sample_edge_color(path: Path, n: int = 16) -> tuple[int, int, int]:
@@ -366,7 +488,7 @@ def build_fur(bears: list, manifest: dict) -> dict:
         tid = trait["id"]
         print(f"  Fur/{tid}: extracting…", flush=True)
         arr, donors = extract_fur_consensus(bears, tid)
-        if arr is None or opaque_count(arr) < 8000:
+        if arr is None or opaque_count(arr) < 6000:
             print(f"    SKIP opaque={opaque_count(arr) if arr is not None else 0}")
             result[tid] = {
                 "id": tid,
@@ -406,6 +528,11 @@ def copy_overlay_cat(cat: str, manifest: dict, overlay_meta: dict) -> dict:
     layer = overlay_meta["layers"][cat]
     baseline = BASELINES[cat]
     result = {}
+    # Drop stale plates from prior builds (ghost of removed/skipped traits)
+    keep_ids = {t["id"] for t in manifest["categories"][cat]["traits"]}
+    for old in out_dir.glob("*.webp"):
+        if old.stem not in keep_ids:
+            old.unlink()
     for trait in manifest["categories"][cat]["traits"]:
         tid = trait["id"]
         info = layer["traits"].get(tid, {})
@@ -452,6 +579,13 @@ def copy_overlay_cat(cat: str, manifest: dict, overlay_meta: dict) -> dict:
             "opaque": info.get("opaque"),
         }
         print(f"  {folder}/{tid}: approx ({dest.stat().st_size} B)")
+    # Remove plates for traits that ended with no file (skipped / baseline)
+    for tid, entry in result.items():
+        if not entry.get("file"):
+            stale = out_dir / f"{tid}.webp"
+            if stale.exists():
+                stale.unlink()
+                print(f"  {folder}/{tid}: removed stale plate")
     return result
 
 

@@ -24,3 +24,7 @@ js/app.js.bak
 
 # Heavy local caches (not needed on Pages — WebPs live in assets/bears/)
 data/meta-cache/
+
+# local extraction debug
+scripts/_debug_preview/
+scripts/__pycache__/
