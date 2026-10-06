@@ -1,14 +1,12 @@
-# Scripts
+# Rebuild scripts
 
-| Script | Purpose |
-|--------|---------|
-| `serve.py` | Optional static server + on-demand IPFS → WebP cache (`/bear-img/N.webp`, `/api/cached`) |
-| `fetch_metadata.py` | List issuer NFTs (Clio) + download each IPFS metadata JSON |
-| `build_index.py` | Un-reverse attributes → `data/bears.json` + `traits-manifest.json` |
-| `precache_images.py [N]` | Warm composites into `assets/bears/` + write `assets/cached.json` |
+| Script | Output |
+|--------|--------|
+| `fetch_metadata.py` | `data/meta-cache/`, `data/issuer_nfts.json` |
+| `build_index.py` | `data/bears.json` (+ seed traits-manifest) |
+| `precache_images.py` | `assets/bears/*.webp` (build input only) |
+| `build_backgrounds.py` | `assets/backgrounds/` + `data/backgrounds.json` |
+| `build_overlays.py` | `assets/overlays/` + `data/overlays.json` |
+| `build_traits.py` | `assets/traits/<Category>/` + final `traits-manifest.json` |
 
-For GitHub Pages / plain `python3 -m http.server`, precache what you need and
-skip `serve.py`. Public IPFS gateways rate-limit; prefer filebase → pinata → dweb.
-
-`build_backgrounds.py` — rebuild `assets/backgrounds/*.webp` + `data/backgrounds.json` from composites.
-`build_overlays.py` — rebuild approx overlay plates (mask / headwear / clothes / eyes / mouth) in `assets/overlays/` + `data/overlays.json`.
+The Pages UI uses **only** `traits-manifest.json` and `assets/traits/`.

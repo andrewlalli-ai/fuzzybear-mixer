@@ -470,7 +470,7 @@ body {
   }
 }
 
-/* ---- Real-collection match UI ---- */
+/* ---- Trait-stack status UI ---- */
 .arch-loading,
 .frame-loading {
   position: absolute; left: 0; right: 0; bottom: 10px; text-align: center;
@@ -479,26 +479,15 @@ body {
 }
 .arch-loading.show,
 .frame-loading.show { opacity: .9; }
-.match-nav { display: flex; align-items: center; gap: 4px; width: 100%; max-width: 320px; margin-top: 8px; }
-.match-btn {
-  width: 44px; height: 44px; min-width: 44px; min-height: 44px; flex-shrink: 0;
-  background: transparent; color: var(--red);
-  border: 1.5px solid var(--red-dim); border-radius: 8px; font-size: 24px; line-height: 1; cursor: pointer;
-  display: grid; place-items: center; -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-.match-btn:hover { background: #1a0505; }
-.match-btn:active { background: var(--red-dim); color: #fff; }
-.match-badge {
-  flex: 1; font-size: 11px; text-align: center; padding: 5px 6px; border-radius: 6px;
+.status-badge {
+  width: 100%; max-width: 320px; margin-top: 8px;
+  font-size: 11px; text-align: center; padding: 6px 8px; border-radius: 6px;
   border: 1px solid #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  color: var(--text-muted);
 }
-.match-badge a { color: inherit; font-weight: 700; }
-.match-badge .pos { color: var(--text-muted); font-size: 10px; }
-.match-badge.exact { border-color: #2e7d32; color: #81c784; background: #07160a; }
-.match-badge.near { border-color: #b26a00; color: #ffb74d; background: #1a1003; }
-.match-badge.any { color: var(--text-muted); }
-.match-badge.layer { border-color: #1565c0; color: #64b5f6; background: #061018; }
+.status-badge.stack {
+  border-color: #1565c0; color: #64b5f6; background: #061018;
+}
 .trait-row.layer .value { color: #64b5f6; }
 .trait-row .tag {
   display: inline-block;
@@ -517,23 +506,9 @@ body {
   border-color: #7b1fa2;
 }
 .trait-row.layer-approx .value { color: #ce93d8; }
-.match-badge.layer-approx { border-color: #7b1fa2; color: #ce93d8; background: #120818; }
 .trait-row.diff .value { color: #ffb74d; }
 .trait-row .value em { color: var(--text-muted); font-style: normal; }
 .trait-row .has { color: var(--text-muted); font-size: 10px; }
-.matches { flex-shrink: 0; }
-.matches-title { font-size: 10px; color: var(--red); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; margin-bottom: 4px; }
-.match-strip { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
-.thumb {
-  flex: 0 0 auto; width: 58px; padding: 0; background: #111; border: 2px solid #222;
-  border-radius: 6px; cursor: pointer; overflow: hidden; position: relative; color: #fff;
-}
-.thumb img { width: 54px; height: 54px; display: block; object-fit: cover; background: #1a1a1a; }
-.thumb span { display: block; font-size: 9px; padding: 1px 0; background: #000; }
-.thumb.near { opacity: .75; }
-.thumb.active { border-color: var(--red); opacity: 1; }
-.thumb.lazy img { background: repeating-linear-gradient(45deg,#151515 0 6px,#1d1d1d 6px 12px); }
-.thumb-more { flex: 0 0 auto; align-self: center; font-size: 10px; color: var(--text-muted); padding: 0 6px; }
 .search-item small { color: var(--text-muted); }
 
 

@@ -1,951 +1,1683 @@
 {
- "collection": "sraebyzzuf",
- "displayName": "raebyzzuF (Fuzzybear)",
- "issuer": "r3NftTqH2hv3skuWAEDWKvqnxjtuqcFWYR",
- "description": "Trait catalog from on-chain IPFS metadata. Background = true plates + chroma-key; Mask/Headwear/Clothes/Eyes/Mouth = approx derived overlay plates; Fur = same-fur body swap keeping other selections. Traits listed most-rare \u2192 least-rare (ascending count).",
- "canvasSize": 512,
- "layerOrder": [
-  "background",
-  "fur",
-  "clothes",
-  "mouth",
-  "eyes",
-  "headwear",
-  "mask"
- ],
- "mode": "independent-layer-remix",
- "bearCount": 1220,
- "categories": {
-  "background": {
-   "id": "background",
-   "label": "Background",
-   "zIndex": 0,
-   "traits": [
-    {
-     "id": "vignette",
-     "name": "Vignette",
-     "onChain": "ettengiV",
-     "count": 10,
-     "none": false
-    },
-    {
-     "id": "coded",
-     "name": "Coded",
-     "onChain": "dedoC",
-     "count": 33,
-     "none": false
-    },
-    {
-     "id": "xrpl-orange",
-     "name": "XRPL Orange",
-     "onChain": "egnarO LPRX",
-     "count": 110,
-     "none": false
-    },
-    {
-     "id": "xrpl-magenta",
-     "name": "XRPL Magenta",
-     "onChain": "atnegaM LPRX",
-     "count": 126,
-     "none": false
-    },
-    {
-     "id": "xrpl-yellow",
-     "name": "XRPL Yellow",
-     "onChain": "wolleY LPRX",
-     "count": 128,
-     "none": false
-    },
-    {
-     "id": "xrpl-red-purple",
-     "name": "XRPL Red-Purple",
-     "onChain": "elpruP-deR LPRX",
-     "count": 133,
-     "none": false
-    },
-    {
-     "id": "xrpl-blue-purple",
-     "name": "XRPL Blue-Purple",
-     "onChain": "elpruP-eulB LPRX",
-     "count": 155,
-     "none": false
-    },
-    {
-     "id": "xrpl-green",
-     "name": "XRPL Green",
-     "onChain": "neerG LPRX",
-     "count": 166,
-     "none": false
-    },
-    {
-     "id": "xrpl-grey",
-     "name": "XRPL Grey",
-     "onChain": "yerG LPRX",
-     "count": 173,
-     "none": false
-    },
-    {
-     "id": "xrpl-blue",
-     "name": "XRPL Blue",
-     "onChain": "eulB LPRX",
-     "count": 186,
-     "none": false
-    }
-   ]
+  "collection": "sraebyzzuf",
+  "displayName": "raebyzzuF (Fuzzybear)",
+  "issuer": "r3NftTqH2hv3skuWAEDWKvqnxjtuqcFWYR",
+  "description": "Trait-file mixer: preview stacks PNG/WebP layers from assets/traits/ only. No base/minted bear composites in the UI. Background solids are exact; Fur / Clothes / Mouth / Eyes / Headwear / Mask plates are approximate consensus cutouts. Traits listed most-rare \u2192 least-rare (ascending count).",
+  "canvasSize": 512,
+  "layerOrder": [
+    "background",
+    "fur",
+    "clothes",
+    "mouth",
+    "eyes",
+    "headwear",
+    "mask"
+  ],
+  "mode": "trait-file-stack",
+  "baselines": {
+    "mask": "none",
+    "headwear": "none",
+    "clothes": "none",
+    "eyes": "blue",
+    "mouth": "normal"
   },
-  "fur": {
-   "id": "fur",
-   "label": "Fur",
-   "zIndex": 1,
-   "traits": [
-    {
-     "id": "golden",
-     "name": "Golden",
-     "onChain": "nedloG",
-     "count": 10,
-     "none": false
-    },
-    {
-     "id": "ghost",
-     "name": "Ghost",
-     "onChain": "tsohG",
-     "count": 12,
-     "none": false
-    },
-    {
-     "id": "joker",
-     "name": "Joker",
-     "onChain": "rekoJ",
-     "count": 33,
-     "none": false
-    },
-    {
-     "id": "extra-fuzzy",
-     "name": "Extra Fuzzy",
-     "onChain": "yzzuF artxE",
-     "count": 39,
-     "none": false
-    },
-    {
-     "id": "trippy",
-     "name": "Trippy",
-     "onChain": "yppirT",
-     "count": 48,
-     "none": false
-    },
-    {
-     "id": "patriot",
-     "name": "Patriot",
-     "onChain": "toirtaP",
-     "count": 59,
-     "none": false
-    },
-    {
-     "id": "panda",
-     "name": "Panda",
-     "onChain": "adnaP",
-     "count": 79,
-     "none": false
-    },
-    {
-     "id": "dmt",
-     "name": "DMT",
-     "onChain": "TMD",
-     "count": 82,
-     "none": false
-    },
-    {
-     "id": "ripple",
-     "name": "Ripple",
-     "onChain": "elppiR",
-     "count": 84,
-     "none": false
-    },
-    {
-     "id": "honey",
-     "name": "Honey",
-     "onChain": "yenoH",
-     "count": 86,
-     "none": false
-    },
-    {
-     "id": "polar",
-     "name": "Polar",
-     "onChain": "raloP",
-     "count": 124,
-     "none": false
-    },
-    {
-     "id": "black",
-     "name": "Black",
-     "onChain": "kcalB",
-     "count": 135,
-     "none": false
-    },
-    {
-     "id": "brown",
-     "name": "Brown",
-     "onChain": "nworB",
-     "count": 429,
-     "none": false
-    }
-   ]
+  "qualityNote": {
+    "solid": "Exact extracted colour / plate",
+    "approx": "Consensus pixel-diff or cutout \u2014 best-effort, not official sheets",
+    "baseline": "Default / empty \u2014 no file; skipped when stacking"
   },
-  "clothes": {
-   "id": "clothes",
-   "label": "Clothes",
-   "zIndex": 2,
-   "traits": [
-    {
-     "id": "none",
-     "name": "None",
-     "onChain": null,
-     "count": 12,
-     "none": true
+  "bearCount": 1220,
+  "summary": {
+    "background": {
+      "files": 10,
+      "baseline": 0,
+      "solid": 8,
+      "approx": 2
     },
-    {
-     "id": "cloak",
-     "name": "Cloak",
-     "onChain": "kaolC",
-     "count": 24,
-     "none": false
+    "fur": {
+      "files": 13,
+      "baseline": 0,
+      "solid": 0,
+      "approx": 13
     },
-    {
-     "id": "snappy-casual",
-     "name": "Snappy Casual",
-     "onChain": "lausaC yppanS",
-     "count": 26,
-     "none": false
+    "clothes": {
+      "files": 33,
+      "baseline": 1,
+      "solid": 0,
+      "approx": 33
     },
-    {
-     "id": "tube",
-     "name": "Tube",
-     "onChain": "ebuT",
-     "count": 26,
-     "none": false
+    "mouth": {
+      "files": 10,
+      "baseline": 1,
+      "solid": 0,
+      "approx": 10
     },
-    {
-     "id": "continental",
-     "name": "Continental",
-     "onChain": "latnenitnoC",
-     "count": 27,
-     "none": false
+    "eyes": {
+      "files": 21,
+      "baseline": 1,
+      "solid": 0,
+      "approx": 21
     },
-    {
-     "id": "pajamas",
-     "name": "Pajamas",
-     "onChain": "samajaP",
-     "count": 27,
-     "none": false
+    "headwear": {
+      "files": 31,
+      "baseline": 1,
+      "solid": 0,
+      "approx": 31
     },
-    {
-     "id": "retro",
-     "name": "Retro",
-     "onChain": "orteR",
-     "count": 28,
-     "none": false
-    },
-    {
-     "id": "super",
-     "name": "Super",
-     "onChain": "repuS",
-     "count": 30,
-     "none": false
-    },
-    {
-     "id": "cowboy",
-     "name": "Cowboy",
-     "onChain": "yobwoC",
-     "count": 31,
-     "none": false
-    },
-    {
-     "id": "sweatshirt",
-     "name": "Sweatshirt",
-     "onChain": "trihstaewS",
-     "count": 31,
-     "none": false
-    },
-    {
-     "id": "phoenix",
-     "name": "Phoenix",
-     "onChain": "xineohP",
-     "count": 32,
-     "none": false
-    },
-    {
-     "id": "sign",
-     "name": "Sign",
-     "onChain": "ngiS",
-     "count": 32,
-     "none": false
-    },
-    {
-     "id": "garbage",
-     "name": "Garbage",
-     "onChain": "egabraG",
-     "count": 34,
-     "none": false
-    },
-    {
-     "id": "mcdonald",
-     "name": "McDonald",
-     "onChain": "dlanoDcM",
-     "count": 34,
-     "none": false
-    },
-    {
-     "id": "general",
-     "name": "General",
-     "onChain": "lareneG",
-     "count": 35,
-     "none": false
-    },
-    {
-     "id": "name-tag",
-     "name": "Name Tag",
-     "onChain": "gaT emaN",
-     "count": 35,
-     "none": false
-    },
-    {
-     "id": "victory",
-     "name": "Victory",
-     "onChain": "yrotciV",
-     "count": 36,
-     "none": false
-    },
-    {
-     "id": "raider",
-     "name": "Raider",
-     "onChain": "rediaR",
-     "count": 37,
-     "none": false
-    },
-    {
-     "id": "black-ops",
-     "name": "Black Ops",
-     "onChain": "spO kcalB",
-     "count": 38,
-     "none": false
-    },
-    {
-     "id": "diamondback",
-     "name": "Diamondback",
-     "onChain": "kcabdnomaiD",
-     "count": 38,
-     "none": false
-    },
-    {
-     "id": "ammo",
-     "name": "Ammo",
-     "onChain": "ommA",
-     "count": 39,
-     "none": false
-    },
-    {
-     "id": "teddy",
-     "name": "Teddy",
-     "onChain": "yddeT",
-     "count": 39,
-     "none": false
-    },
-    {
-     "id": "lei",
-     "name": "Lei",
-     "onChain": "ieL",
-     "count": 40,
-     "none": false
-    },
-    {
-     "id": "heart",
-     "name": "Heart",
-     "onChain": "traeH",
-     "count": 41,
-     "none": false
-    },
-    {
-     "id": "purple",
-     "name": "Purple",
-     "onChain": "elpruP",
-     "count": 41,
-     "none": false
-    },
-    {
-     "id": "three-piece",
-     "name": "Three-Piece",
-     "onChain": "eceiP-eerhT",
-     "count": 41,
-     "none": false
-    },
-    {
-     "id": "race-suit",
-     "name": "Race Suit",
-     "onChain": "tiuS ecaR",
-     "count": 43,
-     "none": false
-    },
-    {
-     "id": "lock-in",
-     "name": "Lock In",
-     "onChain": "nI kcoL",
-     "count": 44,
-     "none": false
-    },
-    {
-     "id": "samurai",
-     "name": "Samurai",
-     "onChain": "iarumaS",
-     "count": 44,
-     "none": false
-    },
-    {
-     "id": "flannel",
-     "name": "Flannel",
-     "onChain": "lennalF",
-     "count": 45,
-     "none": false
-    },
-    {
-     "id": "presidential",
-     "name": "Presidential",
-     "onChain": "laitnediserP",
-     "count": 45,
-     "none": false
-    },
-    {
-     "id": "perseverance",
-     "name": "Perseverance",
-     "onChain": "ecnarevesreP",
-     "count": 46,
-     "none": false
-    },
-    {
-     "id": "dog-tag",
-     "name": "Dog Tag",
-     "onChain": "gaT goD",
-     "count": 47,
-     "none": false
-    },
-    {
-     "id": "embroidery",
-     "name": "Embroidery",
-     "onChain": "yrediorbmE",
-     "count": 52,
-     "none": false
+    "mask": {
+      "files": 3,
+      "baseline": 1,
+      "solid": 0,
+      "approx": 3
     }
-   ]
   },
-  "mouth": {
-   "id": "mouth",
-   "label": "Mouth",
-   "zIndex": 3,
-   "traits": [
-    {
-     "id": "bandana",
-     "name": "Bandana",
-     "onChain": "anadnaB",
-     "count": 23,
-     "none": false
+  "categories": {
+    "background": {
+      "id": "background",
+      "label": "Background",
+      "folder": "Background",
+      "zIndex": 0,
+      "traits": [
+        {
+          "id": "vignette",
+          "name": "Vignette",
+          "onChain": "ettengiV",
+          "count": 10,
+          "none": false,
+          "file": "assets/traits/Background/vignette.webp",
+          "quality": "approx",
+          "kind": "gradient",
+          "color": [
+            56,
+            26,
+            8
+          ]
+        },
+        {
+          "id": "coded",
+          "name": "Coded",
+          "onChain": "dedoC",
+          "count": 33,
+          "none": false,
+          "file": "assets/traits/Background/coded.webp",
+          "quality": "approx",
+          "kind": "pattern",
+          "color": [
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "id": "xrpl-orange",
+          "name": "XRPL Orange",
+          "onChain": "egnarO LPRX",
+          "count": 110,
+          "none": false,
+          "file": "assets/traits/Background/xrpl-orange.webp",
+          "quality": "solid",
+          "kind": "solid",
+          "color": [
+            255,
+            103,
+            27
+          ]
+        },
+        {
+          "id": "xrpl-magenta",
+          "name": "XRPL Magenta",
+          "onChain": "atnegaM LPRX",
+          "count": 126,
+          "none": false,
+          "file": "assets/traits/Background/xrpl-magenta.webp",
+          "quality": "solid",
+          "kind": "solid",
+          "color": [
+            254,
+            25,
+            139
+          ]
+        },
+        {
+          "id": "xrpl-yellow",
+          "name": "XRPL Yellow",
+          "onChain": "wolleY LPRX",
+          "count": 128,
+          "none": false,
+          "file": "assets/traits/Background/xrpl-yellow.webp",
+          "quality": "solid",
+          "kind": "solid",
+          "color": [
+            249,
+            255,
+            25
+          ]
+        },
+        {
+          "id": "xrpl-red-purple",
+          "name": "XRPL Red-Purple",
+          "onChain": "elpruP-deR LPRX",
+          "count": 133,
+          "none": false,
+          "file": "assets/traits/Background/xrpl-red-purple.webp",
+          "quality": "solid",
+          "kind": "solid",
+          "color": [
+            218,
+            26,
+            254
+          ]
+        },
+        {
+          "id": "xrpl-blue-purple",
+          "name": "XRPL Blue-Purple",
+          "onChain": "elpruP-eulB LPRX",
+          "count": 155,
+          "none": false,
+          "file": "assets/traits/Background/xrpl-blue-purple.webp",
+          "quality": "solid",
+          "kind": "solid",
+          "color": [
+            120,
+            26,
+            255
+          ]
+        },
+        {
+          "id": "xrpl-green",
+          "name": "XRPL Green",
+          "onChain": "neerG LPRX",
+          "count": 166,
+          "none": false,
+          "file": "assets/traits/Background/xrpl-green.webp",
+          "quality": "solid",
+          "kind": "solid",
+          "color": [
+            26,
+            255,
+            132
+          ]
+        },
+        {
+          "id": "xrpl-grey",
+          "name": "XRPL Grey",
+          "onChain": "yerG LPRX",
+          "count": 173,
+          "none": false,
+          "file": "assets/traits/Background/xrpl-grey.webp",
+          "quality": "solid",
+          "kind": "solid",
+          "color": [
+            212,
+            215,
+            221
+          ]
+        },
+        {
+          "id": "xrpl-blue",
+          "name": "XRPL Blue",
+          "onChain": "eulB LPRX",
+          "count": 186,
+          "none": false,
+          "file": "assets/traits/Background/xrpl-blue.webp",
+          "quality": "solid",
+          "kind": "solid",
+          "color": [
+            26,
+            164,
+            254
+          ]
+        }
+      ]
     },
-    {
-     "id": "beard",
-     "name": "Beard",
-     "onChain": "draeB",
-     "count": 63,
-     "none": false
+    "fur": {
+      "id": "fur",
+      "label": "Fur",
+      "folder": "Fur",
+      "zIndex": 1,
+      "traits": [
+        {
+          "id": "golden",
+          "name": "Golden",
+          "onChain": "nedloG",
+          "count": 10,
+          "none": false,
+          "file": "assets/traits/Fur/golden.webp",
+          "quality": "approx",
+          "derivedFrom": 10,
+          "opaque": 118062,
+          "donors": [
+            1230,
+            589,
+            7,
+            77,
+            321,
+            777,
+            985,
+            1
+          ]
+        },
+        {
+          "id": "ghost",
+          "name": "Ghost",
+          "onChain": "tsohG",
+          "count": 12,
+          "none": false,
+          "file": "assets/traits/Fur/ghost.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 121167,
+          "donors": [
+            127,
+            260,
+            304,
+            951,
+            33,
+            595,
+            800,
+            939
+          ]
+        },
+        {
+          "id": "joker",
+          "name": "Joker",
+          "onChain": "rekoJ",
+          "count": 33,
+          "none": false,
+          "file": "assets/traits/Fur/joker.webp",
+          "quality": "approx",
+          "derivedFrom": 14,
+          "opaque": 114243,
+          "donors": [
+            747,
+            749,
+            625,
+            41,
+            81,
+            145,
+            202,
+            269
+          ]
+        },
+        {
+          "id": "extra-fuzzy",
+          "name": "Extra Fuzzy",
+          "onChain": "yzzuF artxE",
+          "count": 39,
+          "none": false,
+          "file": "assets/traits/Fur/extra-fuzzy.webp",
+          "quality": "approx",
+          "derivedFrom": 14,
+          "opaque": 116164,
+          "donors": [
+            48,
+            792,
+            26,
+            467,
+            999,
+            165,
+            888,
+            76
+          ]
+        },
+        {
+          "id": "trippy",
+          "name": "Trippy",
+          "onChain": "yppirT",
+          "count": 48,
+          "none": false,
+          "file": "assets/traits/Fur/trippy.webp",
+          "quality": "approx",
+          "derivedFrom": 14,
+          "opaque": 114594,
+          "donors": [
+            642,
+            666,
+            1019,
+            111,
+            330,
+            367,
+            432,
+            356
+          ]
+        },
+        {
+          "id": "patriot",
+          "name": "Patriot",
+          "onChain": "toirtaP",
+          "count": 59,
+          "none": false,
+          "file": "assets/traits/Fur/patriot.webp",
+          "quality": "approx",
+          "derivedFrom": 14,
+          "opaque": 111675,
+          "donors": [
+            250,
+            776,
+            55,
+            235,
+            1114,
+            9,
+            17,
+            45
+          ]
+        },
+        {
+          "id": "panda",
+          "name": "Panda",
+          "onChain": "adnaP",
+          "count": 79,
+          "none": false,
+          "file": "assets/traits/Fur/panda.webp",
+          "quality": "approx",
+          "derivedFrom": 14,
+          "opaque": 118406,
+          "donors": [
+            441,
+            126,
+            382,
+            262,
+            515,
+            963,
+            762,
+            5
+          ]
+        },
+        {
+          "id": "dmt",
+          "name": "DMT",
+          "onChain": "TMD",
+          "count": 82,
+          "none": false,
+          "file": "assets/traits/Fur/dmt.webp",
+          "quality": "approx",
+          "derivedFrom": 14,
+          "opaque": 113561,
+          "donors": [
+            1004,
+            1118,
+            414,
+            65,
+            479,
+            680,
+            1000,
+            420
+          ]
+        },
+        {
+          "id": "ripple",
+          "name": "Ripple",
+          "onChain": "elppiR",
+          "count": 84,
+          "none": false,
+          "file": "assets/traits/Fur/ripple.webp",
+          "quality": "approx",
+          "derivedFrom": 14,
+          "opaque": 119261,
+          "donors": [
+            919,
+            713,
+            405,
+            553,
+            710,
+            40,
+            52,
+            66
+          ]
+        },
+        {
+          "id": "honey",
+          "name": "Honey",
+          "onChain": "yenoH",
+          "count": 86,
+          "none": false,
+          "file": "assets/traits/Fur/honey.webp",
+          "quality": "approx",
+          "derivedFrom": 14,
+          "opaque": 117075,
+          "donors": [
+            175,
+            222,
+            867,
+            39,
+            128,
+            245,
+            249,
+            302
+          ]
+        },
+        {
+          "id": "polar",
+          "name": "Polar",
+          "onChain": "raloP",
+          "count": 124,
+          "none": false,
+          "file": "assets/traits/Fur/polar.webp",
+          "quality": "approx",
+          "derivedFrom": 14,
+          "opaque": 116031,
+          "donors": [
+            106,
+            108,
+            541,
+            1010,
+            679,
+            53,
+            142,
+            151
+          ]
+        },
+        {
+          "id": "black",
+          "name": "Black",
+          "onChain": "kcalB",
+          "count": 135,
+          "none": false,
+          "file": "assets/traits/Fur/black.webp",
+          "quality": "approx",
+          "derivedFrom": 14,
+          "opaque": 112990,
+          "donors": [
+            844,
+            593,
+            555,
+            1115,
+            1148,
+            473,
+            675,
+            19
+          ]
+        },
+        {
+          "id": "brown",
+          "name": "Brown",
+          "onChain": "nworB",
+          "count": 429,
+          "none": false,
+          "file": "assets/traits/Fur/brown.webp",
+          "quality": "approx",
+          "derivedFrom": 14,
+          "opaque": 112639,
+          "donors": [
+            454,
+            1209,
+            282,
+            334,
+            765,
+            810,
+            1158,
+            13
+          ]
+        }
+      ]
     },
-    {
-     "id": "honeycomb",
-     "name": "Honeycomb",
-     "onChain": "bmocyenoH",
-     "count": 72,
-     "none": false
+    "clothes": {
+      "id": "clothes",
+      "label": "Clothes",
+      "folder": "Clothes",
+      "zIndex": 2,
+      "traits": [
+        {
+          "id": "none",
+          "name": "None",
+          "onChain": null,
+          "count": 12,
+          "none": true,
+          "baseline": true,
+          "file": null,
+          "quality": "baseline"
+        },
+        {
+          "id": "cloak",
+          "name": "Cloak",
+          "onChain": "kaolC",
+          "count": 24,
+          "none": false,
+          "file": "assets/traits/Clothes/cloak.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 66108
+        },
+        {
+          "id": "snappy-casual",
+          "name": "Snappy Casual",
+          "onChain": "lausaC yppanS",
+          "count": 26,
+          "none": false,
+          "file": "assets/traits/Clothes/snappy-casual.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 65242
+        },
+        {
+          "id": "tube",
+          "name": "Tube",
+          "onChain": "ebuT",
+          "count": 26,
+          "none": false,
+          "file": "assets/traits/Clothes/tube.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 39808
+        },
+        {
+          "id": "continental",
+          "name": "Continental",
+          "onChain": "latnenitnoC",
+          "count": 27,
+          "none": false,
+          "file": "assets/traits/Clothes/continental.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 59373
+        },
+        {
+          "id": "pajamas",
+          "name": "Pajamas",
+          "onChain": "samajaP",
+          "count": 27,
+          "none": false,
+          "file": "assets/traits/Clothes/pajamas.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 59711
+        },
+        {
+          "id": "retro",
+          "name": "Retro",
+          "onChain": "orteR",
+          "count": 28,
+          "none": false,
+          "file": "assets/traits/Clothes/retro.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 55812
+        },
+        {
+          "id": "super",
+          "name": "Super",
+          "onChain": "repuS",
+          "count": 30,
+          "none": false,
+          "file": "assets/traits/Clothes/super.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 68583
+        },
+        {
+          "id": "cowboy",
+          "name": "Cowboy",
+          "onChain": "yobwoC",
+          "count": 31,
+          "none": false,
+          "file": "assets/traits/Clothes/cowboy.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 56194
+        },
+        {
+          "id": "sweatshirt",
+          "name": "Sweatshirt",
+          "onChain": "trihstaewS",
+          "count": 31,
+          "none": false,
+          "file": "assets/traits/Clothes/sweatshirt.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 60780
+        },
+        {
+          "id": "phoenix",
+          "name": "Phoenix",
+          "onChain": "xineohP",
+          "count": 32,
+          "none": false,
+          "file": "assets/traits/Clothes/phoenix.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 30213
+        },
+        {
+          "id": "sign",
+          "name": "Sign",
+          "onChain": "ngiS",
+          "count": 32,
+          "none": false,
+          "file": "assets/traits/Clothes/sign.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 43899
+        },
+        {
+          "id": "garbage",
+          "name": "Garbage",
+          "onChain": "egabraG",
+          "count": 34,
+          "none": false,
+          "file": "assets/traits/Clothes/garbage.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 60343
+        },
+        {
+          "id": "mcdonald",
+          "name": "McDonald",
+          "onChain": "dlanoDcM",
+          "count": 34,
+          "none": false,
+          "file": "assets/traits/Clothes/mcdonald.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 61346
+        },
+        {
+          "id": "general",
+          "name": "General",
+          "onChain": "lareneG",
+          "count": 35,
+          "none": false,
+          "file": "assets/traits/Clothes/general.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 55050
+        },
+        {
+          "id": "name-tag",
+          "name": "Name Tag",
+          "onChain": "gaT emaN",
+          "count": 35,
+          "none": false,
+          "file": "assets/traits/Clothes/name-tag.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 21649
+        },
+        {
+          "id": "victory",
+          "name": "Victory",
+          "onChain": "yrotciV",
+          "count": 36,
+          "none": false,
+          "file": "assets/traits/Clothes/victory.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 52727
+        },
+        {
+          "id": "raider",
+          "name": "Raider",
+          "onChain": "rediaR",
+          "count": 37,
+          "none": false,
+          "file": "assets/traits/Clothes/raider.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 56345
+        },
+        {
+          "id": "black-ops",
+          "name": "Black Ops",
+          "onChain": "spO kcalB",
+          "count": 38,
+          "none": false,
+          "file": "assets/traits/Clothes/black-ops.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 52523
+        },
+        {
+          "id": "diamondback",
+          "name": "Diamondback",
+          "onChain": "kcabdnomaiD",
+          "count": 38,
+          "none": false,
+          "file": "assets/traits/Clothes/diamondback.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 35281
+        },
+        {
+          "id": "ammo",
+          "name": "Ammo",
+          "onChain": "ommA",
+          "count": 39,
+          "none": false,
+          "file": "assets/traits/Clothes/ammo.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 40244
+        },
+        {
+          "id": "teddy",
+          "name": "Teddy",
+          "onChain": "yddeT",
+          "count": 39,
+          "none": false,
+          "file": "assets/traits/Clothes/teddy.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 63535
+        },
+        {
+          "id": "lei",
+          "name": "Lei",
+          "onChain": "ieL",
+          "count": 40,
+          "none": false,
+          "file": "assets/traits/Clothes/lei.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 38501
+        },
+        {
+          "id": "heart",
+          "name": "Heart",
+          "onChain": "traeH",
+          "count": 41,
+          "none": false,
+          "file": "assets/traits/Clothes/heart.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 65526
+        },
+        {
+          "id": "purple",
+          "name": "Purple",
+          "onChain": "elpruP",
+          "count": 41,
+          "none": false,
+          "file": "assets/traits/Clothes/purple.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 59142
+        },
+        {
+          "id": "three-piece",
+          "name": "Three-Piece",
+          "onChain": "eceiP-eerhT",
+          "count": 41,
+          "none": false,
+          "file": "assets/traits/Clothes/three-piece.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 55738
+        },
+        {
+          "id": "race-suit",
+          "name": "Race Suit",
+          "onChain": "tiuS ecaR",
+          "count": 43,
+          "none": false,
+          "file": "assets/traits/Clothes/race-suit.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 60868
+        },
+        {
+          "id": "lock-in",
+          "name": "Lock In",
+          "onChain": "nI kcoL",
+          "count": 44,
+          "none": false,
+          "file": "assets/traits/Clothes/lock-in.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 48717
+        },
+        {
+          "id": "samurai",
+          "name": "Samurai",
+          "onChain": "iarumaS",
+          "count": 44,
+          "none": false,
+          "file": "assets/traits/Clothes/samurai.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 60433
+        },
+        {
+          "id": "flannel",
+          "name": "Flannel",
+          "onChain": "lennalF",
+          "count": 45,
+          "none": false,
+          "file": "assets/traits/Clothes/flannel.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 61884
+        },
+        {
+          "id": "presidential",
+          "name": "Presidential",
+          "onChain": "laitnediserP",
+          "count": 45,
+          "none": false,
+          "file": "assets/traits/Clothes/presidential.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 59786
+        },
+        {
+          "id": "perseverance",
+          "name": "Perseverance",
+          "onChain": "ecnarevesreP",
+          "count": 46,
+          "none": false,
+          "file": "assets/traits/Clothes/perseverance.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 44030
+        },
+        {
+          "id": "dog-tag",
+          "name": "Dog Tag",
+          "onChain": "gaT goD",
+          "count": 47,
+          "none": false,
+          "file": "assets/traits/Clothes/dog-tag.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 18862
+        },
+        {
+          "id": "embroidery",
+          "name": "Embroidery",
+          "onChain": "yrediorbmE",
+          "count": 52,
+          "none": false,
+          "file": "assets/traits/Clothes/embroidery.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 47467
+        }
+      ]
     },
-    {
-     "id": "diamond",
-     "name": "Diamond",
-     "onChain": "dnomaiD",
-     "count": 79,
-     "none": false
+    "mouth": {
+      "id": "mouth",
+      "label": "Mouth",
+      "folder": "Mouth",
+      "zIndex": 3,
+      "traits": [
+        {
+          "id": "bandana",
+          "name": "Bandana",
+          "onChain": "anadnaB",
+          "count": 23,
+          "none": false,
+          "file": "assets/traits/Mouth/bandana.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 24944
+        },
+        {
+          "id": "beard",
+          "name": "Beard",
+          "onChain": "draeB",
+          "count": 63,
+          "none": false,
+          "file": "assets/traits/Mouth/beard.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 16355
+        },
+        {
+          "id": "honeycomb",
+          "name": "Honeycomb",
+          "onChain": "bmocyenoH",
+          "count": 72,
+          "none": false,
+          "file": "assets/traits/Mouth/honeycomb.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 21149
+        },
+        {
+          "id": "diamond",
+          "name": "Diamond",
+          "onChain": "dnomaiD",
+          "count": 79,
+          "none": false,
+          "file": "assets/traits/Mouth/diamond.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 9554
+        },
+        {
+          "id": "pipe",
+          "name": "Pipe",
+          "onChain": "epiP",
+          "count": 97,
+          "none": false,
+          "file": "assets/traits/Mouth/pipe.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 8407
+        },
+        {
+          "id": "cigar",
+          "name": "Cigar",
+          "onChain": "ragiC",
+          "count": 115,
+          "none": false,
+          "file": "assets/traits/Mouth/cigar.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 9919
+        },
+        {
+          "id": "coin",
+          "name": "Coin",
+          "onChain": "nioC",
+          "count": 119,
+          "none": false,
+          "file": "assets/traits/Mouth/coin.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 6990
+        },
+        {
+          "id": "goofy",
+          "name": "Goofy",
+          "onChain": "yfooG",
+          "count": 139,
+          "none": false,
+          "file": "assets/traits/Mouth/goofy.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 6578
+        },
+        {
+          "id": "tongue",
+          "name": "Tongue",
+          "onChain": "eugnoT",
+          "count": 153,
+          "none": false,
+          "file": "assets/traits/Mouth/tongue.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 9621
+        },
+        {
+          "id": "sharp",
+          "name": "Sharp",
+          "onChain": "prahS",
+          "count": 158,
+          "none": false,
+          "file": "assets/traits/Mouth/sharp.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 9294
+        },
+        {
+          "id": "normal",
+          "name": "Normal",
+          "onChain": "lamroN",
+          "count": 202,
+          "none": false,
+          "baseline": true,
+          "file": null,
+          "quality": "baseline"
+        }
+      ]
     },
-    {
-     "id": "pipe",
-     "name": "Pipe",
-     "onChain": "epiP",
-     "count": 97,
-     "none": false
+    "eyes": {
+      "id": "eyes",
+      "label": "Eyes",
+      "folder": "Eyes",
+      "zIndex": 4,
+      "traits": [
+        {
+          "id": "light-rays",
+          "name": "Light Rays",
+          "onChain": "syaR thgiL",
+          "count": 23,
+          "none": false,
+          "file": "assets/traits/Eyes/light-rays.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 23579
+        },
+        {
+          "id": "sleeping-mask",
+          "name": "Sleeping Mask",
+          "onChain": "ksaM gnipeelS",
+          "count": 23,
+          "none": false,
+          "file": "assets/traits/Eyes/sleeping-mask.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 24273
+        },
+        {
+          "id": "redeye",
+          "name": "Redeye",
+          "onChain": "eyedeR",
+          "count": 24,
+          "none": false,
+          "file": "assets/traits/Eyes/redeye.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 14105
+        },
+        {
+          "id": "kaleidoscope",
+          "name": "Kaleidoscope",
+          "onChain": "epocsodielaK",
+          "count": 30,
+          "none": false,
+          "file": "assets/traits/Eyes/kaleidoscope.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 20074
+        },
+        {
+          "id": "vr",
+          "name": "VR",
+          "onChain": "RV",
+          "count": 31,
+          "none": false,
+          "file": "assets/traits/Eyes/vr.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 20362
+        },
+        {
+          "id": "trippy-eyes",
+          "name": "Trippy Eyes",
+          "onChain": "seyE yppirT",
+          "count": 32,
+          "none": false,
+          "file": "assets/traits/Eyes/trippy-eyes.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 15393
+        },
+        {
+          "id": "tears",
+          "name": "Tears",
+          "onChain": "sraeT",
+          "count": 34,
+          "none": false,
+          "file": "assets/traits/Eyes/tears.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 12279
+        },
+        {
+          "id": "visor",
+          "name": "Visor",
+          "onChain": "rosiV",
+          "count": 35,
+          "none": false,
+          "file": "assets/traits/Eyes/visor.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 20349
+        },
+        {
+          "id": "eyeglasses",
+          "name": "Eyeglasses",
+          "onChain": "sessalgeyE",
+          "count": 36,
+          "none": false,
+          "file": "assets/traits/Eyes/eyeglasses.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 19149
+        },
+        {
+          "id": "nuclear",
+          "name": "Nuclear",
+          "onChain": "raelcuN",
+          "count": 43,
+          "none": false,
+          "file": "assets/traits/Eyes/nuclear.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 19706
+        },
+        {
+          "id": "monocle",
+          "name": "Monocle",
+          "onChain": "elconoM",
+          "count": 47,
+          "none": false,
+          "file": "assets/traits/Eyes/monocle.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 11481
+        },
+        {
+          "id": "aviators",
+          "name": "Aviators",
+          "onChain": "srotaivA",
+          "count": 49,
+          "none": false,
+          "file": "assets/traits/Eyes/aviators.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 12501
+        },
+        {
+          "id": "clawed",
+          "name": "Clawed",
+          "onChain": "dewalC",
+          "count": 50,
+          "none": false,
+          "file": "assets/traits/Eyes/clawed.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 8287
+        },
+        {
+          "id": "neo",
+          "name": "Neo",
+          "onChain": "oeN",
+          "count": 52,
+          "none": false,
+          "file": "assets/traits/Eyes/neo.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 16327
+        },
+        {
+          "id": "moon-club",
+          "name": "Moon Club",
+          "onChain": "bulC nooM",
+          "count": 53,
+          "none": false,
+          "file": "assets/traits/Eyes/moon-club.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 22579
+        },
+        {
+          "id": "fire-eyes",
+          "name": "Fire Eyes",
+          "onChain": "seyE eriF",
+          "count": 56,
+          "none": false,
+          "file": "assets/traits/Eyes/fire-eyes.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 19885
+        },
+        {
+          "id": "lightning",
+          "name": "Lightning",
+          "onChain": "gninthgiL",
+          "count": 57,
+          "none": false,
+          "file": "assets/traits/Eyes/lightning.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 9444
+        },
+        {
+          "id": "star-eyes",
+          "name": "Star Eyes",
+          "onChain": "seyE ratS",
+          "count": 59,
+          "none": false,
+          "file": "assets/traits/Eyes/star-eyes.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 11779
+        },
+        {
+          "id": "happy-eyes",
+          "name": "Happy Eyes",
+          "onChain": "seyE yppaH",
+          "count": 60,
+          "none": false,
+          "file": "assets/traits/Eyes/happy-eyes.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 12075
+        },
+        {
+          "id": "side-eyes",
+          "name": "Side-Eyes",
+          "onChain": "seyE-ediS",
+          "count": 96,
+          "none": false,
+          "file": "assets/traits/Eyes/side-eyes.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 15195
+        },
+        {
+          "id": "laser-x-eyes",
+          "name": "Laser X-Eyes",
+          "onChain": "seyE-X resaL",
+          "count": 122,
+          "none": false,
+          "file": "assets/traits/Eyes/laser-x-eyes.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 3773
+        },
+        {
+          "id": "blue",
+          "name": "Blue",
+          "onChain": "eulB",
+          "count": 208,
+          "none": false,
+          "baseline": true,
+          "file": null,
+          "quality": "baseline"
+        }
+      ]
     },
-    {
-     "id": "cigar",
-     "name": "Cigar",
-     "onChain": "ragiC",
-     "count": 115,
-     "none": false
+    "headwear": {
+      "id": "headwear",
+      "label": "Headwear",
+      "folder": "Headwear",
+      "zIndex": 5,
+      "traits": [
+        {
+          "id": "peruke",
+          "name": "Peruke",
+          "onChain": "ekureP",
+          "count": 25,
+          "none": false,
+          "file": "assets/traits/Headwear/peruke.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 9816
+        },
+        {
+          "id": "trump",
+          "name": "Trump",
+          "onChain": "pmurT",
+          "count": 26,
+          "none": false,
+          "file": "assets/traits/Headwear/trump.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 10405
+        },
+        {
+          "id": "mardi-gras",
+          "name": "Mardi Gras",
+          "onChain": "sarG idraM",
+          "count": 28,
+          "none": false,
+          "file": "assets/traits/Headwear/mardi-gras.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 32639
+        },
+        {
+          "id": "ridpler",
+          "name": "Ridpler",
+          "onChain": "relpdiR",
+          "count": 28,
+          "none": false,
+          "file": "assets/traits/Headwear/ridpler.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 14949
+        },
+        {
+          "id": "chullo",
+          "name": "Chullo",
+          "onChain": "olluhC",
+          "count": 29,
+          "none": false,
+          "file": "assets/traits/Headwear/chullo.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 12228
+        },
+        {
+          "id": "chief",
+          "name": "Chief",
+          "onChain": "feihC",
+          "count": 30,
+          "none": false,
+          "file": "assets/traits/Headwear/chief.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 40477
+        },
+        {
+          "id": "flat-cap",
+          "name": "Flat Cap",
+          "onChain": "paC talF",
+          "count": 31,
+          "none": false,
+          "file": "assets/traits/Headwear/flat-cap.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 16687
+        },
+        {
+          "id": "rasta",
+          "name": "Rasta",
+          "onChain": "atsaR",
+          "count": 31,
+          "none": false,
+          "file": "assets/traits/Headwear/rasta.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 17703
+        },
+        {
+          "id": "sensei",
+          "name": "Sensei",
+          "onChain": "iesneS",
+          "count": 32,
+          "none": false,
+          "file": "assets/traits/Headwear/sensei.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 5880
+        },
+        {
+          "id": "flag",
+          "name": "Flag",
+          "onChain": "galF",
+          "count": 33,
+          "none": false,
+          "file": "assets/traits/Headwear/flag.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 6964
+        },
+        {
+          "id": "dark-maga",
+          "name": "Dark MAGA",
+          "onChain": "AGAM kraD",
+          "count": 34,
+          "none": false,
+          "file": "assets/traits/Headwear/dark-maga.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 15717
+        },
+        {
+          "id": "peaked-cap",
+          "name": "Peaked Cap",
+          "onChain": "paC dekaeP",
+          "count": 34,
+          "none": false,
+          "file": "assets/traits/Headwear/peaked-cap.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 19596
+        },
+        {
+          "id": "rough-rider",
+          "name": "Rough Rider",
+          "onChain": "rediR hguoR",
+          "count": 34,
+          "none": false,
+          "file": "assets/traits/Headwear/rough-rider.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 21014
+        },
+        {
+          "id": "tactical",
+          "name": "Tactical",
+          "onChain": "lacitcaT",
+          "count": 36,
+          "none": false,
+          "file": "assets/traits/Headwear/tactical.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 23201
+        },
+        {
+          "id": "fedora",
+          "name": "Fedora",
+          "onChain": "arodeF",
+          "count": 37,
+          "none": false,
+          "file": "assets/traits/Headwear/fedora.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 19374
+        },
+        {
+          "id": "warrior",
+          "name": "Warrior",
+          "onChain": "roirraW",
+          "count": 37,
+          "none": false,
+          "file": "assets/traits/Headwear/warrior.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 13859
+        },
+        {
+          "id": "eagle",
+          "name": "Eagle",
+          "onChain": "elgaE",
+          "count": 38,
+          "none": false,
+          "file": "assets/traits/Headwear/eagle.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 17215
+        },
+        {
+          "id": "mindblown",
+          "name": "Mindblown",
+          "onChain": "nwolbdniM",
+          "count": 39,
+          "none": false,
+          "file": "assets/traits/Headwear/mindblown.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 31501
+        },
+        {
+          "id": "saiyan",
+          "name": "Saiyan",
+          "onChain": "nayiaS",
+          "count": 39,
+          "none": false,
+          "file": "assets/traits/Headwear/saiyan.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 36205
+        },
+        {
+          "id": "dragon",
+          "name": "Dragon",
+          "onChain": "nogarD",
+          "count": 41,
+          "none": false,
+          "file": "assets/traits/Headwear/dragon.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 23899
+        },
+        {
+          "id": "hard-hat",
+          "name": "Hard Hat",
+          "onChain": "taH draH",
+          "count": 41,
+          "none": false,
+          "file": "assets/traits/Headwear/hard-hat.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 17698
+        },
+        {
+          "id": "lock-in-helmet",
+          "name": "Lock In Helmet",
+          "onChain": "temleH nI kcoL",
+          "count": 41,
+          "none": false,
+          "file": "assets/traits/Headwear/lock-in-helmet.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 18403
+        },
+        {
+          "id": "paper-hat",
+          "name": "Paper Hat",
+          "onChain": "taH repaP",
+          "count": 43,
+          "none": false,
+          "file": "assets/traits/Headwear/paper-hat.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 12223
+        },
+        {
+          "id": "patrol-cap",
+          "name": "Patrol Cap",
+          "onChain": "paC lortaP",
+          "count": 44,
+          "none": false,
+          "file": "assets/traits/Headwear/patrol-cap.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 15666
+        },
+        {
+          "id": "chocolatier",
+          "name": "Chocolatier",
+          "onChain": "reitalocohC",
+          "count": 45,
+          "none": false,
+          "file": "assets/traits/Headwear/chocolatier.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 18873
+        },
+        {
+          "id": "firefighter",
+          "name": "Firefighter",
+          "onChain": "rethgiferiF",
+          "count": 45,
+          "none": false,
+          "file": "assets/traits/Headwear/firefighter.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 25817
+        },
+        {
+          "id": "kabuto",
+          "name": "Kabuto",
+          "onChain": "otubaK",
+          "count": 46,
+          "none": false,
+          "file": "assets/traits/Headwear/kabuto.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 27325
+        },
+        {
+          "id": "shroom",
+          "name": "Shroom",
+          "onChain": "moorhS",
+          "count": 46,
+          "none": false,
+          "file": "assets/traits/Headwear/shroom.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 32488
+        },
+        {
+          "id": "bucket-hat",
+          "name": "Bucket Hat",
+          "onChain": "taH tekcuB",
+          "count": 48,
+          "none": false,
+          "file": "assets/traits/Headwear/bucket-hat.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 17077
+        },
+        {
+          "id": "western",
+          "name": "Western",
+          "onChain": "nretseW",
+          "count": 48,
+          "none": false,
+          "file": "assets/traits/Headwear/western.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 30398
+        },
+        {
+          "id": "golf-club",
+          "name": "Golf Club",
+          "onChain": "bulC floG",
+          "count": 50,
+          "none": false,
+          "file": "assets/traits/Headwear/golf-club.webp",
+          "quality": "approx",
+          "derivedFrom": 12,
+          "opaque": 17800
+        },
+        {
+          "id": "none",
+          "name": "None",
+          "onChain": null,
+          "count": 61,
+          "none": true,
+          "baseline": true,
+          "file": null,
+          "quality": "baseline"
+        }
+      ]
     },
-    {
-     "id": "coin",
-     "name": "Coin",
-     "onChain": "nioC",
-     "count": 119,
-     "none": false
-    },
-    {
-     "id": "goofy",
-     "name": "Goofy",
-     "onChain": "yfooG",
-     "count": 139,
-     "none": false
-    },
-    {
-     "id": "tongue",
-     "name": "Tongue",
-     "onChain": "eugnoT",
-     "count": 153,
-     "none": false
-    },
-    {
-     "id": "sharp",
-     "name": "Sharp",
-     "onChain": "prahS",
-     "count": 158,
-     "none": false
-    },
-    {
-     "id": "normal",
-     "name": "Normal",
-     "onChain": "lamroN",
-     "count": 202,
-     "none": false
+    "mask": {
+      "id": "mask",
+      "label": "Mask",
+      "folder": "Mask",
+      "zIndex": 6,
+      "traits": [
+        {
+          "id": "mardi-gras-mask",
+          "name": "Mardi Gras Mask",
+          "onChain": "ksaM sarG idraM",
+          "count": 21,
+          "none": false,
+          "file": "assets/traits/Mask/mardi-gras-mask.webp",
+          "quality": "approx",
+          "derivedFrom": 15,
+          "opaque": 11142
+        },
+        {
+          "id": "diamond-mask",
+          "name": "Diamond Mask",
+          "onChain": "ksaM dnomaiD",
+          "count": 50,
+          "none": false,
+          "file": "assets/traits/Mask/diamond-mask.webp",
+          "quality": "approx",
+          "derivedFrom": 15,
+          "opaque": 10920
+        },
+        {
+          "id": "gold-mask",
+          "name": "Gold Mask",
+          "onChain": "ksaM dloG",
+          "count": 100,
+          "none": false,
+          "file": "assets/traits/Mask/gold-mask.webp",
+          "quality": "approx",
+          "derivedFrom": 15,
+          "opaque": 22166
+        },
+        {
+          "id": "none",
+          "name": "None",
+          "onChain": null,
+          "count": 1049,
+          "none": true,
+          "baseline": true,
+          "file": null,
+          "quality": "baseline"
+        }
+      ]
     }
-   ]
-  },
-  "eyes": {
-   "id": "eyes",
-   "label": "Eyes",
-   "zIndex": 4,
-   "traits": [
-    {
-     "id": "light-rays",
-     "name": "Light Rays",
-     "onChain": "syaR thgiL",
-     "count": 23,
-     "none": false
-    },
-    {
-     "id": "sleeping-mask",
-     "name": "Sleeping Mask",
-     "onChain": "ksaM gnipeelS",
-     "count": 23,
-     "none": false
-    },
-    {
-     "id": "redeye",
-     "name": "Redeye",
-     "onChain": "eyedeR",
-     "count": 24,
-     "none": false
-    },
-    {
-     "id": "kaleidoscope",
-     "name": "Kaleidoscope",
-     "onChain": "epocsodielaK",
-     "count": 30,
-     "none": false
-    },
-    {
-     "id": "vr",
-     "name": "VR",
-     "onChain": "RV",
-     "count": 31,
-     "none": false
-    },
-    {
-     "id": "trippy-eyes",
-     "name": "Trippy Eyes",
-     "onChain": "seyE yppirT",
-     "count": 32,
-     "none": false
-    },
-    {
-     "id": "tears",
-     "name": "Tears",
-     "onChain": "sraeT",
-     "count": 34,
-     "none": false
-    },
-    {
-     "id": "visor",
-     "name": "Visor",
-     "onChain": "rosiV",
-     "count": 35,
-     "none": false
-    },
-    {
-     "id": "eyeglasses",
-     "name": "Eyeglasses",
-     "onChain": "sessalgeyE",
-     "count": 36,
-     "none": false
-    },
-    {
-     "id": "nuclear",
-     "name": "Nuclear",
-     "onChain": "raelcuN",
-     "count": 43,
-     "none": false
-    },
-    {
-     "id": "monocle",
-     "name": "Monocle",
-     "onChain": "elconoM",
-     "count": 47,
-     "none": false
-    },
-    {
-     "id": "aviators",
-     "name": "Aviators",
-     "onChain": "srotaivA",
-     "count": 49,
-     "none": false
-    },
-    {
-     "id": "clawed",
-     "name": "Clawed",
-     "onChain": "dewalC",
-     "count": 50,
-     "none": false
-    },
-    {
-     "id": "neo",
-     "name": "Neo",
-     "onChain": "oeN",
-     "count": 52,
-     "none": false
-    },
-    {
-     "id": "moon-club",
-     "name": "Moon Club",
-     "onChain": "bulC nooM",
-     "count": 53,
-     "none": false
-    },
-    {
-     "id": "fire-eyes",
-     "name": "Fire Eyes",
-     "onChain": "seyE eriF",
-     "count": 56,
-     "none": false
-    },
-    {
-     "id": "lightning",
-     "name": "Lightning",
-     "onChain": "gninthgiL",
-     "count": 57,
-     "none": false
-    },
-    {
-     "id": "star-eyes",
-     "name": "Star Eyes",
-     "onChain": "seyE ratS",
-     "count": 59,
-     "none": false
-    },
-    {
-     "id": "happy-eyes",
-     "name": "Happy Eyes",
-     "onChain": "seyE yppaH",
-     "count": 60,
-     "none": false
-    },
-    {
-     "id": "side-eyes",
-     "name": "Side-Eyes",
-     "onChain": "seyE-ediS",
-     "count": 96,
-     "none": false
-    },
-    {
-     "id": "laser-x-eyes",
-     "name": "Laser X-Eyes",
-     "onChain": "seyE-X resaL",
-     "count": 122,
-     "none": false
-    },
-    {
-     "id": "blue",
-     "name": "Blue",
-     "onChain": "eulB",
-     "count": 208,
-     "none": false
-    }
-   ]
-  },
-  "headwear": {
-   "id": "headwear",
-   "label": "Headwear",
-   "zIndex": 5,
-   "traits": [
-    {
-     "id": "peruke",
-     "name": "Peruke",
-     "onChain": "ekureP",
-     "count": 25,
-     "none": false
-    },
-    {
-     "id": "trump",
-     "name": "Trump",
-     "onChain": "pmurT",
-     "count": 26,
-     "none": false
-    },
-    {
-     "id": "mardi-gras",
-     "name": "Mardi Gras",
-     "onChain": "sarG idraM",
-     "count": 28,
-     "none": false
-    },
-    {
-     "id": "ridpler",
-     "name": "Ridpler",
-     "onChain": "relpdiR",
-     "count": 28,
-     "none": false
-    },
-    {
-     "id": "chullo",
-     "name": "Chullo",
-     "onChain": "olluhC",
-     "count": 29,
-     "none": false
-    },
-    {
-     "id": "chief",
-     "name": "Chief",
-     "onChain": "feihC",
-     "count": 30,
-     "none": false
-    },
-    {
-     "id": "flat-cap",
-     "name": "Flat Cap",
-     "onChain": "paC talF",
-     "count": 31,
-     "none": false
-    },
-    {
-     "id": "rasta",
-     "name": "Rasta",
-     "onChain": "atsaR",
-     "count": 31,
-     "none": false
-    },
-    {
-     "id": "sensei",
-     "name": "Sensei",
-     "onChain": "iesneS",
-     "count": 32,
-     "none": false
-    },
-    {
-     "id": "flag",
-     "name": "Flag",
-     "onChain": "galF",
-     "count": 33,
-     "none": false
-    },
-    {
-     "id": "dark-maga",
-     "name": "Dark MAGA",
-     "onChain": "AGAM kraD",
-     "count": 34,
-     "none": false
-    },
-    {
-     "id": "peaked-cap",
-     "name": "Peaked Cap",
-     "onChain": "paC dekaeP",
-     "count": 34,
-     "none": false
-    },
-    {
-     "id": "rough-rider",
-     "name": "Rough Rider",
-     "onChain": "rediR hguoR",
-     "count": 34,
-     "none": false
-    },
-    {
-     "id": "tactical",
-     "name": "Tactical",
-     "onChain": "lacitcaT",
-     "count": 36,
-     "none": false
-    },
-    {
-     "id": "fedora",
-     "name": "Fedora",
-     "onChain": "arodeF",
-     "count": 37,
-     "none": false
-    },
-    {
-     "id": "warrior",
-     "name": "Warrior",
-     "onChain": "roirraW",
-     "count": 37,
-     "none": false
-    },
-    {
-     "id": "eagle",
-     "name": "Eagle",
-     "onChain": "elgaE",
-     "count": 38,
-     "none": false
-    },
-    {
-     "id": "mindblown",
-     "name": "Mindblown",
-     "onChain": "nwolbdniM",
-     "count": 39,
-     "none": false
-    },
-    {
-     "id": "saiyan",
-     "name": "Saiyan",
-     "onChain": "nayiaS",
-     "count": 39,
-     "none": false
-    },
-    {
-     "id": "dragon",
-     "name": "Dragon",
-     "onChain": "nogarD",
-     "count": 41,
-     "none": false
-    },
-    {
-     "id": "hard-hat",
-     "name": "Hard Hat",
-     "onChain": "taH draH",
-     "count": 41,
-     "none": false
-    },
-    {
-     "id": "lock-in-helmet",
-     "name": "Lock In Helmet",
-     "onChain": "temleH nI kcoL",
-     "count": 41,
-     "none": false
-    },
-    {
-     "id": "paper-hat",
-     "name": "Paper Hat",
-     "onChain": "taH repaP",
-     "count": 43,
-     "none": false
-    },
-    {
-     "id": "patrol-cap",
-     "name": "Patrol Cap",
-     "onChain": "paC lortaP",
-     "count": 44,
-     "none": false
-    },
-    {
-     "id": "chocolatier",
-     "name": "Chocolatier",
-     "onChain": "reitalocohC",
-     "count": 45,
-     "none": false
-    },
-    {
-     "id": "firefighter",
-     "name": "Firefighter",
-     "onChain": "rethgiferiF",
-     "count": 45,
-     "none": false
-    },
-    {
-     "id": "kabuto",
-     "name": "Kabuto",
-     "onChain": "otubaK",
-     "count": 46,
-     "none": false
-    },
-    {
-     "id": "shroom",
-     "name": "Shroom",
-     "onChain": "moorhS",
-     "count": 46,
-     "none": false
-    },
-    {
-     "id": "bucket-hat",
-     "name": "Bucket Hat",
-     "onChain": "taH tekcuB",
-     "count": 48,
-     "none": false
-    },
-    {
-     "id": "western",
-     "name": "Western",
-     "onChain": "nretseW",
-     "count": 48,
-     "none": false
-    },
-    {
-     "id": "golf-club",
-     "name": "Golf Club",
-     "onChain": "bulC floG",
-     "count": 50,
-     "none": false
-    },
-    {
-     "id": "none",
-     "name": "None",
-     "onChain": null,
-     "count": 61,
-     "none": true
-    }
-   ]
-  },
-  "mask": {
-   "id": "mask",
-   "label": "Mask",
-   "zIndex": 6,
-   "traits": [
-    {
-     "id": "mardi-gras-mask",
-     "name": "Mardi Gras Mask",
-     "onChain": "ksaM sarG idraM",
-     "count": 21,
-     "none": false
-    },
-    {
-     "id": "diamond-mask",
-     "name": "Diamond Mask",
-     "onChain": "ksaM dnomaiD",
-     "count": 50,
-     "none": false
-    },
-    {
-     "id": "gold-mask",
-     "name": "Gold Mask",
-     "onChain": "ksaM dloG",
-     "count": 100,
-     "none": false
-    },
-    {
-     "id": "none",
-     "name": "None",
-     "onChain": null,
-     "count": 1049,
-     "none": true
-    }
-   ]
   }
- }
 }

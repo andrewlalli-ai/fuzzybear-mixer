@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Mix & match Fuzzybear / raebyzzuF NFT traits — fun custom looks" />
+  <meta name="description" content="Mix Fuzzybear / raebyzzuF traits by stacking trait image files" />
   <title>raebyzzuF Trait Mixer · Fuzzybear</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
   <div class="app">
-    <div class="app-title"><strong>raebyzzuF</strong> · Fuzzybear Mixer</div>
+    <div class="app-title"><strong>raebyzzuF</strong> · Trait Mixer</div>
 
     <div class="top-bar">
       <div class="search-wrap">
@@ -32,49 +32,38 @@
       <div id="arrows-left" class="arrow-col" aria-label="Previous trait controls"></div>
 
       <div class="preview-wrap">
-        <div class="frame arch" aria-label="NFT preview">
+        <div class="frame arch" aria-label="Trait stack preview">
           <canvas id="preview-canvas" width="512" height="512"></canvas>
           <div id="arch-loading" class="arch-loading frame-loading"></div>
           <div id="arch-placeholder" class="arch-placeholder frame-placeholder">NFT</div>
         </div>
-        <div class="match-nav">
-          <button id="match-prev" class="match-btn" type="button" title="Previous matching bear ([)" aria-label="Previous matching bear">‹</button>
-          <div id="match-badge" class="match-badge" aria-live="polite">Loading…</div>
-          <button id="match-next" class="match-btn" type="button" title="Next matching bear (])" aria-label="Next matching bear">›</button>
-        </div>
+        <div id="status-badge" class="status-badge" aria-live="polite">Loading…</div>
         <div id="trait-strip" class="trait-strip" aria-live="polite"></div>
       </div>
 
       <div id="arrows-right" class="arrow-col" aria-label="Next trait controls"></div>
     </div>
 
-    <div class="matches">
-      <div id="match-title" class="matches-title">Real bears</div>
-      <div id="match-strip" class="match-strip"></div>
-    </div>
-
     <div class="actions">
       <button id="btn-upload" class="btn" type="button" title="Upload a custom trait image">＋ Custom</button>
-      <button id="btn-reset" class="btn" type="button" title="Set every trait to Any and browse the whole collection">Any</button>
+      <button id="btn-reset" class="btn" type="button" title="Reset every category to its first trait">Reset</button>
       <button id="btn-export" class="btn btn-primary" type="button" title="Download composed PNG">↓ PNG</button>
     </div>
 
     <p class="footer-note">
-      Real <strong>sraebyzzuF</strong> artwork (<span id="bear-count">…</span> bears).
-      Each ←/→ cycles <em>only</em> that trait (rare→common). 
-      <strong>Background</strong> = true layer ·
-      <strong>Clothes / Eyes / Mouth / Headwear / Mask</strong> = approx overlays ·
-      <strong>Fur</strong> = same-fur body (overlays kept).<br />
-      Fan demo · not affiliated with Fuzzybear · art © its creators.
+      Stacks <strong id="trait-file-count">…</strong> trait files from disk
+      (<span id="cat-summary">…</span>).
+      Each ←/→ cycles <em>only</em> that category (rare→common).
+      Preview = Background → Fur → Clothes → Mouth → Eyes → Headwear → Mask.<br />
+      Fan demo · not affiliated with Fuzzybear · art © its creators · plates are derived / approximate.
     </p>
   </div>
 
-  <!-- Upload modal -->
   <div id="upload-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="upload-title">
     <div class="modal">
       <h2 id="upload-title">Add custom trait</h2>
       <p style="font-size:12px;color:#888;margin-bottom:8px">
-        Upload a transparent PNG/SVG (square works best). It is drawn as an overlay on top of the real bear and joins that category’s cycle and search.
+        Upload a transparent PNG/WebP (square 512×512 works best). It joins that category’s cycle and is drawn as a layer in the stack.
       </p>
       <label for="upload-category">Category</label>
       <select id="upload-category"></select>
