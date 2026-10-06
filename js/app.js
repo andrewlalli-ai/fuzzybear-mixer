@@ -1,11 +1,15 @@
 /**
- * Fuzzybear / raebyzzuF Trait Mixer — LAYER remix edition.
+ * Fuzzybear / raebyzzuF Trait Mixer — independent LAYER remix edition.
  *
  * Official separable trait PNGs were never published.
  * - Background: solid/pattern plates + chroma-key cutout (true layer).
  * - Mask / Headwear / Clothes / Eyes / Mouth: approx overlay plates derived
  *   from consensus composite diffs (honest "approx" in UI).
- * - Fur: nearest-match body (whole-body recolor — not an overlay).
+ * - Fur: same-fur body swap that preserves every other category selection
+ *   (whole-body recolor — not an overlay; patterned furs cannot be hue-mapped).
+ *
+ * Independence: each ←/→ arrow mutates ONLY that category's selection.
+ * Cycle order per category: most rare → least rare (ascending trait count).
  */
 (() => {
   "use strict";
@@ -147,8 +151,14 @@
   }
 
   // ---------- traits ----------
+  /** Traits for a category: Any, then rare→common (ascending count), then customs. */
   function getTraits(catId) {
-    const base = manifest.categories[catId]?.traits || [];
+    const base = [...(manifest.categories[catId]?.traits || [])].sort((a, b) => {
+      const ca = a.count ?? 1e9;
+      const cb = b.count ?? 1e9;
+      if (ca !== cb) return ca - cb; // most rare first
+      return String(a.name || a.id).localeCompare(String(b.name || b.id));
+    });
     const extras = customTraits.filter((c) => c.categoryId === catId)
       .map((c) => ({ id: c.id, name: c.name, custom: true, img: c.img }));
     return [ANY, ...base, ...extras];
@@ -191,22 +201,105 @@
     const traits = getTraits(catId);
     let i = selection[catId] ?? 0;
     do { i = (i + dir + traits.length) % traits.length; } while (traits[i].any && traits.length > 1);
+    // Independence: mutate ONLY this category's selection index.
     selection[catId] = i;
     lastCat = catId;
     highlightFocus(catId);
-    if (LAYER_CATEGORIES.includes(catId)) {
+
+    if (catId === "fur") {
+      cycleFur();
+    } else if (LAYER_CATEGORIES.includes(catId)) {
       cycleLayer(catId);
     } else {
       update();
     }
   }
 
-  /** Layer remix: keep body stable; swap plate/overlay. */
+  /**
+   * Pick a body bear for the current Fur selection without mutating any
+   * other category selections. Prefers natives that match active overlay
+   * selections (or baselines so plates apply cleanly).
+   */
+  function pickBodyBear(preferEdition) {
+    const furT = getSelectedTrait("fur");
+    let pool = bears;
+    if (!furT.any && !furT.custom) {
+      const filtered = bears.filter((b) => b.traits.fur === furT.id);
+      if (filtered.length) pool = filtered;
+    }
+
+    const scored = pool.map((bear) => {
+      let score = 0;
+      for (const c of OVERLAY_CATS) {
+        const t = getSelectedTrait(c);
+        const baseline = overlayBaseline(c);
+        if (t.any || t.custom) {
+          if (bear.traits[c] === baseline) score += 0.25;
+          continue;
+        }
+        if (t.id === baseline) {
+          if (bear.traits[c] === baseline) score += 3;
+        } else if (hasOverlayPlate(c, t.id)) {
+          if (bear.traits[c] === baseline) score += 2.5;
+          else if (bear.traits[c] === t.id) score += 2;
+        } else if (bear.traits[c] === t.id) {
+          score += 3;
+        }
+      }
+      const bgT = getSelectedTrait("background");
+      if (!bgT.any && !bgT.custom && bear.traits.background === bgT.id) score += 0.15;
+      if (cachedSet.has(bear.edition)) score += 0.4;
+      if (preferEdition != null && bear.edition === preferEdition) score += 100;
+      if (currentBear && bear.edition === currentBear.edition) score += 0.5;
+      return { bear, score };
+    });
+    scored.sort((a, b) => b.score - a.score
+      || (cachedSet.has(b.bear.edition) - cachedSet.has(a.bear.edition))
+      || a.bear.edition - b.bear.edition);
+    return scored[0]?.bear || currentBear || bears[0];
+  }
+
+  /** Refresh match strip for current selections; optionally pin a body edition. */
+  function refreshMatches(preferEdition) {
+    matches = computeMatches();
+    matchPos = 0;
+    if (preferEdition != null) {
+      const i = matches.findIndex((m) => m.bear.edition === preferEdition);
+      if (i >= 0) matchPos = i;
+    }
+    renderMatchStrip();
+  }
+
+  /**
+   * Fur remix: swap to a same-fur body only. Never writes other selections.
+   * Overlay / background plates stay applied on top of the new cutout.
+   */
+  function cycleFur() {
+    const t = getSelectedTrait("fur");
+    const label = manifest.categories.fur.label;
+    const body = pickBodyBear();
+    currentBear = body;
+    refreshMatches(body.edition);
+    showMatch({ keepBear: true });
+    const n = (!t.any && !t.custom)
+      ? bears.filter((b) => b.traits.fur === t.id).length
+      : bears.length;
+    toast(`${label} → ${t.name} (body · ${n} · overlays kept)`);
+  }
+
+  /**
+   * Overlay / background remix: keep the current body bear stable.
+   * Never mutates other category selections. Only swaps the plate for this cat.
+   * If selecting a baseline (or a plate that needs a clean base) and the current
+   * body has a conflicting native trait, try a same-fur body that fits — still
+   * without changing any selection[].
+   */
   function cycleLayer(catId) {
     const t = getSelectedTrait(catId);
     const label = manifest.categories[catId].label;
 
     if (catId === "background") {
+      refreshMatches(currentBear?.edition);
       updateBadgeForLayer();
       updateTraitStrip(matches[matchPos] || { bear: currentBear, exact: false, wanted: 1, hits: 0 });
       showMatch({ keepBear: true });
@@ -214,31 +307,31 @@
       return;
     }
 
-    // Overlay category: prefer a baseline-trait base so the body does not jump.
     if (OVERLAY_CATS.includes(catId)) {
       const baseline = overlayBaseline(catId);
-      const needsBaselineBase = (() => {
-        if (!currentBear) return true;
-        if (t.any) return false;
-        if (t.custom) return false;
-        // Selecting baseline (e.g. none / blue / normal): want a base that already has it.
-        if (t.id === baseline) return currentBear.traits[catId] !== baseline;
-        // Selecting a plate trait: overlay looks best on a baseline base.
-        if (hasOverlayPlate(catId, t.id)) return currentBear.traits[catId] !== baseline;
-        // No plate → fall through to body match via update()
-        return true;
-      })();
-
-      if (needsBaselineBase) {
-        update();
-        toast(`${label} → ${t.name} (approx · stable body)`);
-        return;
+      // Same-fur body tweak only when needed for visual cleanliness — selections untouched.
+      if (!t.any && !t.custom && currentBear) {
+        const needsClean = (t.id === baseline || hasOverlayPlate(catId, t.id))
+          && currentBear.traits[catId] !== baseline
+          && currentBear.traits[catId] !== t.id;
+        if (needsClean) {
+          // Do NOT prefer current edition — we specifically want a cleaner same-fur body.
+          const better = pickBodyBear(null);
+          const furT = getSelectedTrait("fur");
+          const furOk = furT.any || furT.custom || better.traits.fur === furT.id
+            || better.traits.fur === currentBear.traits.fur;
+          if (furOk && better.edition !== currentBear.edition
+              && better.traits[catId] === baseline) {
+            currentBear = better;
+          }
+        }
       }
 
+      refreshMatches(currentBear?.edition);
       updateBadgeForLayer();
       updateTraitStrip(matches[matchPos] || { bear: currentBear, exact: false, wanted: 1, hits: 0 });
       showMatch({ keepBear: true });
-      const approx = t.id !== baseline && hasOverlayPlate(catId, t.id);
+      const approx = !t.any && !t.custom && t.id !== baseline && hasOverlayPlate(catId, t.id);
       toast(`${label} → ${t.name}${approx ? " (approx layer)" : ""}`);
       return;
     }
@@ -277,7 +370,7 @@
     update(bear.edition);
   }
 
-  // ---------- matching (fur drives body; overlay cats prefer baselines) ----------
+  // ---------- matching (fur drives body; overlays are soft — never mutate selections) ----------
   function computeMatches() {
     const want = {};
     let wanted = 0;
@@ -285,13 +378,14 @@
       const t = getSelectedTrait(c);
       if (!t.any && !t.custom) { want[c] = t.id; wanted++; }
     }
-    // Overlay cats without a usable plate still drive body matching.
+    // Overlay cats are independent layers. Only hard-match when no plate exists
+    // (should be rare — plates cover the published catalog).
     for (const c of OVERLAY_CATS) {
       const t = getSelectedTrait(c);
       if (t.any || t.custom) continue;
       const baseline = overlayBaseline(c);
-      if (t.id === baseline) continue; // prefer baseline via soft score below
-      if (hasOverlayPlate(c, t.id)) continue; // plate handles it
+      if (t.id === baseline) continue;
+      if (hasOverlayPlate(c, t.id)) continue;
       want[c] = t.id;
       wanted++;
     }
@@ -722,11 +816,11 @@
       }
       row.innerHTML = `<span class="label">${manifest.categories[catId].label}</span><span class="value">${val}</span>`;
       row.title = catId === "background"
-        ? "Background is a true layer — cycling keeps this bear and swaps only the backdrop"
+        ? "Background layer — ←/→ swaps only this trait; other categories stay put"
         : isApprox
-          ? `${manifest.categories[catId].label} uses an approximate derived overlay plate — cycling prefers a stable base body`
+          ? `${manifest.categories[catId].label} approx overlay — ←/→ swaps only this trait (rare→common)`
           : catId === "fur"
-            ? "Fur nearest-matches a minted body (whole-body recolor — not an overlay)"
+            ? "Fur swaps the body to the same-fur mint that best keeps your other selections (not an overlay)"
             : "Double-click to set this category to Any (wildcard)";
       row.addEventListener("click", () => { highlightFocus(catId); });
       row.addEventListener("dblclick", () => { selection[catId] = 0; update(); });
@@ -740,7 +834,7 @@
       const b = document.createElement("button");
       b.type = "button";
       b.className = "thumb" + (m.exact ? "" : " near");
-      b.title = `${m.bear.name}${m.wanted ? ` · body ${m.hits}/${m.wanted}` : ""} — click to load body (keeps layer selections)`;
+      b.title = `${m.bear.name}${m.wanted ? ` · body ${m.hits}/${m.wanted}` : ""} — click to load this body (keeps Background + overlay selections)`;
       const img = document.createElement("img");
       img.loading = "lazy";
       img.alt = m.bear.name;
@@ -897,7 +991,12 @@
       item.innerHTML = `<span>${hl}${hit.trait?.custom ? " ✦" : ""}${extra}</span><span class="cat">${escapeHtml(hit.label)}${layerTag}</span>`;
       item.addEventListener("click", () => {
         if (hit.kind === "bear") adoptBear(hit.bear);
-        else if (LAYER_CATEGORIES.includes(hit.catId)) {
+        else if (hit.catId === "fur") {
+          selection[hit.catId] = hit.idx;
+          lastCat = hit.catId;
+          highlightFocus(hit.catId);
+          cycleFur();
+        } else if (LAYER_CATEGORIES.includes(hit.catId)) {
           selection[hit.catId] = hit.idx;
           lastCat = hit.catId;
           highlightFocus(hit.catId);

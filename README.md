@@ -48,7 +48,9 @@ already under `assets/bears/`.
 | PNG export of the shown real bear (+ overlays) | ✅ (same-origin cache recommended) |
 | Background as true layer (chroma-key cutout) | ✅ plates in `assets/backgrounds/` |
 | Mask / Headwear / Clothes / Eyes / Mouth approx overlays | ✅ derived plates in `assets/overlays/` |
-| Fur as separable layer | ❌ whole-body recolor — nearest-match body |
+| Independent ←/→ per category (no cross-mutation) | ✅ selection state isolated |
+| Cycle order rare → common (by trait count) | ✅ from traits-manifest counts |
+| Fur as separable layer | ❌ same-fur body swap that keeps other selections |
 
 ## Approach (research summary)
 
@@ -74,18 +76,22 @@ already under `assets/bears/`.
 
 ## How matching / layers work
 
-1. Pick a value per category (or leave **Any**).
-2. **Background ←/→** swaps only the backdrop plate under a chroma-keyed cutout of
-   the current base bear — the character does **not** jump to another NFT.
-3. **Clothes / Eyes / Mouth / Headwear / Mask ←/→** apply approximate derived
-   overlay plates and prefer a stable baseline base (e.g. none headwear, blue
-   eyes, normal mouth, none mask) so the body stays put (UI tags them **approx**).
-4. **Fur** finds minted bears by body fingerprint. Exact fur hits → green
-   “✓ Minted”; else amber nearest.
-5. When Background or any approx overlay differs from the base → “◈ Layer remix”.
-6. Thumbnails + ‹ › cycle base bears (layer selections are kept).
-7. **＋ Custom** — Background + overlay-cat uploads become plates; Fur is a body overlay.
-8. Regenerate: `python3 scripts/build_backgrounds.py` · `python3 scripts/build_overlays.py`
+1. Pick a value per category (or leave **Any**). Trait ←/→ order is **most rare →
+   least rare** (ascending `count` from `traits-manifest.json`).
+2. **Independence:** each category arrow mutates **only** that category’s selection.
+   Cycling Eyes never writes Fur/Clothes/etc. (and vice versa).
+3. **Background ←/→** swaps only the backdrop plate under a chroma-keyed cutout —
+   the body bear stays put.
+4. **Clothes / Eyes / Mouth / Headwear / Mask ←/→** apply approximate derived
+   overlay plates on the current body (UI tags them **approx**). Body may nudge to
+   a same-fur mint with a cleaner baseline native, but other selections are untouched.
+5. **Fur ←/→** picks another minted body with that fur that best preserves your
+   other selected overlays (patterned furs can’t be hue-mapped, so this is a body
+   swap — not a recolor shader). Overlay + background plates stay applied.
+6. When Background or any approx overlay differs from the base → “◈ Layer remix”.
+7. Thumbnails + ‹ › cycle base bears (Background + overlay selections are kept).
+8. **＋ Custom** — Background + overlay-cat uploads become plates; Fur is a body overlay.
+9. Regenerate: `python3 scripts/build_backgrounds.py` · `python3 scripts/build_overlays.py`
 
 ## Regenerating data
 
