@@ -46,7 +46,8 @@ already under `assets/bears/`.
 | `?` randomize (real bear *or* random mix) | ✅ |
 | Custom upload overlay | ✅ |
 | PNG export of the shown real bear (+ overlays) | ✅ (same-origin cache recommended) |
-| Separable trait layer sheets | ❌ not published by the project |
+| Background as true layer (chroma-key cutout) | ✅ plates in `assets/backgrounds/` |
+| Separable body trait sheets | ❌ not published — body uses nearest minted composite |
 
 ## Approach (research summary)
 
@@ -59,22 +60,27 @@ already under `assets/bears/`.
 - **APIs used:** XRPL Clio `nfts_by_issuer` (Ripple public nodes) + public IPFS
   gateways (filebase / pinata / dweb). Marketplace UIs (bithomp, xrp.cafe)
   only expose the same metadata.
-- **Layers:** no open trait sheet found. Composites only → **Option C**.
+- **Layers:** no open trait sheet found. **Background** is remixed as a real layer
+  (extracted/approximated plates + chroma-key cutout of the base bear). Other
+  categories still nearest-match a minted composite (background ignored in scoring).
 - **Licensing / ToS:** [fuzzyxrp.com/terms-of-use](https://fuzzyxrp.com/terms-of-use)
   covers the $FUZZY token site; there is **no published NFT remix / commercial-use
   license**. This app is a fan demo that uses publicly linked IPFS metadata and
   optionally caches WebPs for static hosting. Do not use commercially without
   rights from the creators. 3% transfer fee on-chain.
 
-## How matching works
+## How matching / layers work
 
 1. Pick a value per category (or leave **Any**).
-2. Exact fingerprint hits → green “✓ Minted” and every matching real bear.
-3. No exact mint → amber “✗ Not minted” with the closest real bear(s)
-   (weighted: fur / headwear / eyes preferred; the category you just changed
-   is heavily preferred so cycling always “does something”).
-4. Thumbnails + ‹ › cycle matches. Click a near-match to adopt all of its traits.
-5. **＋ Custom** draws your PNG as an overlay on top of the real bear.
+2. **Background ←/→** swaps only the backdrop plate under a chroma-keyed cutout of
+   the current base bear — the character does **not** jump to another NFT.
+3. Other traits (Fur, Clothes, …) find minted bears by **body** fingerprint
+   (background ignored). Exact body hits → green “✓ Minted”; else amber closest.
+4. When Background differs from the base bear’s native bg → blue “◈ Layer remix”.
+5. Thumbnails + ‹ › cycle base bears (your Background layer is kept). Click a thumb
+   to load its body traits while keeping your selected Background.
+6. **＋ Custom** — Background uploads become plates; other categories are overlays.
+7. Regenerate plates: `python3 scripts/build_backgrounds.py`
 
 ## Regenerating data
 
@@ -96,6 +102,8 @@ fuzzybear-mixer/
   data/bears.json           # 1220 bears: edition, traits, IPFS image, nftId
   data/meta-cache/          # raw IPFS metadata JSON (rebuild input)
   assets/bears/*.webp       # 512px cached composites for static hosting
+  assets/backgrounds/*.webp # extracted/approx Background plates (layer remix)
+  data/backgrounds.json    # plate catalogue (colour / kind / path)
   assets/cached.json        # list of precached editions (no server API needed)
   scripts/serve.py          # optional: static + /bear-img + /api/cached
   scripts/fetch_metadata.py

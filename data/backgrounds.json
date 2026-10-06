@@ -1,0 +1,136 @@
+{
+  "size": 512,
+  "note": "Extracted/approximated background plates for layer remix. Solid XRPL colours are exact; coded/vignette are reconstructed.",
+  "backgrounds": {
+    "xrpl-blue": {
+      "id": "xrpl-blue",
+      "name": "XRPL Blue",
+      "file": "assets/backgrounds/xrpl-blue.webp",
+      "color": [
+        26,
+        164,
+        254
+      ],
+      "hex": "#1aa4fe",
+      "kind": "solid",
+      "count": 186
+    },
+    "xrpl-grey": {
+      "id": "xrpl-grey",
+      "name": "XRPL Grey",
+      "file": "assets/backgrounds/xrpl-grey.webp",
+      "color": [
+        212,
+        215,
+        221
+      ],
+      "hex": "#d4d7dd",
+      "kind": "solid",
+      "count": 173
+    },
+    "xrpl-green": {
+      "id": "xrpl-green",
+      "name": "XRPL Green",
+      "file": "assets/backgrounds/xrpl-green.webp",
+      "color": [
+        26,
+        255,
+        132
+      ],
+      "hex": "#1aff84",
+      "kind": "solid",
+      "count": 166
+    },
+    "xrpl-blue-purple": {
+      "id": "xrpl-blue-purple",
+      "name": "XRPL Blue-Purple",
+      "file": "assets/backgrounds/xrpl-blue-purple.webp",
+      "color": [
+        120,
+        26,
+        255
+      ],
+      "hex": "#781aff",
+      "kind": "solid",
+      "count": 155
+    },
+    "xrpl-red-purple": {
+      "id": "xrpl-red-purple",
+      "name": "XRPL Red-Purple",
+      "file": "assets/backgrounds/xrpl-red-purple.webp",
+      "color": [
+        218,
+        26,
+        254
+      ],
+      "hex": "#da1afe",
+      "kind": "solid",
+      "count": 133
+    },
+    "xrpl-yellow": {
+      "id": "xrpl-yellow",
+      "name": "XRPL Yellow",
+      "file": "assets/backgrounds/xrpl-yellow.webp",
+      "color": [
+        249,
+        255,
+        25
+      ],
+      "hex": "#f9ff19",
+      "kind": "solid",
+      "count": 128
+    },
+    "xrpl-magenta": {
+      "id": "xrpl-magenta",
+      "name": "XRPL Magenta",
+      "file": "assets/backgrounds/xrpl-magenta.webp",
+      "color": [
+        254,
+        25,
+        139
+      ],
+      "hex": "#fe198b",
+      "kind": "solid",
+      "count": 126
+    },
+    "xrpl-orange": {
+      "id": "xrpl-orange",
+      "name": "XRPL Orange",
+      "file": "assets/backgrounds/xrpl-orange.webp",
+      "color": [
+        255,
+        103,
+        27
+      ],
+      "hex": "#ff671b",
+      "kind": "solid",
+      "count": 110
+    },
+    "coded": {
+      "id": "coded",
+      "name": "Coded",
+      "file": "assets/backgrounds/coded.webp",
+      "color": [
+        2,
+        2,
+        2
+      ],
+      "hex": "#020202",
+      "kind": "pattern",
+      "count": 33
+    },
+    "vignette": {
+      "id": "vignette",
+      "name": "Vignette",
+      "file": "assets/backgrounds/vignette.webp",
+      "color": [
+        56,
+        26,
+        8
+      ],
+      "hex": "#381a08",
+      "kind": "gradient",
+      "count": 10
+    }
+  }
+}

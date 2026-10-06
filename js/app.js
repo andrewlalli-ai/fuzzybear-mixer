@@ -1,70 +1,75 @@
 /**
- * Fuzzybear / raebyzzuF Trait Mixer — REAL collection art edition.
+ * Fuzzybear / raebyzzuF Trait Mixer — LAYER remix edition.
  *
- * No separable layer sheets exist publicly, so the mixer works on the real
- * composite PNGs from the collection's IPFS metadata:
- *   - you pick a trait per category (arrows / search / ?)
- *   - we find minted bears with that exact fingerprint, or the nearest ones
- *   - the canvas shows the real artwork of the best match
- *   - custom uploads are drawn as overlay layers on top of the real bear
+ * Official separable trait PNGs were never published. Backgrounds are solid /
+ * patterned plates extracted from composites; the bear figure is chroma-keyed
+ * out of a chosen base NFT so ←/→ on Background swaps only the backdrop.
+ * Other categories still nearest-match a minted composite (ignoring background).
  */
 (() => {
   "use strict";
 
   const EXPORT_SIZE = 512;
   const ARROW_CATEGORIES = ["background", "fur", "clothes", "eyes", "mouth", "headwear", "mask"];
+  /** Categories that drive which base bear is shown (background is layered separately). */
+  const BODY_CATEGORIES = ["fur", "clothes", "eyes", "mouth", "headwear", "mask"];
   const ANY = { id: "*", name: "Any", any: true };
-  /** Public IPFS gateways known to send Access-Control-Allow-Origin (filebase first). */
   const IPFS_GATEWAYS = [
     "https://ipfs.filebase.io/ipfs/",
     "https://gateway.pinata.cloud/ipfs/",
     "https://dweb.link/ipfs/",
     "https://ipfs.io/ipfs/",
   ];
-  /** Visual weight of a category when ranking "closest" bears. */
-  const WEIGHT = { fur: 1.3, headwear: 1.2, eyes: 1.1, clothes: 1.1, mouth: 1, background: 0.9, mask: 1 };
+  const WEIGHT = { fur: 1.3, headwear: 1.2, eyes: 1.1, clothes: 1.1, mouth: 1, mask: 1, background: 0.4 };
+  const KEY_TOL = 30;
+  const KEY_SOFT = 16;
 
   let manifest = null;
+  let bgMeta = null; // data/backgrounds.json
   let bears = [];
   let cachedSet = new Set();
   let hasProxy = false;
-  const selection = {}; // catId -> index into getTraits(catId)
-  const customTraits = []; // { categoryId, id, name, img }
-  let matches = []; // [{bear, score, exact, diffs}]
+  const selection = {};
+  const customTraits = [];
+  let matches = [];
   let matchPos = 0;
-  let currentImg = null;
-  let currentBear = null;
+  let currentImg = null;      // raw composite of base bear
+  let currentCutout = null;   // canvas with transparent bg
+  let currentBgImg = null;    // background plate image
+  let currentBear = null;     // base bear (character)
   let renderToken = 0;
-  let lastCat = null; // category the user just changed → must show in closest match
+  let lastCat = null;
   const imgCache = new Map();
+  const cutoutCache = new Map(); // edition -> canvas
   const els = {};
 
   async function init() {
     cacheDom();
     bindEvents();
     try {
-      const [m, b] = await Promise.all([
+      const [m, b, bg] = await Promise.all([
         fetch("traits-manifest.json").then((r) => r.json()),
         fetch("data/bears.json").then((r) => r.json()),
+        fetch("data/backgrounds.json").then((r) => r.json()).catch(() => null),
       ]);
       manifest = m;
       bears = b.bears;
+      bgMeta = bg;
       try {
         const c = await fetch("api/cached").then((r) => (r.ok ? r.json() : null));
         if (c && c.server) { hasProxy = true; cachedSet = new Set(c.cached); }
-      } catch (_) { /* no serve.py proxy */ }
+      } catch (_) { /* no proxy */ }
       if (!hasProxy) {
         try {
           const c = await fetch("assets/cached.json").then((r) => (r.ok ? r.json() : null));
           if (c && Array.isArray(c.cached)) cachedSet = new Set(c.cached);
-        } catch (_) { /* discover local assets on demand via candidate URLs */ }
+        } catch (_) { /* discover on demand */ }
       }
       buildArrowRows();
       els.bearCount.textContent = bears.length;
-      // Start on a random real (already cached) bear
       const pool = bears.filter((x) => cachedSet.has(x.edition));
       adoptBear((pool.length ? pool : bears)[Math.floor(Math.random() * (pool.length || bears.length))]);
-      toast(`${bears.length} real bears loaded`);
+      toast(`${bears.length} bears · background layers on`);
     } catch (err) {
       console.error(err);
       toast("Failed to load collection data");
@@ -166,16 +171,23 @@
 
   function cycle(catId, dir) {
     const traits = getTraits(catId);
-    // skip the "Any" wildcard while cycling (still reachable via Reset/search)
     let i = selection[catId] ?? 0;
     do { i = (i + dir + traits.length) % traits.length; } while (traits[i].any && traits.length > 1);
     selection[catId] = i;
     lastCat = catId;
     highlightFocus(catId);
-    update();
+    if (catId === "background") {
+      // Layer remix: keep the same base bear, only swap backdrop
+      updateBadgeForLayer();
+      updateTraitStrip(matches[matchPos] || { bear: currentBear, exact: false, wanted: 1, hits: 0 });
+      showMatch({ keepBear: true });
+      const t = getSelectedTrait("background");
+      toast(`Background → ${t.name} (layer)`);
+    } else {
+      update();
+    }
   }
 
-  /** Set selection to exactly a real bear's traits and show it. */
   function adoptBear(bear) {
     lastCat = null;
     for (const c of manifest.layerOrder) {
@@ -185,11 +197,11 @@
     update(bear.edition);
   }
 
-  // ---------- matching ----------
+  // ---------- matching (body traits; background is layered) ----------
   function computeMatches() {
     const want = {};
     let wanted = 0;
-    for (const c of manifest.layerOrder) {
+    for (const c of BODY_CATEGORIES) {
       const t = getSelectedTrait(c);
       if (!t.any && !t.custom) { want[c] = t.id; wanted++; }
     }
@@ -197,14 +209,20 @@
       let score = 0, hits = 0;
       const diffs = [];
       for (const c in want) {
-        if (bear.traits[c] === want[c]) { score += (WEIGHT[c] || 1) + (c === lastCat ? 10 : 0); hits++; }
-        else diffs.push(c);
+        if (bear.traits[c] === want[c]) {
+          score += (WEIGHT[c] || 1) + (c === lastCat ? 10 : 0);
+          hits++;
+        } else diffs.push(c);
       }
-      return { bear, score, hits, wanted, exact: hits === wanted, diffs };
+      // Soft preference for bears whose native bg matches selection (nice when exact mint exists)
+      const bgT = getSelectedTrait("background");
+      if (!bgT.any && !bgT.custom && bear.traits.background === bgT.id) score += 0.15;
+      return { bear, score, hits, wanted, exact: hits === wanted && wanted > 0, diffs };
     });
     res.sort((a, b) => b.score - a.score
       || (cachedSet.has(b.bear.edition) - cachedSet.has(a.bear.edition))
       || a.bear.edition - b.bear.edition);
+    if (wanted === 0) return res.slice(0, 40); // browsing
     const exact = res.filter((r) => r.exact);
     return exact.length ? exact : res.slice(0, 30);
   }
@@ -223,23 +241,20 @@
   function stepMatch(dir) {
     if (!matches.length) return;
     matchPos = (matchPos + dir + matches.length) % matches.length;
-    showMatch();
+    showMatch(); // keeps selected Background layer on the newly shown base bear
   }
 
   // ---------- images ----------
-  /** Ordered URL candidates for a bear: proxy → local asset → public IPFS gateways. */
   function bearSrcCandidates(bear) {
     if (hasProxy) return [`bear-img/${bear.edition}.webp`];
     const local = `assets/bears/${bear.edition}.webp`;
     const cid = encodeURI(bear.image.replace("ipfs://", "")).replace(/#/g, "%23");
     const gateways = IPFS_GATEWAYS.map((g) => g + cid);
-    // Prefer local file when known-cached; skip 404 probe when manifest says missing
     if (cachedSet.has(bear.edition)) return [local, ...gateways];
     if (cachedSet.size > 0) return gateways;
     return [local, ...gateways];
   }
 
-  /** Best single URL for thumbs / hints (local when known-cached, else first candidate). */
   function bearSrc(bear) {
     if (hasProxy) return `bear-img/${bear.edition}.webp`;
     if (cachedSet.has(bear.edition)) return `assets/bears/${bear.edition}.webp`;
@@ -259,7 +274,6 @@
     return p;
   }
 
-  /** Try candidates in order until one loads. Local same-origin; IPFS needs CORS. */
   async function loadBearImage(bear) {
     const urls = bearSrcCandidates(bear);
     let lastErr;
@@ -277,25 +291,146 @@
     throw lastErr || new Error("no image source");
   }
 
-  async function showMatch() {
+  function bgInfo(bgId) {
+    return bgMeta?.backgrounds?.[bgId] || null;
+  }
+
+  function bgColorForBear(bear) {
+    const info = bgInfo(bear.traits.background);
+    if (info?.color) return info.color;
+    return null;
+  }
+
+  async function loadBgPlate(bgId) {
+    const info = bgInfo(bgId);
+    if (!info) return null;
+    try {
+      return await loadOne(info.file, false);
+    } catch (_) {
+      // Fallback: solid colour canvas
+      const c = document.createElement("canvas");
+      c.width = c.height = EXPORT_SIZE;
+      const ctx = c.getContext("2d");
+      const [r, g, b] = info.color || [40, 40, 40];
+      ctx.fillStyle = `rgb(${r},${g},${b})`;
+      ctx.fillRect(0, 0, c.width, c.height);
+      return c;
+    }
+  }
+
+  /** Chroma-key composite → transparent cutout (cached per edition). */
+  function makeCutout(img, bear) {
+    const key = bear.edition;
+    if (cutoutCache.has(key)) return cutoutCache.get(key);
+
+    const w = img.naturalWidth || img.width;
+    const h = img.naturalHeight || img.height;
+    const c = document.createElement("canvas");
+    c.width = w;
+    c.height = h;
+    const ctx = c.getContext("2d", { willReadFrequently: true });
+    ctx.drawImage(img, 0, 0);
+
+    // Sample corner as seed colour (more accurate than catalog if compression drifts)
+    const sample = ctx.getImageData(0, 0, 1, 1).data;
+    let br = sample[0], bg = sample[1], bb = sample[2];
+    const catalog = bgColorForBear(bear);
+    // Prefer catalog for solid XRPL; for patterned use corner sample
+    const kind = bgInfo(bear.traits.background)?.kind || "solid";
+    if (kind === "solid" && catalog) {
+      br = catalog[0]; bg = catalog[1]; bb = catalog[2];
+    }
+
+    const id = ctx.getImageData(0, 0, w, h);
+    const d = id.data;
+
+    if (kind === "solid") {
+      for (let i = 0; i < d.length; i += 4) {
+        const dist = Math.max(Math.abs(d[i] - br), Math.abs(d[i + 1] - bg), Math.abs(d[i + 2] - bb));
+        if (dist <= KEY_TOL) d[i + 3] = 0;
+        else if (dist < KEY_TOL + KEY_SOFT) d[i + 3] = Math.round(255 * (dist - KEY_TOL) / KEY_SOFT);
+      }
+    } else {
+      // Flood-fill from edges for patterned / gradient backgrounds
+      const tol = kind === "coded" ? 48 : 40;
+      const visited = new Uint8Array(w * h);
+      const stack = [];
+      for (let x = 0; x < w; x++) { stack.push(x); stack.push((h - 1) * w + x); }
+      for (let y = 0; y < h; y++) { stack.push(y * w); stack.push(y * w + (w - 1)); }
+      while (stack.length) {
+        const idx = stack.pop();
+        if (idx < 0 || idx >= w * h || visited[idx]) continue;
+        visited[idx] = 1;
+        const p = idx * 4;
+        if (Math.abs(d[p] - br) > tol || Math.abs(d[p + 1] - bg) > tol || Math.abs(d[p + 2] - bb) > tol) continue;
+        d[p + 3] = 0;
+        const x = idx % w, y = (idx / w) | 0;
+        if (x + 1 < w) stack.push(idx + 1);
+        if (x > 0) stack.push(idx - 1);
+        if (y + 1 < h) stack.push(idx + w);
+        if (y > 0) stack.push(idx - w);
+      }
+      // Soften fringe: any remaining near-bg pixel with neighbours keyed → reduce alpha
+      for (let y = 1; y < h - 1; y++) {
+        for (let x = 1; x < w - 1; x++) {
+          const i = (y * w + x) * 4;
+          if (d[i + 3] === 0) continue;
+          const dist = Math.max(Math.abs(d[i] - br), Math.abs(d[i + 1] - bg), Math.abs(d[i + 2] - bb));
+          if (dist < tol + 20) {
+            let keyed = 0;
+            for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+              if (d[((y + dy) * w + (x + dx)) * 4 + 3] === 0) keyed++;
+            }
+            if (keyed) d[i + 3] = Math.max(0, d[i + 3] - keyed * 60);
+          }
+        }
+      }
+    }
+
+    ctx.putImageData(id, 0, 0);
+    cutoutCache.set(key, c);
+    return c;
+  }
+
+  async function resolveBgPlate() {
+    const bgT = getSelectedTrait("background");
+    if (bgT.custom && bgT.img) return bgT.img;
+    const bgId = (!bgT.any && !bgT.custom) ? bgT.id : currentBear?.traits?.background;
+    if (!bgId) return null;
+    return loadBgPlate(bgId);
+  }
+
+  async function showMatch(opts = {}) {
     const m = matches[matchPos];
-    if (!m) return;
+    if (!m && !currentBear) return;
     const token = ++renderToken;
-    currentBear = m.bear;
-    updateBadge(m);
-    updateTraitStrip(m);
-    markActiveThumb();
-    const local = cachedSet.has(m.bear.edition);
+    if (!opts.keepBear && m) currentBear = m.bear;
+    if (!currentBear) return;
+
+    if (m) {
+      updateBadge(m);
+      updateTraitStrip(m);
+      markActiveThumb();
+    } else {
+      updateBadgeForLayer();
+      updateTraitStrip({ bear: currentBear, exact: false, wanted: 0, hits: 0 });
+    }
+
+    const local = cachedSet.has(currentBear.edition);
     els.loading.textContent = local ? "" : "fetching from IPFS…";
     els.loading.classList.toggle("show", !local);
+
     try {
-      const img = await loadBearImage(m.bear);
+      const img = await loadBearImage(currentBear);
       if (token !== renderToken) return;
       currentImg = img;
+      currentCutout = makeCutout(img, currentBear);
+      currentBgImg = await resolveBgPlate();
+      if (token !== renderToken) return;
       els.loading.classList.remove("show");
       draw();
-      const nxt = matches[(matchPos + 1) % matches.length];
-      if (nxt && nxt !== m) loadBearImage(nxt.bear).catch(() => {});
+      const nxt = matches[(matchPos + 1) % Math.max(matches.length, 1)];
+      if (nxt && nxt.bear !== currentBear) loadBearImage(nxt.bear).catch(() => {});
     } catch (e) {
       if (token !== renderToken) return;
       els.loading.textContent = "IPFS fetch failed — try → for another";
@@ -311,27 +446,73 @@
     const ctx = els.ctx;
     const { width: W, height: H } = els.canvas;
     ctx.clearRect(0, 0, W, H);
-    if (!currentImg) { els.archPlaceholder.classList.remove("hidden"); return; }
-    // Fill arch with the bear's own background colour, square art anchored bottom
+    if (!currentImg && !currentCutout) { els.archPlaceholder.classList.remove("hidden"); return; }
+
     const s = Math.min(W, H);
     const y = H - s;
-    ctx.drawImage(currentImg, 0, 0, 4, 4, 0, 0, W, y + 2); // stretch top-left pixel = bg colour
-    ctx.drawImage(currentImg, 0, y, s, s);
+
+    // 1) Background plate (or stretch of plate into arch crown)
+    if (currentBgImg) {
+      // Fill arch crown above square with bg (sample top of plate)
+      ctx.drawImage(currentBgImg, 0, 0, 4, 4, 0, 0, W, y + 2);
+      ctx.drawImage(currentBgImg, 0, y, s, s);
+    } else if (currentImg) {
+      ctx.drawImage(currentImg, 0, 0, 4, 4, 0, 0, W, y + 2);
+    }
+
+    // 2) Bear cutout on top
+    const bearLayer = currentCutout || currentImg;
+    if (bearLayer) ctx.drawImage(bearLayer, 0, y, s, s);
+
+    // 3) Custom overlays
     for (const o of overlays()) ctx.drawImage(o, 0, y, s, s);
     els.archPlaceholder.classList.add("hidden");
   }
 
   // ---------- UI pieces ----------
+  function selectedBgId() {
+    const t = getSelectedTrait("background");
+    if (!t.any && !t.custom) return t.id;
+    return currentBear?.traits?.background || null;
+  }
+
+  function bgIsRemixed(m) {
+    const bgId = selectedBgId();
+    return bgId && m?.bear && m.bear.traits.background !== bgId;
+  }
+
   function updateBadge(m) {
     const b = m.bear;
     const link = `https://bithomp.com/nft/${b.nftId}`;
+    const remixed = bgIsRemixed(m);
     let cls, text;
-    if (m.wanted === 0) { cls = "any"; text = `Browsing all bears · ${matches.length}`; }
-    else if (m.exact) { cls = "exact"; text = `✓ Minted · ${matches.length} match${matches.length > 1 ? "es" : ""}`; }
-    else { cls = "near"; text = `✗ Not minted · closest ${m.hits}/${m.wanted} traits`; }
+    if (m.wanted === 0) {
+      cls = "any";
+      text = remixed ? `Layer remix · bg swapped` : `Browsing all bears · ${matches.length}`;
+    } else if (m.exact && !remixed) {
+      cls = "exact";
+      text = `✓ Minted · ${matches.length} match${matches.length > 1 ? "es" : ""}`;
+    } else if (m.exact && remixed) {
+      cls = "layer";
+      text = `◈ Layer remix · same bear, new background`;
+    } else {
+      cls = "near";
+      text = remixed
+        ? `◈ Layer + closest body ${m.hits}/${m.wanted}`
+        : `✗ Not minted · closest ${m.hits}/${m.wanted} traits`;
+    }
     els.matchBadge.className = "match-badge " + cls;
-    els.matchBadge.innerHTML = `${text} — <a href="${link}" target="_blank" rel="noopener">${escapeHtml(b.name)}</a> <span class="pos">${matchPos + 1}/${matches.length}</span>`;
-    els.matchTitle.textContent = m.exact && m.wanted ? `Real bears with this mix (${matches.length})` : (m.wanted ? "Closest real bears" : "Real bears");
+    els.matchBadge.innerHTML = `${text} — <a href="${link}" target="_blank" rel="noopener">${escapeHtml(b.name)}</a> <span class="pos">${matchPos + 1}/${matches.length || 1}</span>`;
+    els.matchTitle.textContent = remixed
+      ? "Base bear (background layered separately)"
+      : (m.exact && m.wanted ? `Real bears with this mix (${matches.length})` : (m.wanted ? "Closest real bears" : "Real bears"));
+  }
+
+  function updateBadgeForLayer() {
+    if (!currentBear) return;
+    const m = matches[matchPos] || { bear: currentBear, exact: true, wanted: BODY_CATEGORIES.length, hits: BODY_CATEGORIES.length };
+    // Ensure matches still references current bear for badge
+    updateBadge({ ...m, bear: currentBear });
   }
 
   function updateTraitStrip(m) {
@@ -339,14 +520,23 @@
     for (const catId of manifest.layerOrder) {
       const t = getSelectedTrait(catId);
       const real = m.bear.traits[catId];
-      const off = !t.any && !t.custom && real !== t.id;
+      const isBg = catId === "background";
+      const remixed = isBg && !t.any && !t.custom && real !== t.id;
+      const off = !isBg && !t.any && !t.custom && real !== t.id;
       const row = document.createElement("div");
-      row.className = "trait-row" + (off ? " diff" : "");
+      row.className = "trait-row" + (off ? " diff" : "") + (remixed ? " layer" : "");
       row.dataset.cat = catId;
-      let val = t.custom ? `${escapeHtml(t.name)} ✦` : t.any ? `<em>Any</em> · ${escapeHtml(traitName(catId, real))}` : escapeHtml(t.name);
-      if (off) val += ` <span class="has">(bear: ${escapeHtml(traitName(catId, real))})</span>`;
+      let val;
+      if (t.custom) val = `${escapeHtml(t.name)} ✦`;
+      else if (t.any) val = `<em>Any</em> · ${escapeHtml(traitName(catId, real))}`;
+      else val = escapeHtml(t.name);
+      if (remixed) val += ` <span class="has">(layer · base had ${escapeHtml(traitName(catId, real))})</span>`;
+      else if (off) val += ` <span class="has">(bear: ${escapeHtml(traitName(catId, real))})</span>`;
+      if (isBg && !t.any) val += ` <span class="tag">layer</span>`;
       row.innerHTML = `<span class="label">${manifest.categories[catId].label}</span><span class="value">${val}</span>`;
-      row.title = "Double-click to set this category to Any (wildcard)";
+      row.title = isBg
+        ? "Background is a real layer — cycling it keeps this bear and swaps only the backdrop"
+        : "Double-click to set this category to Any (wildcard)";
       row.addEventListener("click", () => { highlightFocus(catId); });
       row.addEventListener("dblclick", () => { selection[catId] = 0; update(); });
       els.traitStrip.appendChild(row);
@@ -359,11 +549,10 @@
       const b = document.createElement("button");
       b.type = "button";
       b.className = "thumb" + (m.exact ? "" : " near");
-      b.title = `${m.bear.name}${m.wanted ? ` · ${m.hits}/${m.wanted}` : ""} — click to load all its traits`;
+      b.title = `${m.bear.name}${m.wanted ? ` · body ${m.hits}/${m.wanted}` : ""} — click to load body traits (keeps your Background)`;
       const img = document.createElement("img");
       img.loading = "lazy";
       img.alt = m.bear.name;
-      // only auto-load thumbs that are cached (or first few) so we don't hammer IPFS
       if (cachedSet.has(m.bear.edition) || i < 6) img.src = bearSrc(m.bear);
       else { img.dataset.src = bearSrc(m.bear); b.classList.add("lazy"); }
       const cap = document.createElement("span");
@@ -371,8 +560,16 @@
       b.append(img, cap);
       b.addEventListener("click", () => {
         if (img.dataset.src && !img.src) img.src = img.dataset.src;
-        matchPos = i;
-        if (!m.exact) adoptBear(m.bear); else showMatch();
+        // Keep selected background; adopt body traits from this bear
+        const keepBg = getSelectedTrait("background");
+        for (const c of BODY_CATEGORIES) {
+          const cur = getSelectedTrait(c);
+          if (!cur.custom) setTrait(c, m.bear.traits[c]);
+        }
+        if (keepBg.any) setTrait("background", m.bear.traits.background);
+        // else keep current background selection
+        lastCat = null;
+        update(m.bear.edition);
       });
       els.matchStrip.appendChild(b);
     });
@@ -399,19 +596,27 @@
     els.btnRandom.classList.remove("spin");
     void els.btnRandom.offsetWidth;
     els.btnRandom.classList.add("spin");
-    if (Math.random() < 0.5) {
-      // a real minted bear
+    if (Math.random() < 0.45) {
       adoptBear(bears[Math.floor(Math.random() * bears.length)]);
       toast("Random real bear");
+    } else if (Math.random() < 0.5 && currentBear) {
+      // Keep bear, randomize background only — shows off layer remix
+      const bgs = getTraits("background");
+      selection.background = 1 + Math.floor(Math.random() * (bgs.length - 1));
+      lastCat = "background";
+      highlightFocus("background");
+      updateBadgeForLayer();
+      updateTraitStrip(matches[matchPos] || { bear: currentBear, exact: false, wanted: 0, hits: 0 });
+      showMatch({ keepBear: true });
+      toast(`Random background → ${getSelectedTrait("background").name}`);
     } else {
-      // a random mix (probably not minted → closest real bear)
       lastCat = null;
       for (const c of manifest.layerOrder) {
         const t = getTraits(c);
         selection[c] = 1 + Math.floor(Math.random() * (t.length - 1));
       }
       update();
-      toast(matches[0]?.exact ? "Random mix — it exists!" : "Random mix — closest real bear");
+      toast(matches[0]?.exact ? "Random mix — body exists!" : "Random mix — closest body + layered bg");
     }
   }
 
@@ -423,18 +628,22 @@
 
   // ---------- export ----------
   function exportPng() {
-    if (!currentImg) return toast("Nothing to export yet");
+    if (!currentCutout && !currentImg) return toast("Nothing to export yet");
     const out = document.createElement("canvas");
     out.width = out.height = EXPORT_SIZE;
     const ctx = out.getContext("2d");
-    ctx.drawImage(currentImg, 0, 0, EXPORT_SIZE, EXPORT_SIZE);
+    if (currentBgImg) ctx.drawImage(currentBgImg, 0, 0, EXPORT_SIZE, EXPORT_SIZE);
+    else if (currentImg) ctx.drawImage(currentImg, 0, 0, EXPORT_SIZE, EXPORT_SIZE);
+    const bearLayer = currentCutout || currentImg;
+    if (bearLayer) ctx.drawImage(bearLayer, 0, 0, EXPORT_SIZE, EXPORT_SIZE);
     for (const o of overlays()) ctx.drawImage(o, 0, 0, EXPORT_SIZE, EXPORT_SIZE);
     try {
       out.toBlob((blob) => {
         if (!blob) return toast("Export failed");
         const a = document.createElement("a");
+        const bgId = selectedBgId() || "bg";
         const custom = overlays().length ? "-custom" : "";
-        a.download = `raebyzzuF-${currentBear.edition}${custom}.png`;
+        a.download = `raebyzzuF-${currentBear.edition}-${bgId}${custom}.png`;
         a.href = URL.createObjectURL(blob);
         a.click();
         setTimeout(() => URL.revokeObjectURL(a.href), 1000);
@@ -461,7 +670,9 @@
       getTraits(catId).forEach((t, idx) => {
         if (t.any) return;
         const hay = `${t.name} ${t.onChain || ""}`.toLowerCase();
-        if (hay.includes(q) || cat.label.toLowerCase().includes(q)) hits.push({ kind: "trait", catId, idx, trait: t, name: t.name, label: cat.label });
+        if (hay.includes(q) || cat.label.toLowerCase().includes(q)) {
+          hits.push({ kind: "trait", catId, idx, trait: t, name: t.name, label: cat.label });
+        }
       });
     }
     if (!hits.length) {
@@ -474,10 +685,23 @@
       item.className = "search-item";
       const hl = escapeHtml(hit.name).replace(new RegExp(`(${escapeRegex(q)})`, "ig"), "<mark>$1</mark>");
       const extra = hit.kind === "trait" && hit.trait.count ? ` <small>×${hit.trait.count}</small>` : "";
-      item.innerHTML = `<span>${hl}${hit.trait?.custom ? " ✦" : ""}${extra}</span><span class="cat">${escapeHtml(hit.label)}</span>`;
+      const layerTag = hit.catId === "background" ? " · layer" : "";
+      item.innerHTML = `<span>${hl}${hit.trait?.custom ? " ✦" : ""}${extra}</span><span class="cat">${escapeHtml(hit.label)}${layerTag}</span>`;
       item.addEventListener("click", () => {
         if (hit.kind === "bear") adoptBear(hit.bear);
-        else { selection[hit.catId] = hit.idx; lastCat = hit.catId; highlightFocus(hit.catId); update(); }
+        else if (hit.catId === "background") {
+          selection[hit.catId] = hit.idx;
+          lastCat = hit.catId;
+          highlightFocus(hit.catId);
+          updateBadgeForLayer();
+          updateTraitStrip(matches[matchPos] || { bear: currentBear, exact: false, wanted: 0, hits: 0 });
+          showMatch({ keepBear: true });
+        } else {
+          selection[hit.catId] = hit.idx;
+          lastCat = hit.catId;
+          highlightFocus(hit.catId);
+          update();
+        }
         els.search.value = hit.name;
         els.searchResults.classList.remove("open");
         toast(`${hit.label}: ${hit.name}`);
@@ -493,7 +717,7 @@
     for (const catId of manifest.layerOrder) {
       const opt = document.createElement("option");
       opt.value = catId;
-      opt.textContent = manifest.categories[catId].label;
+      opt.textContent = manifest.categories[catId].label + (catId === "background" ? " (layer)" : "");
       els.uploadCat.appendChild(opt);
     }
     els.uploadName.value = "";
@@ -509,9 +733,30 @@
     if (!file) return toast("Pick an image file");
     if (!/^image\//.test(file.type)) return toast("Need an image (PNG/SVG/WebP/JPEG)");
     if (!name) name = file.name.replace(/\.[^.]+$/, "");
-    const dataUrl = await new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(file); });
+    const dataUrl = await new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = () => res(r.result);
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
     const img = await loadOne(dataUrl, false);
     const id = "custom-" + Date.now().toString(36);
+
+    if (catId === "background") {
+      // Custom background becomes a plate: store as custom trait; draw path uses it via overlays? 
+      // Better: treat custom bg as plate — stash on trait and use in showMatch
+      customTraits.push({ categoryId: catId, id, name, img, plate: true });
+      selection[catId] = getTraits(catId).length - 1;
+      closeUploadModal();
+      // Patch loadBgPlate path: custom traits with plate draw as bg
+      currentBgImg = img;
+      updateBadgeForLayer();
+      updateTraitStrip(matches[matchPos] || { bear: currentBear, exact: false, wanted: 0, hits: 0 });
+      draw();
+      toast(`Added “${name}” as Background layer`);
+      return;
+    }
+
     customTraits.push({ categoryId: catId, id, name, img });
     selection[catId] = getTraits(catId).length - 1;
     closeUploadModal();

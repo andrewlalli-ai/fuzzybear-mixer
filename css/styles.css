@@ -491,6 +491,20 @@ body {
 .match-badge.exact { border-color: #2e7d32; color: #81c784; background: #07160a; }
 .match-badge.near { border-color: #b26a00; color: #ffb74d; background: #1a1003; }
 .match-badge.any { color: var(--text-muted); }
+.match-badge.layer { border-color: #1565c0; color: #64b5f6; background: #061018; }
+.trait-row.layer .value { color: #64b5f6; }
+.trait-row .tag {
+  display: inline-block;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #64b5f6;
+  border: 1px solid #1565c0;
+  border-radius: 3px;
+  padding: 0 3px;
+  margin-left: 3px;
+  vertical-align: middle;
+}
 .trait-row.diff .value { color: #ffb74d; }
 .trait-row .value em { color: var(--text-muted); font-style: normal; }
 .trait-row .has { color: var(--text-muted); font-size: 10px; }

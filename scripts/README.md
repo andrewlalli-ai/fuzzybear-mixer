@@ -9,3 +9,5 @@
 
 For GitHub Pages / plain `python3 -m http.server`, precache what you need and
 skip `serve.py`. Public IPFS gateways rate-limit; prefer filebase → pinata → dweb.
+
+`build_backgrounds.py` — rebuild `assets/backgrounds/*.webp` + `data/backgrounds.json` from composites.
