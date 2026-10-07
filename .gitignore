@@ -28,3 +28,8 @@ data/meta-cache/
 # local extraction debug
 scripts/_debug_preview/
 scripts/__pycache__/
+
+# local rebuild peeks
+scripts/_*.png
+scripts/_peek_*.png
+data/fur_rebuild_report.json

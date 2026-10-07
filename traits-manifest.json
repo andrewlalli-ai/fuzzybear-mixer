@@ -2,7 +2,7 @@
   "collection": "sraebyzzuf",
   "displayName": "raebyzzuF (Fuzzybear)",
   "issuer": "r3NftTqH2hv3skuWAEDWKvqnxjtuqcFWYR",
-  "description": "Trait-file mixer: preview stacks PNG/WebP layers from assets/traits/ only. No base/minted bear composites in the UI. Background solids are exact; Fur / Clothes / Mouth / Eyes / Headwear / Mask plates are approximate consensus cutouts. Traits listed most-rare \u2192 least-rare (ascending count).",
+  "description": "Trait-file mixer: stacks layers from assets/traits/ only. Every slot has Empty (no overlay). Fur plates are bare-body cutouts (clothes/eyes/mouth/headwear/mask stripped). Blue eyes & Normal mouth are real plates. Traits ordered rare \u2192 common, Empty last.",
   "canvasSize": 512,
   "layerOrder": [
     "background",
@@ -15,58 +15,61 @@
   ],
   "mode": "trait-file-stack",
   "baselines": {
-    "mask": "none",
-    "headwear": "none",
+    "background": "empty",
+    "fur": "empty",
     "clothes": "none",
-    "eyes": "blue",
-    "mouth": "normal"
+    "mouth": "empty",
+    "eyes": "empty",
+    "headwear": "none",
+    "mask": "none"
   },
   "qualityNote": {
     "solid": "Exact extracted colour / plate",
-    "approx": "Consensus pixel-diff or cutout \u2014 best-effort, not official sheets",
-    "baseline": "Default / empty \u2014 no file; skipped when stacking"
+    "approx": "Consensus cutout / pixel-diff \u2014 bare fur plates strip accessories",
+    "empty": "Empty \u2014 no file; layer skipped when stacking",
+    "baseline": "Legacy alias of empty"
   },
   "bearCount": 1220,
   "summary": {
     "background": {
       "files": 10,
-      "baseline": 0,
+      "empty": 1,
       "solid": 8,
       "approx": 2
     },
     "fur": {
       "files": 13,
-      "baseline": 0,
+      "empty": 1,
       "solid": 0,
       "approx": 13
     },
     "clothes": {
       "files": 33,
-      "baseline": 1,
+      "empty": 1,
       "solid": 0,
       "approx": 33
     },
     "mouth": {
-      "files": 10,
-      "baseline": 1,
+      "files": 11,
+      "empty": 1,
       "solid": 0,
-      "approx": 10
+      "approx": 11
     },
     "eyes": {
-      "files": 18,
-      "baseline": 1,
+      "files": 19,
+      "empty": 1,
       "solid": 0,
-      "approx": 18
+      "approx": 19
     },
     "headwear": {
       "files": 31,
-      "baseline": 1,
+      "empty": 1,
       "solid": 0,
       "approx": 31
     },
     "mask": {
       "files": 3,
-      "baseline": 1,
+      "empty": 1,
       "solid": 0,
       "approx": 3
     }
@@ -227,6 +230,17 @@
             164,
             254
           ]
+        },
+        {
+          "id": "empty",
+          "name": "Empty",
+          "onChain": null,
+          "count": 1000000000,
+          "none": true,
+          "baseline": true,
+          "file": null,
+          "quality": "empty",
+          "empty": true
         }
       ]
     },
@@ -244,18 +258,26 @@
           "none": false,
           "file": "assets/traits/Fur/golden.webp",
           "quality": "approx",
-          "derivedFrom": 10,
-          "opaque": 113692,
+          "derivedFrom": 1,
+          "opaque": 122416,
           "donors": [
-            589,
-            1230,
-            777,
-            1,
-            7,
-            77,
-            321,
-            985
-          ]
+            589
+          ],
+          "bareMeta": {
+            "primary": 589,
+            "traits": {
+              "background": "vignette",
+              "fur": "golden",
+              "clothes": "none",
+              "mouth": "normal",
+              "eyes": "side-eyes",
+              "headwear": "mardi-gras",
+              "mask": "mardi-gras-mask"
+            },
+            "score": 80,
+            "residualBlue": 883,
+            "residualWhite": 159
+          }
         },
         {
           "id": "ghost",
@@ -265,18 +287,26 @@
           "none": false,
           "file": "assets/traits/Fur/ghost.webp",
           "quality": "approx",
-          "derivedFrom": 12,
-          "opaque": 117053,
+          "derivedFrom": 1,
+          "opaque": 113813,
           "donors": [
-            127,
-            260,
-            304,
-            951,
-            33,
-            595,
-            800,
-            939
-          ]
+            260
+          ],
+          "bareMeta": {
+            "primary": 260,
+            "traits": {
+              "background": "xrpl-magenta",
+              "fur": "ghost",
+              "clothes": "black-ops",
+              "mouth": "normal",
+              "eyes": "neo",
+              "headwear": "golf-club",
+              "mask": "none"
+            },
+            "score": 78,
+            "residualBlue": 1155,
+            "residualWhite": 0
+          }
         },
         {
           "id": "joker",
@@ -286,18 +316,26 @@
           "none": false,
           "file": "assets/traits/Fur/joker.webp",
           "quality": "approx",
-          "derivedFrom": 16,
-          "opaque": 112464,
+          "derivedFrom": 1,
+          "opaque": 112774,
           "donors": [
-            747,
-            749,
-            625,
-            41,
-            81,
-            145,
-            202,
-            269
-          ]
+            747
+          ],
+          "bareMeta": {
+            "primary": 747,
+            "traits": {
+              "background": "xrpl-blue",
+              "fur": "joker",
+              "clothes": "snappy-casual",
+              "mouth": "tongue",
+              "eyes": "star-eyes",
+              "headwear": "none",
+              "mask": "none"
+            },
+            "score": 106,
+            "residualBlue": 495,
+            "residualWhite": 53
+          }
         },
         {
           "id": "extra-fuzzy",
@@ -307,18 +345,26 @@
           "none": false,
           "file": "assets/traits/Fur/extra-fuzzy.webp",
           "quality": "approx",
-          "derivedFrom": 16,
-          "opaque": 113374,
+          "derivedFrom": 1,
+          "opaque": 114881,
           "donors": [
-            48,
-            792,
-            999,
-            26,
-            165,
-            467,
-            888,
-            76
-          ]
+            26
+          ],
+          "bareMeta": {
+            "primary": 26,
+            "traits": {
+              "background": "xrpl-grey",
+              "fur": "extra-fuzzy",
+              "clothes": "teddy",
+              "mouth": "normal",
+              "eyes": "blue",
+              "headwear": "rough-rider",
+              "mask": "none"
+            },
+            "score": 113,
+            "residualBlue": 127,
+            "residualWhite": 4
+          }
         },
         {
           "id": "trippy",
@@ -328,18 +374,26 @@
           "none": false,
           "file": "assets/traits/Fur/trippy.webp",
           "quality": "approx",
-          "derivedFrom": 16,
-          "opaque": 112925,
+          "derivedFrom": 1,
+          "opaque": 111649,
           "donors": [
-            642,
-            666,
-            1019,
-            111,
-            432,
-            330,
-            356,
-            367
-          ]
+            642
+          ],
+          "bareMeta": {
+            "primary": 642,
+            "traits": {
+              "background": "xrpl-magenta",
+              "fur": "trippy",
+              "clothes": "snappy-casual",
+              "mouth": "sharp",
+              "eyes": "blue",
+              "headwear": "none",
+              "mask": "none"
+            },
+            "score": 141,
+            "residualBlue": 10585,
+            "residualWhite": 15
+          }
         },
         {
           "id": "patriot",
@@ -349,18 +403,26 @@
           "none": false,
           "file": "assets/traits/Fur/patriot.webp",
           "quality": "approx",
-          "derivedFrom": 16,
-          "opaque": 107773,
+          "derivedFrom": 1,
+          "opaque": 112774,
           "donors": [
-            250,
-            776,
-            235,
-            55,
-            1114,
-            9,
-            17,
-            45
-          ]
+            250
+          ],
+          "bareMeta": {
+            "primary": 250,
+            "traits": {
+              "background": "xrpl-blue",
+              "fur": "patriot",
+              "clothes": "snappy-casual",
+              "mouth": "cigar",
+              "eyes": "blue",
+              "headwear": "none",
+              "mask": "none"
+            },
+            "score": 141,
+            "residualBlue": 1381,
+            "residualWhite": 462
+          }
         },
         {
           "id": "panda",
@@ -370,18 +432,26 @@
           "none": false,
           "file": "assets/traits/Fur/panda.webp",
           "quality": "approx",
-          "derivedFrom": 16,
-          "opaque": 116490,
+          "derivedFrom": 1,
+          "opaque": 121886,
           "donors": [
-            441,
-            126,
-            382,
-            515,
-            963,
-            262,
-            762,
-            5
-          ]
+            441
+          ],
+          "bareMeta": {
+            "primary": 441,
+            "traits": {
+              "background": "xrpl-blue",
+              "fur": "panda",
+              "clothes": "cloak",
+              "mouth": "beard",
+              "eyes": "blue",
+              "headwear": "none",
+              "mask": "none"
+            },
+            "score": 123,
+            "residualBlue": 1143,
+            "residualWhite": 1157
+          }
         },
         {
           "id": "dmt",
@@ -391,18 +461,26 @@
           "none": false,
           "file": "assets/traits/Fur/dmt.webp",
           "quality": "approx",
-          "derivedFrom": 16,
-          "opaque": 110227,
+          "derivedFrom": 1,
+          "opaque": 113842,
           "donors": [
-            1004,
-            1118,
-            414,
-            65,
-            680,
-            1000,
-            420,
-            479
-          ]
+            1004
+          ],
+          "bareMeta": {
+            "primary": 1004,
+            "traits": {
+              "background": "coded",
+              "fur": "dmt",
+              "clothes": "snappy-casual",
+              "mouth": "normal",
+              "eyes": "blue",
+              "headwear": "none",
+              "mask": "none"
+            },
+            "score": 163,
+            "residualBlue": 148,
+            "residualWhite": 21
+          }
         },
         {
           "id": "ripple",
@@ -412,18 +490,26 @@
           "none": false,
           "file": "assets/traits/Fur/ripple.webp",
           "quality": "approx",
-          "derivedFrom": 16,
-          "opaque": 113022,
+          "derivedFrom": 1,
+          "opaque": 112781,
           "donors": [
-            919,
-            713,
-            405,
-            710,
-            553,
-            40,
-            52,
-            66
-          ]
+            919
+          ],
+          "bareMeta": {
+            "primary": 919,
+            "traits": {
+              "background": "xrpl-blue",
+              "fur": "ripple",
+              "clothes": "snappy-casual",
+              "mouth": "goofy",
+              "eyes": "blue",
+              "headwear": "none",
+              "mask": "none"
+            },
+            "score": 141,
+            "residualBlue": 2071,
+            "residualWhite": 14
+          }
         },
         {
           "id": "honey",
@@ -433,18 +519,26 @@
           "none": false,
           "file": "assets/traits/Fur/honey.webp",
           "quality": "approx",
-          "derivedFrom": 16,
-          "opaque": 113532,
+          "derivedFrom": 1,
+          "opaque": 109227,
           "donors": [
-            175,
-            222,
-            867,
-            444,
-            39,
-            128,
-            245,
-            249
-          ]
+            867
+          ],
+          "bareMeta": {
+            "primary": 867,
+            "traits": {
+              "background": "xrpl-magenta",
+              "fur": "honey",
+              "clothes": "perseverance",
+              "mouth": "normal",
+              "eyes": "blue",
+              "headwear": "warrior",
+              "mask": "none"
+            },
+            "score": 113,
+            "residualBlue": 135,
+            "residualWhite": 14
+          }
         },
         {
           "id": "polar",
@@ -454,18 +548,26 @@
           "none": false,
           "file": "assets/traits/Fur/polar.webp",
           "quality": "approx",
-          "derivedFrom": 16,
-          "opaque": 113559,
+          "derivedFrom": 1,
+          "opaque": 113013,
           "donors": [
-            106,
-            108,
-            541,
-            1010,
-            679,
-            53,
-            142,
-            151
-          ]
+            108
+          ],
+          "bareMeta": {
+            "primary": 108,
+            "traits": {
+              "background": "xrpl-blue-purple",
+              "fur": "polar",
+              "clothes": "snappy-casual",
+              "mouth": "tongue",
+              "eyes": "lightning",
+              "headwear": "none",
+              "mask": "none"
+            },
+            "score": 106,
+            "residualBlue": 2041,
+            "residualWhite": 1715
+          }
         },
         {
           "id": "black",
@@ -475,18 +577,26 @@
           "none": false,
           "file": "assets/traits/Fur/black.webp",
           "quality": "approx",
-          "derivedFrom": 16,
-          "opaque": 111375,
+          "derivedFrom": 1,
+          "opaque": 112868,
           "donors": [
-            844,
-            593,
-            555,
-            473,
-            675,
-            1115,
-            1148,
-            91
-          ]
+            844
+          ],
+          "bareMeta": {
+            "primary": 844,
+            "traits": {
+              "background": "xrpl-red-purple",
+              "fur": "black",
+              "clothes": "snappy-casual",
+              "mouth": "normal",
+              "eyes": "star-eyes",
+              "headwear": "none",
+              "mask": "none"
+            },
+            "score": 136,
+            "residualBlue": 102,
+            "residualWhite": 53
+          }
         },
         {
           "id": "brown",
@@ -496,18 +606,37 @@
           "none": false,
           "file": "assets/traits/Fur/brown.webp",
           "quality": "approx",
-          "derivedFrom": 16,
-          "opaque": 112912,
+          "derivedFrom": 1,
+          "opaque": 97722,
           "donors": [
-            454,
-            1209,
-            282,
-            334,
-            765,
-            810,
-            1158,
-            13
-          ]
+            1158
+          ],
+          "bareMeta": {
+            "primary": 1158,
+            "traits": {
+              "background": "xrpl-grey",
+              "fur": "brown",
+              "clothes": "none",
+              "mouth": "goofy",
+              "eyes": "blue",
+              "headwear": "sensei",
+              "mask": "none"
+            },
+            "score": 133,
+            "residualBlue": 128,
+            "residualWhite": 5
+          }
+        },
+        {
+          "id": "empty",
+          "name": "Empty",
+          "onChain": null,
+          "count": 1000000000,
+          "none": true,
+          "baseline": true,
+          "file": null,
+          "quality": "empty",
+          "empty": true
         }
       ]
     },
@@ -517,16 +646,6 @@
       "folder": "Clothes",
       "zIndex": 2,
       "traits": [
-        {
-          "id": "none",
-          "name": "None",
-          "onChain": null,
-          "count": 12,
-          "none": true,
-          "baseline": true,
-          "file": null,
-          "quality": "baseline"
-        },
         {
           "id": "cloak",
           "name": "Cloak",
@@ -889,6 +1008,17 @@
           "quality": "approx",
           "derivedFrom": 10,
           "opaque": 40548
+        },
+        {
+          "id": "none",
+          "name": "Empty",
+          "onChain": null,
+          "count": 1000000000,
+          "none": true,
+          "baseline": true,
+          "file": null,
+          "quality": "empty",
+          "empty": true
         }
       ]
     },
@@ -1014,9 +1144,21 @@
           "onChain": "lamroN",
           "count": 202,
           "none": false,
+          "baseline": false,
+          "file": "assets/traits/Mouth/normal.webp",
+          "quality": "approx",
+          "opaque": 24605
+        },
+        {
+          "id": "empty",
+          "name": "Empty",
+          "onChain": null,
+          "count": 1000000000,
+          "none": true,
           "baseline": true,
           "file": null,
-          "quality": "baseline"
+          "quality": "empty",
+          "empty": true
         }
       ]
     },
@@ -1260,9 +1402,21 @@
           "onChain": "eulB",
           "count": 208,
           "none": false,
+          "baseline": false,
+          "file": "assets/traits/Eyes/blue.webp",
+          "quality": "approx",
+          "opaque": 20927
+        },
+        {
+          "id": "empty",
+          "name": "Empty",
+          "onChain": null,
+          "count": 1000000000,
+          "none": true,
           "baseline": true,
           "file": null,
-          "quality": "baseline"
+          "quality": "empty",
+          "empty": true
         }
       ]
     },
@@ -1615,13 +1769,14 @@
         },
         {
           "id": "none",
-          "name": "None",
+          "name": "Empty",
           "onChain": null,
-          "count": 61,
+          "count": 1000000000,
           "none": true,
           "baseline": true,
           "file": null,
-          "quality": "baseline"
+          "quality": "empty",
+          "empty": true
         }
       ]
     },
@@ -1666,13 +1821,14 @@
         },
         {
           "id": "none",
-          "name": "None",
+          "name": "Empty",
           "onChain": null,
-          "count": 1049,
+          "count": 1000000000,
           "none": true,
           "baseline": true,
           "file": null,
-          "quality": "baseline"
+          "quality": "empty",
+          "empty": true
         }
       ]
     }

@@ -32,11 +32,22 @@
         return r.json();
       });
       buildArrowRows();
-      // Default: first non-baseline file trait per category (rare end), skip empty
+      // Default: Background+Fur with files; Eyes=Blue / Mouth=Normal if plates exist;
+      // accessories start Empty so you see a bare bear.
       for (const catId of manifest.layerOrder) {
         const traits = getTraits(catId);
-        let idx = traits.findIndex((t) => t.file || t.custom);
-        if (idx < 0) idx = traits.findIndex((t) => !t.none && !t.baseline) || 0;
+        let idx = 0;
+        if (catId === "background" || catId === "fur") {
+          idx = traits.findIndex((t) => t.file);
+        } else if (catId === "eyes") {
+          idx = traits.findIndex((t) => t.id === "blue" && t.file);
+          if (idx < 0) idx = traits.findIndex((t) => t.empty || t.none);
+        } else if (catId === "mouth") {
+          idx = traits.findIndex((t) => t.id === "normal" && t.file);
+          if (idx < 0) idx = traits.findIndex((t) => t.empty || t.none);
+        } else {
+          idx = traits.findIndex((t) => t.empty || t.none || t.baseline);
+        }
         if (idx < 0) idx = 0;
         selection[catId] = idx;
       }
@@ -148,9 +159,12 @@
     });
   }
 
-  /** Traits for a category: rare→common (ascending count), then customs. */
+  /** Traits for a category: rare→common (ascending count), Empty last, then customs. */
   function getTraits(catId) {
     const base = [...(manifest.categories[catId]?.traits || [])].sort((a, b) => {
+      const ea = a.empty || a.none || a.quality === "empty" ? 1 : 0;
+      const eb = b.empty || b.none || b.quality === "empty" ? 1 : 0;
+      if (ea !== eb) return ea - eb; // Empty last
       const ca = a.count ?? 1e9;
       const cb = b.count ?? 1e9;
       if (ca !== cb) return ca - cb;
@@ -219,7 +233,7 @@
     lastCat = catId;
     highlightFocus(catId);
     const t = traits[i];
-    const q = t.quality === "solid" ? "" : t.baseline || t.none ? " (empty)" : t.file || t.custom ? " · file" : "";
+    const q = t.quality === "solid" ? "" : t.empty || t.baseline || t.none || t.quality === "empty" ? " (empty)" : t.file || t.custom ? " · file" : "";
     toast(`${manifest.categories[catId].label} → ${t.name}${q}`);
     render();
   }
@@ -330,7 +344,7 @@
       const row = document.createElement("div");
       const isApprox = t && t.quality === "approx";
       const isSolid = t && t.quality === "solid";
-      const isEmpty = t && (t.none || t.baseline || (!t.file && !t.custom));
+      const isEmpty = t && (t.empty || t.none || t.quality === "empty" || t.baseline || (!t.file && !t.custom));
       row.className =
         "trait-row" +
         (isApprox ? " layer-approx" : "") +
@@ -385,18 +399,23 @@
   function resetTraits() {
     for (const catId of manifest.layerOrder) {
       const traits = getTraits(catId);
-      // Prefer a file for required body layers; baseline for accessories
+      let i = 0;
       if (catId === "background" || catId === "fur") {
-        const i = traits.findIndex((t) => t.file);
-        selection[catId] = i >= 0 ? i : 0;
+        i = traits.findIndex((t) => t.file);
+      } else if (catId === "eyes") {
+        i = traits.findIndex((t) => t.id === "blue" && t.file);
+        if (i < 0) i = traits.findIndex((t) => t.empty || t.none);
+      } else if (catId === "mouth") {
+        i = traits.findIndex((t) => t.id === "normal" && t.file);
+        if (i < 0) i = traits.findIndex((t) => t.empty || t.none);
       } else {
-        const i = traits.findIndex((t) => t.baseline || t.none);
-        selection[catId] = i >= 0 ? i : 0;
+        i = traits.findIndex((t) => t.empty || t.none || t.baseline);
       }
+      selection[catId] = i >= 0 ? i : 0;
     }
     lastCat = null;
     render();
-    toast("Reset · body + empty accessories");
+    toast("Reset · bare bear + Empty accessories");
   }
 
   function exportPng() {

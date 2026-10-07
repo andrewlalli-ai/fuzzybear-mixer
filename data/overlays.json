@@ -1222,7 +1222,7 @@
       "z": 5,
       "trueLayer": true,
       "approx": true,
-      "baseline": "blue",
+      "baseline": "empty",
       "roi": [
         135,
         160,
@@ -1566,10 +1566,11 @@
         "blue": {
           "id": "blue",
           "name": "Blue",
-          "file": null,
+          "file": "assets/overlays/eyes/blue.webp",
           "none": false,
-          "baseline": true,
-          "count": 208
+          "baseline": false,
+          "opaque": 20927,
+          "approx": true
         }
       }
     },
@@ -1578,7 +1579,7 @@
       "z": 4,
       "trueLayer": true,
       "approx": true,
-      "baseline": "normal",
+      "baseline": "empty",
       "roi": [
         145,
         250,
@@ -1759,10 +1760,11 @@
         "normal": {
           "id": "normal",
           "name": "Normal",
-          "file": null,
+          "file": "assets/overlays/mouths/normal.webp",
           "none": false,
-          "baseline": true,
-          "count": 202
+          "baseline": false,
+          "opaque": 24605,
+          "approx": true
         }
       }
     }
